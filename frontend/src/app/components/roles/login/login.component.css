@@ -1,0 +1,73 @@
+.fondo-login {
+  background-image: url("/assets/fondo-login/viajes.jpg");
+
+  background-position: center;
+  background-size: cover;
+  min-height: 100vh;
+  margin-top: -24px;
+}
+
+.container {
+  padding-top: 50px;
+}
+
+.login-form {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #ffffffd6;
+  border-radius: 5px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  animation: fadeInDown 1s;
+
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-control {
+  height: 40px;
+  border-radius: 3px;
+}
+
+.btn {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+  padding: 10px 16px;
+  font-size: 16px;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.error {
+  font-weight: bold;
+  color: red;
+  font-style: italic;
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -20px, 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+.boton{
+  border: 2px solid;
+  width: 40%;
+  border-radius: 15px;
+  background: #d58d01c4;
+  margin-left: 0%;
+  text-align: center;
+}

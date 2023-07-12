@@ -1,0 +1,123 @@
+<br>
+<body class="font-usuario">
+    <div class="container-fluid">
+        <h1 class="title text-center">Mis Servicios</h1>
+            <div class="col-md-3 col-12" style="float: left;">
+                <br>
+                <div class="accordion" id="accordionExample">
+                    <div class="accordion-item p-2 todo ">
+                        <button class="btn w-100 text-start" (click)="cargarServicios()" >Todas Mis Servicios</button> 
+                    </div>              
+                    <div class="accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                          Categoria
+                        </button>
+                      </h2>
+                      <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <select class="form-select mt-1 mb-1 mx-1" aria-label="Default select example" id="cat" name="cat" [(ngModel)]="cat" (ngModelChange)="filtrarCategoria()" >
+                                <option disabled selected value="">Categoria</option>
+                                <option value="hotel">Hotel</option>
+                                <option value="restaurante">Restaurante</option>
+                            </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                           Buscar por Nombre de Servicio
+                          </button>
+                        </h2>
+                        <div id="collapse4" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                          <div class="accordion-body p-2">
+                             <input class="form-control" type="text" name="nombreServicio" id="nombreServicio" [(ngModel)]="nombreServicio">
+                             <button class="btn btn-info mt-2 mb-2 w-100" (click)="filtrarPorNombreServicio()">Filtrar Por Nombre de servicio</button>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+
+            </div>
+            <div class="col-md-9 col-sm-12 tabla-contenedor" style="float: right;">
+                <table class="table-responsive table-hover" >
+                    <thead>
+                        <tr class="columna">
+                            <!-- <th scope="col">Servicio</th> -->
+                            <th scope="col">Nombre de Servicio</th>
+                            <th scope="col">Categoria</th>
+                            <th scope="col">Calificasion</th>
+                            <th scope="col">reservas</th>
+                            <th scope="col">Resenias</th>
+                            <th scope="col">Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="fila" *ngFor="let ser of servicios">
+
+                            <th >{{ser.nombre}}</th>
+                            <td >{{ser.categoria}}</td>
+                            <td >{{ser.calificacionTotal}}</td>
+                            <td> <a class="link" (click)="cargarReservas(ser._id)">Ver Reservas</a> </td>
+                            <td> <a class="link" (click)="cargarResenias(ser._id)">Ver Resenias</a> </td>
+                            <td>
+                                <button class="btn btn-info mx-1" >Modificar</button>
+                                <button class="btn btn-danger mx-1">Dar de Baja</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        <div class="row" *ngIf="verResenia">
+        <div class="tabla-contenedor-resenias col-6 offset-4">
+          <table class="table table-striped">
+              <thead>
+                  <tr>
+                      <th scope="col">comentario</th>
+                      <th scope="col">Fecha</th>
+                  </tr>
+              </thead>
+              <tbody >
+                  <tr *ngFor="let resenia of resenias">
+                      <th scope="row">{{resenia.comentario}}</th>
+                      <td>{{resenia.fechaAlta}}</td>
+                  </tr>
+              </tbody>
+          </table>
+        </div>
+        </div>
+        <div class="row" *ngIf="verReserva">
+          <div class="tabla-contenedor-resenias col-8 offset-3">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre Usuario</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">Dni</th>
+                        <th scope="col">Fecha de Ingreso</th>
+                        <th scope="col">Fecha de Egreso</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody >
+                    <tr *ngFor="let reserva of reservas; let i = index">
+                        <td>{{usuarios[i].nombre}}</td>
+                        <td>{{usuarios[i].apellido}}</td>
+                        <td>{{usuarios[i].dni}}</td>
+                        <td>{{reserva.fechaIngreso}}</td>
+                        <td>{{reserva.fechaEgreso}}</td>
+                        <td>{{reserva.precio | currency}}</td>
+                        <td>
+                            <button class="btn btn-info mx-1" (click)="aceptarReserva(reserva._id)">Aceptar Reserva</button>
+                            <button class="btn btn-danger mx-1" (click)="cancelarReserva(reserva._id)">Rechazar Reserva</button>    
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+          </div>
+          </div>
+        </div>
+</body>
+

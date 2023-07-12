@@ -1,0 +1,4 @@
+.tabla-contenedor {
+    max-height: 400px; /* Establece la altura máxima que deseas para la tabla */
+    overflow-y: auto; /* Crea una barra de desplazamiento vertical cuando sea necesario */
+  }

@@ -1,0 +1,159 @@
+<!-- Formulario Gestor -->
+<section class="container-fluid background-container">
+    <!-- Imagen de fondo -->
+    <img src="/assets/fondo-login/login-formulario-gestor.jpg" alt="Fondo" class="background-image">
+
+    <!-- Capa del fondo -->
+    <div class="overlay"></div>
+
+    <!-- Boton logearse -->
+    <div class="corner-button">
+        <a routerLink="/login" routerLinkActive="active" class="btn btn-outline-light me-2">
+            Sign In
+        </a>
+    </div>
+
+    <div class="my-4 formulario-gestor px-2">
+        <!-- Formulario -->
+        <form #gestorForm="ngForm" class="opacidad">
+            <fieldset class="form-group border rounded p-3">
+                <legend class="w-auto fw-bold">GESTOR</legend>
+
+                <p>Campos obligatorios (<span class="text-danger fw-bold">*</span>)</p>
+                <hr />
+
+                <!-- Nombre -->
+                <div class="mb-4">
+                    <label for="idNombreGestor" class="form-label">Nombre/s (<span
+                            class="text-danger fw-bold">*</span>)</label>
+
+                    <input type="text" class="form-control bg-light" id="idNombreGestor" name="nombreGestor"
+                        placeholder="Ingrese su nombre" [(ngModel)]="gestor.nombre" required #nombreGestor="ngModel" />
+
+                    <!-- Validar Nombre -->
+                    <div *ngIf="nombreGestor.invalid && (nombreGestor.dirty || nombreGestor.touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="nombreGestor.errors?.['required']">
+                            Debe ingresar su nombre.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Apellido -->
+                <div class="mb-4">
+                    <label for="idApellidoGestor" class="form-label">Apellido/s (<span
+                            class="text-danger fw-bold">*</span>)</label>
+
+                    <input type="text" class="form-control bg-light" id="idApellidoGestor" name="apellidoGestor"
+                        placeholder="Ingrese su apellido" [(ngModel)]="gestor.apellido" required
+                        #apellidoGestor="ngModel" />
+
+                    <!-- Validar Apellido -->
+                    <div *ngIf="apellidoGestor.invalid && (apellidoGestor.dirty || apellidoGestor.touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="apellidoGestor.errors?.['required']">
+                            Debe ingresar su apellido.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div class="mb-4">
+                    <label for="idEmailGestor" class="form-label">Email (<span
+                            class="text-danger fw-bold">*</span>)</label>
+
+                    <input type="email" class="form-control bg-light" id="idEmailGestor" name="emailGestor"
+                        placeholder="Ingrese e-mail" [(ngModel)]="gestor.email" required #emailGestor="ngModel" />
+
+                    <!-- Validar Email -->
+                    <div *ngIf="emailGestor.invalid && (emailGestor.dirty || emailGestor.touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="emailGestor.errors?.['required']">
+                            Debe igresar un correo electronico.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DNI -->
+                <div class="mb-4">
+                    <label for="idDniGestor" class="form-label">DNI (<span class="text-danger fw-bold">*</span>)</label>
+
+                    <input type="number" class="form-control bg-light" id="idDniGestor" name="dniGestor"
+                        placeholder="Ingrese su DNI" [(ngModel)]="gestor.dni" required #dniGestor="ngModel" />
+
+                    <!-- Validar DNI -->
+                    <div *ngIf="dniGestor.invalid && (dniGestor.dirty || dniGestor.touched)" class="alert alert-danger">
+                        <div *ngIf="dniGestor.errors?.['required']">
+                            Debe igresar su DNI.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fecha Nacimiento -->
+                <div class="mb-4">
+                    <label for="idFechaNacimientoGestor" class="form-label">Fecha de nacimiento (<span
+                            class="text-danger fw-bold">*</span>)</label>
+
+                    <input type="date" class="form-control bg-light" id="idFechaNacimientoGestor"
+                        name="fechaNacimientoGestor" [(ngModel)]="gestor.fechaNacimiento" required
+                        #fechaNacimientoGestor="ngModel" />
+
+                    <!-- Validar Fecha Nacimiento -->
+                    <div *ngIf="fechaNacimientoGestor.invalid && (fechaNacimientoGestor.dirty || fechaNacimientoGestor.touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="fechaNacimientoGestor.errors?.['required']">
+                            Debe igresar su fecha de nacimiento.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Username -->
+                <div class="mb-4">
+                    <label for="idUsername" class="form-label">Username (<span
+                            class="text-danger fw-bold">*</span>)</label>
+
+                    <input type="text" class="form-control bg-light" id="idUsername" name="username"
+                        placeholder="Ingrese un nombre de usuario" [(ngModel)]="gestor.username" required
+                        #usernameGestor="ngModel" />
+
+                    <!-- Validar Username -->
+                    <div *ngIf="usernameGestor.invalid && (usernameGestor.dirty || usernameGestor.touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="usernameGestor.errors?.['required']">
+                            Debe ingresar un username.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div class="mb-4"  *ngIf="accion =='new'">
+                    <label for="idPassword" class="form-label">Password (<span
+                            class="text-danger fw-bold">*</span>)</label>
+
+                    <input type="text" class="form-control bg-light" id="idPassword" name="password"
+                        placeholder="Ingrese una contraseña" [(ngModel)]="gestor.password" required
+                        #passwordGestor="ngModel" />
+
+                    <!-- Validar Apellido -->
+                    <div *ngIf="passwordGestor.invalid && (passwordGestor.dirty || passwordGestor.touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="passwordGestor.errors?.['required']">
+                            Debe ingresar una contraseña.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Button Conversion -->
+                <div class="mb-4 d-grid">
+                    <button type="submit" class="btn btn-warning fw-bold mt-2" *ngIf="accion =='new'" (click)="guardarGestor(gestorForm)"
+                        [disabled]="gestorForm.invalid">Crear Gestor
+                    </button>
+                    <button type="submit" class="btn btn-success fw-bold mt-2" *ngIf="accion =='update'" (click)="modificarGestor()"
+                    [disabled]="gestorForm.invalid">Modificar
+                </button>
+                    
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</section>

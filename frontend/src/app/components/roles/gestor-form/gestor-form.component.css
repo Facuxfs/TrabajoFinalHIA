@@ -1,0 +1,72 @@
+/**
+    DIMENCIONES FORMULARIO
+*/
+@media only screen and (min-width: 576px) {
+    .formulario-gestor {
+        width: 500px;
+
+        margin: 0 auto;
+    }
+}
+
+/**
+    FORMULARIO
+*/
+.formulario-gestor {
+    padding: 0;
+}
+
+.opacidad {
+    background-color: white;
+}
+
+/**
+    FONDO FORMULARIO
+*/
+.background-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.background-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+/**
+  CAPA DE FONDO
+*/
+.overlay {
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
+
+/**
+  BOTONES LOGIN  
+*/
+.corner-button {
+    text-align: end;
+    margin: 20px 0 20px 0;
+    z-index: 1;
+}
+
+@media only screen and (min-width: 576px) {
+    .corner-button {
+        text-align: end;
+        top: 0;
+        right: 0;
+        margin: 20px;
+        z-index: 1;
+    }
+}

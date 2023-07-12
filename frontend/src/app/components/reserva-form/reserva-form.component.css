@@ -1,0 +1,14 @@
+.font-reserva{
+    background-image: url('/assets/fondo-usuario/al-mundo.jpg');
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding-top: 20px;
+}
+
+.formulario-reserva{
+    background-color: rgba(240, 248, 255, 0.532);
+    border: 2px dashed black;
+    border-radius:  7px;
+
+}

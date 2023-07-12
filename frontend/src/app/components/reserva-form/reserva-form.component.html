@@ -1,0 +1,127 @@
+<div class="font-reserva">
+<div class="row">
+  <section class="col-10 offset-1 col-md-6 offset-md-3">
+      <div class="formulario-reserva">
+        <form #reservaForm="ngForm" class="bg-light-subtle">
+          <fieldset class="form-group border rounded p-3">
+            <legend class="w-auto fw-bold">Reserva para : {{nombreServicio}} , {{reserva.categoria}}</legend>
+            <p>Campos obligatorios (<span class="text-danger fw-bold">*</span>)</p>
+            <hr />
+            
+            <!-- CAMPO CANTIDAD -->
+            <div class="mb-4">
+              <label class="form-label"
+                >Cantidad(<span class="text-danger fw-bold">*</span>)</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                id="cantidad"
+                name="cantidad"
+                [(ngModel)]="reserva.cantidad"
+                (ngModelChange)="calcularPrecioRestaurante(reserva.cantidad)"
+                #cantidad="ngModel"
+                required
+              />
+              <div
+                *ngIf="cantidad.invalid && (cantidad.dirty || cantidad.touched)"
+                class="alert alert-danger"
+              >
+                <div *ngIf="cantidad.errors?.['required']">Ingrese un valor.</div>
+                <div *ngIf="cantidad.errors?.['min']">La cantidad minima es 1.</div>
+              </div>
+            </div>
+    
+            <!-- CAMPO FECHA INGRESO-->
+            <div class="mb-4">
+              <label for="fechaIngreso" class="form-label"
+                >fechaIngreso(<span class="text-danger fw-bold">*</span>)</label
+              >
+    
+              <input
+                type="date"
+                class="form-control bg-light"
+                id="fechaAlta"
+                name="fechaIngreso"
+                [(ngModel)]="reserva.fechaIngreso"
+                (ngModelChange)="reserva.fechaEgreso = reserva.categoria === 'restaurante' ? reserva.fechaIngreso : reserva.fechaEgreso"
+                required
+                #fechaIngreso="ngModel"
+              />
+    
+              <div
+                *ngIf="
+                  fechaIngreso.invalid &&
+                  (fechaIngreso.dirty || fechaIngreso.touched)
+                "
+                class="alert alert-danger"
+              >
+                <div *ngIf="fechaIngreso.errors?.['required']">
+                  Debe ingresar Fecha
+                </div>
+              </div>
+            </div>
+    
+            <!-- CAMPO FECHA EGRESO -->
+            <div class="mb-4" *ngIf="reserva.categoria !== 'restaurante'">
+              <label for="fechaEgreso" class="form-label"
+                >fechaEgreso(<span class="text-danger fw-bold">*</span>)</label
+              >
+    
+              <input
+                type="date"
+                class="form-control bg-light"
+                id="fechaAlta"
+                name="fechaIngreso"
+                [(ngModel)]="reserva.fechaEgreso"
+                required
+                #fechaEgreso="ngModel"
+              />
+    
+              <div
+                *ngIf="
+                  fechaEgreso.invalid && (fechaEgreso.dirty || fechaEgreso.touched)
+                "
+                class="alert alert-danger"
+              >
+                <div *ngIf="fechaEgreso.errors?.['required']">
+                  Debe ingresar Fecha
+                </div>
+              </div>
+            </div>
+    
+            <!-- CAMPO PRECIO -->
+            <div class="mb-4">
+              <label class="form-label"
+                >Precio : </label
+              >
+            <div class="alert alert-primary" role="alert">       
+              <label for="precio" class="form-label" 
+                name="precio"> ARS : {{reserva.precio}}</label>   
+            </div> 
+            </div>
+            <!-- CAMPO RESERVADO -->
+    
+            <div class="mb-4 d-grid" *ngIf="accion!='update'">
+              <button class="btn btn-success" (click)="guardarReserva()" [disabled]="!reservaForm.form.valid">
+                Guardar Reserva
+              </button>
+              <button class="btn btn-dark mt-1" (click)="volver()">
+                Volver
+              </button>
+            </div>
+            <div class="mb-4 d-grid" *ngIf="accion=='update'">
+              <button class="btn btn-success" (click)="modificarReserva()" [disabled]="!reservaForm.form.valid">
+                Modificar
+              </button>
+              <button class="btn btn-dark mt-1" (click)="volver()">
+                Volver
+              </button>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </section>
+</div>
+</div>
+  

@@ -1,0 +1,42 @@
+.fondo-form{
+    background-image: url('../../../../assets/fondo-home/fondo-jujuy.jpeg');
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-position: center;
+    overflow-y: auto;
+}
+
+#tab {
+    margin: 0 auto;
+    text-align: center;
+    border-collapse: collapse;
+    border: 1px solid #d4d4d4;
+    
+    background: #b4b4b4a4;
+    width: auto;
+    height: auto;
+}
+
+.btn{
+    margin-top: 6px;
+    margin-left: 6px;
+}
+
+.form{
+    margin-top: 30px;
+    border: 1px solid #d4d4d4 ;
+    padding:5px;
+    border-radius: 5px;
+    background: #b4b4b4dd;
+}
+
+.form h2{
+    text-align: center;
+    text-decoration:underline;
+    color:#444141a4;
+}
+
+.form label{
+    font-weight: bold;
+}

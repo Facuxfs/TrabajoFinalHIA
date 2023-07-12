@@ -1,0 +1,40 @@
+<div class="container-fluid fondo">
+  <br><br>
+  <h1>{{nombre}}</h1>
+  <div *ngIf="servicios.length > 0">
+
+    <div class="card" style="width: 100%;">
+      <img src="..." class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{servicio.nombre}}</h5>
+        <p class="card-text">Colocar algo sobre el servicio</p>
+
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Categoría: {{servicio.categoria}}</li>
+          <li class="list-group-item">Calificación: {{servicio.calificacionTotal}}</li>
+        </ul>
+        <div class="card-body">
+          <button type="button" class="form-control" (click)="realizarReserva(servicio._id)">Reservar</button>
+        </div>
+        <div class="container justify-content-start align-content-start text-start">
+          <button type="button" class="btn btn-success mt-2 mb-3 fw-bold"
+            (click)="obtenerReseniaServ(servicio)">Resenias <i class="bi bi-clipboard2-plus"></i></button>
+        </div>
+        <div class="container justify-content-start align-content-start text-start">
+          <button type="button" class="btn btn-success mt-2 mb-3 fw-bold" (click)="cargar(servicio)">comentar<i
+              class="bi bi-chat-text"></i></button>
+        </div>
+      </div>
+    </div>
+    <div><button *ngIf="indice>0" (click)="anterior()" type="button" class="botonImagen">Anterior<i
+          class="bi bi-caret-left-fill"></i></button>
+    </div>
+    <div><button *ngIf="indice<servicios.length-1" (click)="siguiente()" type="button" class="botonImagen"><i
+          class="bi bi-caret-right-fill">Siguiente</i></button></div>
+
+  </div>
+  <div *ngIf="servicios.length === 0">
+    <p>No hay servicios disponibles aun!.</p>
+  </div>
+
+</div>

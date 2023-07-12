@@ -1,0 +1,92 @@
+<body>
+    <br>
+    <div class="container-fluid">
+       
+        <div class="row">
+            <nav class="navbar navbar-expand">
+                <div class="container-fluid busquedaProvincia">
+                    <h3 class="d-none d-lg-block">Selecciona una Provincia :</h3>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <select class=" selectProvincia" [(ngModel)]="seleccion" name="seleccionProvincia"
+                            id="exampleFormControlSelect1" required>
+                            <option *ngFor="let c of provincias" [value]="c.name">{{c.name}}</option>
+                        </select>
+                        <button type="button" class="btn-search" (click)="consultarProvincia(seleccion)">Buscar</button>
+
+                    </div>
+                </div>
+            </nav>
+            <div  style="width: 80%;margin-left: 30%;">
+                <div  class="col-md-12 mapa" id="map" style="width: 50%; height: 200px;margin: 30px;"></div>
+            </div>
+          
+            <div *ngIf="mostrarCard" class="col-md-12 col-xl-6 d-none d-xl-block margen" style="float: left;">
+                <div class="contenedor">
+                    <button [ngStyle]="{ 'visibility': indice > 0 ? 'visible' : 'hidden' }" (click)="anterior()" type="button"
+                            class="botonContenedor"><i class="bi bi-caret-left-fill"></i>Anterior</button>
+              
+                 <button [ngStyle]="{ 'visibility': indice < imagenes.length - 1 ? 'visible' : 'hidden' }" (click)="siguiente()"
+                            type="button" class="botonContenedor"><i class="bi bi-caret-right-fill"></i>Siguiente</button>
+                </div>
+                <div class="col-12 text-center" style="float: left;">
+                    <img class="imagenProvincia m-4" src="{{imagen}}" height="auto">
+                </div>
+
+
+            </div>
+
+            <section class="col-md-12 col-xl-6">
+                <div class="row">
+                    <div class="col">
+                        <div class="card" *ngIf="mostrarCard">
+
+                            <div class="card-body">
+                                <h5 class="card-title text-center">{{provincia.nombre}}</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the
+                                    bulk
+                                    of the
+                                    card's content.</p>
+                            </div>
+                            <!-- <ul class="list-group list-group-flush">
+                                <li class="list-group-item">{{provincia.clima}}</li>
+                                <li class="list-group-item">Lat: {{provincia.lat}}</li>
+                                <li class="list-group-item">Long: {{provincia.long}}</li>
+                            </ul> -->
+                            <div class="card-body">
+                                <a href="https://maps.google.com/?q={{provincia.lat}},{{provincia.long}}"
+                                    class="card-link">Maps</a>
+                                <a href="#" class="card-link">Another link</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tabla-contenedor overflow-auto" *ngIf="mostrarCard">
+                        <h2 style="text-align: center;">Localidades:</h2>
+                        <table class="table table-striped bg-white">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nombre</th>
+                                    <!-- <th scope="col">Id</th> -->
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let s of localidades">
+                                <tr>
+                                    <th scope="row">{{s.nombre}}</th>
+                                   <!--  <td colspan="2">{{s._id}}</td> -->
+                                    <button type="button" class="form-control botonLocalidad bg-success"
+                                        (click)="seleccionarLocalidad(s)">Visitar</button>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+
+        </div>
+    </div>
+
+
+    <br>
+
+</body>

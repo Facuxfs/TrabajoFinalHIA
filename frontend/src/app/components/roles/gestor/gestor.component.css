@@ -1,0 +1,106 @@
+.font-usuario{
+    background-image: url("/assets/fondo-usuario/fondo-usuario.jpg");
+    background-position: center;
+    background-size: cover;
+    min-height: 100vh;
+    margin-top: -24px;
+  }
+
+  .btn{
+     float: left;
+  }
+  .title{
+      font-style: italic;
+      color:white;
+      text-decoration:underline;
+  }
+  .tabla-contenedor {
+     max-height: 400px; /* Establece la altura máxima que deseas para la tabla */ 
+      overflow-y: auto; /* Crea una barra de desplazamiento vertical cuando sea necesario */
+      overflow-x: auto;
+     background-color:rgba(240, 248, 255, 0.785);
+     border: 2px dashed black;
+     border-radius: 8px;
+    }
+    .columna{
+      white-space: break-spaces;
+      word-break: break-all;
+      margin: auto;
+      font-size: 18px;
+     }
+     .columna th{
+      height: 30%;
+     }
+     .fila{
+      white-space: break-spaces;
+      word-break: break-all;
+      margin: auto;
+      font-size: 18px;
+     }
+    thead{
+      background-color: rgba(24, 24, 211, 0.577);
+      font-size: larger;
+      font-weight: bold;
+      font-style:italic;
+    }
+    .accordion{
+      background-color: rgba(240, 248, 255, 0.103);
+      border: 2px dashed black;
+    }
+  
+    .accordion .accordion-item{
+      background-color: rgba(240, 248, 255, 0.427);
+      border-radius: 3px;
+      font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+    }
+    .accordion .todo .btn:hover{
+      background-color: rgba(251, 10, 26, 0.391);
+      font-size: larger;
+      font-style: italic;
+      color: white;   
+    }
+    .accordion .accordion-item .accordion-body{
+      background-color: rgba(240, 248, 255, 0.427);
+    }
+    .accordion .accordion-item .accordion-header .accordion-button{
+      background-color: rgba(240, 248, 255, 0.427);    
+    }
+  
+    .accordion .accordion-item .accordion-header .accordion-button:hover{
+      background-color: rgba(251, 10, 26, 0.391);
+    }
+
+    .tabla-contenedor-resenias{
+      max-height: 400px; /* Establece la altura máxima que deseas para la tabla */
+      overflow-y: auto; /* Crea una barra de desplazamiento vertical cuando sea necesario */
+     background-color:rgba(240, 248, 255, 0.785);
+     border: 2px dashed black;
+     border-radius: 8px;
+     overflow-y: auto;
+    }
+    .link{
+       cursor: pointer;
+       font-weight: bold;
+       font-style: italic;
+       text-decoration: none;
+    }
+    .link:hover{
+      cursor: pointer;
+      font-weight: bold;
+      font-style: italic;
+      text-decoration: none;
+      color:blue;
+      border-bottom: 2px dashed black;
+   }
+
+   @media only screen and (min-width: 0px){
+    .tabla-contenedor {
+        /* Establece la altura máxima que deseas para la tabla */
+      overflow-y: auto; /* Crea una barra de desplazamiento vertical cuando sea necesario */
+     background-color:rgba(240, 248, 255, 0.785);
+     border: 2px dashed black;
+     border-radius: 8px;
+     margin: 0;
+     margin-top: 20px;
+    }    
+   }

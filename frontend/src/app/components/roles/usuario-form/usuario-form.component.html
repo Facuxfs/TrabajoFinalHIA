@@ -1,0 +1,105 @@
+<div class="fondo-form">
+<div class="container">
+    <div class="row">  <!--novalidate = para desactivar las validaciones automaticas de angular-->
+        <form [formGroup]="form" novalidate (ngSubmit)="save($event)"  class="form col-md-6 offset-md-3"> 
+            <h2>{{title}}</h2>          
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" formControlName="nombre" placeholder="Nombre"
+                    [ngClass]="{ 'is-invalid': form.get('nombre')?.invalid && form.get('nombre')?.touched,
+                                   'is-valid': form.get('nombre')?.valid && form.get('nombre')?.touched }" [value]="usuario.nombre">
+                <p *ngIf="form.get('nombre')?.invalid && form.get('nombre')?.touched" class="invalid-feedback">
+                    Ingrese nombre
+                </p>
+                <p *ngIf="form.get('nombre')?.valid && form.get('nombre')?.touched"  class="valid-feedback">
+                    <small>Correcto</small>
+                  </p>
+            </div> 
+            <div class="form-group">
+                <label for="apellido">Apellido:</label>
+                <input type="text" class="form-control" id="apellido" name="apellido" formControlName="apellido" placeholder="Apellido"
+                [ngClass]="{ 'is-invalid': form.get('apellido')?.errors && form.get('apellido')?.touched,
+                            'is-valid': form.get('apellido')?.valid && form.get('apellido')?.touched}" [value]="usuario.apellido" >
+                <p *ngIf="form.get('apellido')?.errors && form.get('apellido')?.touched" class="invalid-feedback">
+                    <small>Ingrese apellido</small>
+                </p>
+                <p *ngIf="form.get('apellido')?.valid && form.get('apellido')?.touched"  class="valid-feedback">
+                    <small>Correcto</small>
+                  </p>
+            </div>
+            <div class="form-group">
+                <label for="nombreUsu">Nombre de Usuario:</label>
+                <input type="text" class="form-control" id="nombreUsu" name="nombreUsu" formControlName="username" placeholder="Nombre Usuario"
+                [ngClass]="{ 'is-invalid': form.get('username')?.errors && form.get('username')?.touched,
+                              'is-valid': form.get('username')?.valid && form.get('username')?.touched}" [value]="usuario.username">
+                <p *ngIf="form.get('username')?.errors && form.get('username')?.touched" class="invalid-feedback">
+                    <small>Ingrese nombre de usuario</small>
+                  </p>
+                  <p *ngIf="form.get('username')?.valid && form.get('username')?.touched"  class="valid-feedback">
+                    <small>Correcto</small>
+                  </p>
+            </div>
+            <div class="form-group">
+                <label for="contra">Contraseña: </label>
+                <input type="text" class="form-control" id="contra" name="contra" formControlName="password" placeholder="Contraseña"
+                [ngClass]="{ 'is-invalid': form.get('password')?.errors && form.get('password')?.touched,
+                              'is-valid': form.get('password')?.valid && form.get('password')?.touched}" [value]="usuario.password" >
+                <p *ngIf="form.get('password')?.errors && form.get('password')?.touched" class="invalid-feedback">
+                    <small>Ingrese Contraseña</small>
+                  </p>
+                  <p *ngIf="form.get('password')?.valid && form.get('password')?.touched"  class="valid-feedback">
+                    <small>Correcto</small>
+                  </p>
+            </div>
+            <div class="form-group">
+                <label for="email">Email: </label>
+              <div class="input-group">
+                <span class="input-group-text" id="inputGroupPrepend3">@</span>
+                <input type="email" class="form-control" id="email" name="email" formControlName="email" placeholder="Email"
+                [ngClass]="{ 'is-invalid': form.get('email')?.errors && form.get('email')?.touched,
+                               'is-valid': form.get('email')?.valid && form.get('email')?.touched}" [value]="usuario.email" >
+                <p *ngIf=" form.get('email')?.errors && form.get('email')?.touched && !form.get('email')?.hasError('email') " class="invalid-feedback">
+                     <small>Email invalido ej: juan12@gmail.com</small>
+                </p>
+                <p *ngIf=" form.get('email')?.invalid && form.get('email')?.touched && form.get('email')?.hasError('email') " class="invalid-feedback">
+                  <small>Ingrese email</small>
+                </p>
+                  <p *ngIf="form.get('email')?.valid && form.get('email')?.touched"  class="valid-feedback">
+                    <small>Correcto</small>
+                  </p>
+               </div>
+            </div>          
+            <div class="form-group">
+                <label for="dni">DNI: </label>
+                <input type="number" class="form-control" id="dni" name="dni" formControlName="dni" placeholder="Dni"
+                [ngClass]="{ 'is-invalid': form.get('dni')?.errors && form.get('dni')?.touched,
+                            'is-valid': form.get('dni')?.valid && form.get('dni')?.touched}" [value]="usuario.dni" >
+                <!--<p *ngIf="form.get('dni')?.errors && form.get('dni')?.touched && !form.get('dni')?.hasError('dniLength') " class="invalid-feedback">
+                    <small>Ingrese dni</small>
+                  </p>-->
+                  <p *ngIf="form.get('dni')?.hasError('dniLength') && form.get('dni')?.touched" class="invalid-feedback">
+                    <small>El DNI debe tener exactamente 8 dígitos</small>
+                </p>
+                  <p *ngIf="form.get('dni')?.valid && form.get('dni')?.touched"  class="valid-feedback">
+                    <small>Correcto</small>
+                  </p>
+            </div>
+            <div class="form-group">
+                <label for="fecha">Fecha de Nacimiento: </label>
+                <input type="date" class="form-control" id="fecha" name="fecha" formControlName="fechaNacimiento" placeholder="fecha" max="2003-12-31"
+                [ngClass]="{ 'is-invalid': form.get('fechaNacimiento')?.errors && form.get('fechaNacimiento')?.touched,
+                             'is-valid': form.get('fechaNacimiento')?.valid && form.get('fechaNacimiento')?.touched}" [value]="usuario.fechaNacimiento">
+                <p *ngIf="form.get('fechaNacimiento')?.errors && form.get('fechaNacimiento')?.touched" class="invalid-feedback">
+                    <small>Ingrese fecha</small>
+                  </p>
+                  <p *ngIf="form.get('fechaNacimiento')?.valid && form.get('fechaNacimiento')?.touched"  class="valid-feedback">
+                    <small>Correcto</small>
+                  </p>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button class="btn btn-danger" (click)="cancelar()">Cancelar</button>
+        </form> 
+    </div>
+</div>
+</div>

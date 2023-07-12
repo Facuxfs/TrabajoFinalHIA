@@ -1,0 +1,90 @@
+<div class="container-fluid">
+    <div class="row col-12">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Selecciona una Provincia :</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <form class="d-flex" role="search">
+                        <select class="form-control" [(ngModel)]="seleccion" name="seleccionProvincia"
+                            id="exampleFormControlSelect1" required>
+                            <option *ngFor="let c of provincias" [value]="c.name">{{c.name}}</option>
+                        </select>
+                        <button type="button" class="form-control"
+                            (click)="consultarProvincia(seleccion)">Buscar</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <section class="col-md-6 bg-dark-subtle  d-none d-md-block">
+            <div class="row">
+                <div class="col-6">
+                    <div class="card col-4" *ngIf="mostrarCard" style="width: 18rem;">
+                        
+                        <div class="card-body">
+                            <h5 class="card-title">{{provincia.nombre}}</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
+                                of the
+                                card's content.</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">{{provincia.clima}}</li>
+                            <li class="list-group-item">Lat: {{provincia.lat}}</li>
+                            <li class="list-group-item">Long: {{provincia.long}}</li>
+                        </ul>
+                        <div class="card-body">
+                            <a href="https://maps.google.com/?q={{provincia.long}},{{provincia.lat}}" class="card-link">Maps</a>
+                            <a href="#" class="card-link">Another link</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                <div id="carouselExample" class="carousel slide col-8" *ngIf="mostrarCard" >
+                    <div class="carousel-inner" >
+                        <div class="carousel-item active" *ngFor="let i of imagenes">
+                            <img *ngIf="i" src="{{i}}" class="d-block w-100" alt="...">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+    </div>
+    </section>
+    <aside class=" col-md-6 col-sm-12 bg-info ">
+
+        <div class="tabla-contenedor">
+            <table class="table table-striped" *ngIf="mostrarCard">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Id</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let s of localidades">
+                    <tr>
+                        <th scope="row">{{s.nombre}}</th>
+                        <td colspan="2">{{s._id}}</td>
+                        <button type="button" class="form-control"
+                            (click)="seleccionarLocalidad(s)">Visitar</button>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </aside>
+</div>
+</div>

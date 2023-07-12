@@ -1,0 +1,564 @@
+<div class="container background-container">
+
+  <img src="/assets/fondo-login/login-formulario-gestor.jpg" alt="Fondo" class="background-image">
+
+  <h1 style="text-align: center; margin-top: 40px ;">GESTION DEL SISTEMA :</h1>
+  <select class="form-select form-select-lg mb-3" style="margin-top: 100px; margin-bottom: 20px;"
+    aria-label="Default select example" [(ngModel)]="tablaSeleccionada">
+    <option value="gestores">Tabla de Gestores</option>
+    <option value="usuarios">Tabla de Usuarios</option>
+    <option value="reservas">Tabla de Reservas</option>
+    <option value="servicios">Tabla de Servicios</option>
+    <option value="resenias">Tabla de Resenias</option>
+  </select>
+
+
+  <div class="mt-5 mb-5 row" style="font-size: 14px;">
+
+
+
+    <div class="col-lg-3 col-md-3 col-12">
+      <!-- Filtro de Usuarios -->
+      <div class="accordion mt-1" id="accordionExample" *ngIf="tablaSeleccionada === 'usuarios'">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="btn w-100 text-start mx-1" type="button" (click)="cargarUsuarios()">
+              Todos los Usuarios
+            </button>
+          </h2>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Buscar por username
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <input class="form-control" type="text" [(ngModel)]="username" placeholder="Ingresa UserName">
+              <button *ngIf="username" (click)="buscarUsuarioPorUserName()"
+                class="btn btn-dark mt-2 mb-2 w-100">Buscar</button>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              Buscar por email
+            </button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <input class="form-control" type="text" [(ngModel)]="emailUser" placeholder="Ingrese Email">
+              <button *ngIf="emailUser" (click)="buscarUsuarioPorEmail()"
+                class="btn btn-dark mt-2 w-100">Buscar</button>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              Buscar Por Dni
+            </button>
+          </h2>
+          <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <input class="form-control" type="text" [(ngModel)]="dniUser" placeholder="Ingrese Dni">
+              <button *ngIf="dniUser" (click)="buscarUsuarioPorDni()" class="btn btn-dark mt-2 w-100">Buscar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filtro de Gestores -->
+      <div class="accordion mt-1" id="accordionExample" *ngIf="tablaSeleccionada === 'gestores'">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="btn w-100 text-start mx-1" type="button" (click)="cargarGestores()">
+              Todos los Gestores
+            </button>
+          </h2>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Buscar por UserName
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <input class="form-control" type="text" [(ngModel)]="usernameGestor" placeholder="Ingresar UserName">
+              <button *ngIf="usernameGestor" (click)="buscarGestorPorUsername()"
+                class="btn btn-dark mt-2 mb-2 w-100">Buscar</button>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              Buscar por email
+            </button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <input class="form-control" type="text" [(ngModel)]="emailGestor" placeholder="Ingrese Email">
+              <button *ngIf="emailGestor" (click)="buscarGestorPorEmail()"
+                class="btn btn-dark mt-2 w-100">Buscar</button>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              Buscar Por Dni
+            </button>
+          </h2>
+          <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <input class="form-control" type="text" [(ngModel)]="dniGestor" placeholder="Ingrese Dni">
+              <button *ngIf="dniGestor" (click)="buscarGestorPorDni()" class="btn btn-dark mt-2 w-100">Buscar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filtro de Reserva -->
+      <div class="accordion mt-1" id="accordionExample" *ngIf="tablaSeleccionada === 'reservas'">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="btn w-100 text-start mx-1" type="button" (click)="cargarReservas()">
+              Todas las Reservas
+            </button>
+          </h2>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Buscar por Usuario
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <select class="form-select mt-1 mb-1 mx-1" aria-label="Default select example" [(ngModel)]="idUser"
+                (ngModelChange)="buscarReservasPorUsuario()">
+                <option *ngFor="let u of usuarios" [value]="u._id">{{u.nombre}} {{u.apellido}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Buscar Por Servicio
+              </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <select class="form-select mt-1 mb-1 mx-1" aria-label="Default select example" [(ngModel)]="idService"
+                  (ngModelChange)="buscarReservasPorServicio()">
+                  <option *ngFor="let s of servicios" [value]="s._id">{{s.nombre}} </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                Buscar Por Estado De Reserva
+              </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <select class="form-select mt-1 mb-1 mx-1" aria-label="Default select example" name="estadoReserva"
+                  [(ngModel)]="estadoReserva" (ngModelChange)="buscarReservaPorEstadoDeReservacion()">
+                  <option value="true">Reservas Confirmadas</option>
+                  <option value="false">Reservas Sin Confirmar</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                Buscar Por Categoria
+              </button>
+            </h2>
+            <div id="collapse4" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <select class="form-select mt-1 mb-1 mx-1" aria-label="Default select example" name="categoriaReserva"
+                  [(ngModel)]="categoriaReserva" (ngModelChange)="buscarReservaPorCategoria()">
+                  <option value="hotel">Hotel</option>
+                  <option value="restaurante">Restaurante</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filtro de Servicio -->
+      <div class="accordion mt-1" id="accordionExample" *ngIf="tablaSeleccionada === 'servicios'">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="btn w-100 text-start mx-1" type="button" (click)="cargarServicios()">
+              Todos Los Servicios
+            </button>
+          </h2>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Buscar por Gestor
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <select class="form-select mt-1 mb-1 mx-1" aria-label="Default select example" [(ngModel)]="gesServicio"
+                (ngModelChange)="buscarServicioGestor()">
+                <option *ngFor="let g of gestores" [value]="g._id">{{g.nombre}} {{g.apellido}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Buscar Por Ubicacion
+              </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <input type="text" class="form-control" placeholder="Ingrese ID de ubicacion" name="ubicacionServicio"
+                  [(ngModel)]="ubicacionServicio">
+                <button class="btn btn-info mt-2 mb-2 w-100" *ngIf="ubicacionServicio"
+                  (click)="buscarServicioPorUbicacion()">Buscar por Ubicacion</button>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                Buscar Por Categoria
+              </button>
+            </h2>
+            <div id="collapse4" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <select class="form-select mt-1 mb-1 mx-1" aria-label="Default select example" name="categoriaServicio"
+                  [(ngModel)]="categoriaServicio" (ngModelChange)="buscarServicioCategoria()">
+                  <option value="hotel">Hotel</option>
+                  <option value="restaurante">Restaurante</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filtro de Resenias -->
+      <div class="accordion mt-1" id="accordionExample" *ngIf="tablaSeleccionada === 'resenias'">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="btn w-100 text-start mx-1" type="button" (click)="cargarResenias()">
+              Todas las Resenias
+            </button>
+          </h2>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Buscar por Servicio
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <select class="form-select mt-1 mb-1 mx-1" aria-label="Default select example" [(ngModel)]="resServicio"
+                (ngModelChange)="buscarReseniasPorServicio()">
+                <option *ngFor="let s of servicios" [value]="s._id">{{s.nombre}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Buscar Por Usuario
+              </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <select class="form-select mt-1 mb-1 mx-1" aria-label="Default select example" [(ngModel)]="reseniaUser"
+                  (ngModelChange)="buscarReseniasPorUsuario()">
+                  <option *ngFor="let u of usuarios" [value]="u._id">{{u.nombre}} {{u.apellido}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                Buscar Por Categoria
+              </button>
+            </h2>
+            <div id="collapse4" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <select class="form-select mt-1 mb-1 mx-1" aria-label="Default select example" name="categoriaServicio"
+                  [(ngModel)]="categoriaServicio" (ngModelChange)="buscarServicioCategoria()">
+                  <option value="hotel">Hotel</option>
+                  <option value="restaurante">Restaurante</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-lg-9 col-md-9 col-12 ">
+      <div class="table-responsive">
+        <!-- Tabla de Gestores -->
+        <table class="table table-striped text-center bg-white" *ngIf="tablaSeleccionada === 'gestores'">
+          <thead>
+            <tr>
+              <th scope="col">Username</th>
+              <th scope="col" >Nombre</th>
+              <th scope="col" >Email</th>
+              <th scope="col"  >Edad</th>
+              <th scope="col"  >Dni</th>
+              <th scope="col"  >Fecha Nacimiento</th>
+              <th scope="col">Servicios</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let g of gestores">
+            <tr>
+              <td>{{g.username}}</td>
+              <td  >{{g.nombre}} {{g.apellido}}</td>
+              <td >{{g.email}}</td>
+              <td  >{{g.edad}}</td>
+              <td  >{{g.dni}}</td>
+              <td  >{{g.fechaNacimiento}}</td>
+              <td>{{g.servicio.length }}</td>
+              <td>
+                <button type="button" class="form-control bg-info">Modificar</button>
+                <button type="button" class="form-control bg-danger" (click)="eliminarGestor(g._id)">Eliminar</button>
+                <button type="button" class="form-control bg-success" (click)="imprimirGestor(g)">Imprimir</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-responsive">
+        <!-- Tabla de Usuarios -->
+        <table class="table table-striped text-center bg-white" *ngIf="tablaSeleccionada === 'usuarios'">
+          <thead>
+            <tr>
+              <th scope="col">Username</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Email</th>
+              <th scope="col">Edad</th>
+              <th scope="col">Dni</th>
+              <th scope="col">Fecha Nacimiento</th>
+              <th scope="col">Reservas</th>
+              <th scope="col">Resenias</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let u of usuarios">
+            <tr>
+              <td>{{u.username}}</td>
+              <td>{{u.nombre}} {{u.apellido}}</td>
+              <td>{{u.email}}</td>
+              <td>{{u.edad}}</td>
+              <td>{{u.dni}}</td>
+              <td>{{u.fechaNacimiento}}</td>
+              <td>{{u.reservas.length }}</td>
+              <td>{{u.resenias.length }}</td>
+              <td>
+                <button type="button" class="form-control bg-info">Modificar</button>
+                <button type="button" class="form-control bg-danger" (click)="eliminarUsuario(u._id)">Eliminar</button>
+                <button type="button" class="form-control bg-success" (click)="imprimirUsuario(u)">Imprimir</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-responsive">
+        <!-- Tabla Servicios -->
+        <table class="table table-striped text-center bg-white" *ngIf="tablaSeleccionada === 'servicios'">
+          <thead>
+            <tr>
+              <th scope="col">Nombre</th>
+              <th scope="col">Categoria</th>
+              <th scope="col">Ubicacion</th>
+              <th scope="col">Calificacion Total</th>
+              <th scope="col">IDGestor</th>
+              <th scope="col">Resenias</th>
+              <th scope="col">Reservas</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let s of servicios">
+            <tr>
+              <td>{{s.nombre}}</td>
+              <td>{{s.categoria}}</td>
+              <td>{{s.ubicacion}}</td>
+              <td>{{s.calificacionTotal}}</td>
+              <td>{{s.gestor}}</td>
+              <td>{{s.resenia.length}}</td>
+              <td>{{s.reservas.length }}</td>
+              <td>
+           
+                <button type="button" class="form-control bg-danger">Eliminar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-responsive">
+        <!-- Tabla Resenias -->
+        <table class="table table-striped text-center bg-white" *ngIf="tablaSeleccionada === 'resenias'">
+          <thead>
+            <tr>
+              <th scope="col">Nombre Usuario</th>
+              <th scope="col">Nombre Servicio</th>
+              <th scope="col">Valoracion Del servicio</th>
+              <th scope="col">Fecha alta</th>
+              <th scope="col">Comentario</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let r of resenias">
+            <tr>
+              <td>{{r.usuario.nombre}}</td>
+              <td>{{r.servicio.nombre}}</td>
+              <td>{{r.valoracion}}</td>
+              <td>{{r.fechaAlta}}</td>
+              <td>{{r.comentario}}</td>
+              <td>
+                <button type="button" class="form-control bg-info">Modificar</button>
+                <button type="button" class="form-control bg-danger">Eliminar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+
+    <!-- Tabla Reservas -->
+    <div class="col-lg-12 col-md-12 col-12" *ngIf="tablaSeleccionada === 'reservas'">
+      <div class="col-lg-12 col-md-12 col-12 mb-4">
+        <div class="accordion mt-1" id="accordionExample" *ngIf="tablaSeleccionada != 'reservas'">
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="btn w-100 text-start mx-1" type="button" (click)="cargarGestores()">
+                Todos los Gestores
+              </button>
+            </h2>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Buscar por UserName
+              </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <input class="form-control" type="text" [(ngModel)]="usernameGestor" placeholder="Ingresar UserName">
+                <button *ngIf="usernameGestor!=null" (click)="buscarGestorPorUsername()"
+                  class="btn btn-dark mt-2 mb-2 w-100">Buscar</button>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Buscar por email
+              </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <input class="form-control" type="text" [(ngModel)]="emailGestor" placeholder="Ingrese Email">
+                <button *ngIf="emailGestor!=null" (click)="buscarGestorPorEmail()"
+                  class="btn btn-dark mt-2 w-100">Buscar</button>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                Buscar Por Dni
+              </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <input class="form-control" type="text" [(ngModel)]="dniGestor" placeholder="Ingrese Dni">
+                <button *ngIf="dniGestor!=null" (click)="buscarGestorPorDni()"
+                  class="btn btn-dark mt-2 w-100">Buscar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped text-center bg-white">
+
+
+        <!-- Tabla De Reservas -->
+        <table class="table table-striped text-center" *ngIf="tablaSeleccionada === 'reservas'">
+
+          <thead>
+            <tr *ngIf="reservas.length!=0">
+              <th scope="col">categoria</th>
+              <th scope="col">Nombre De Servicio</th>
+              <th scope="col">Cantidad de Reservas</th>
+              <th scope="col">Fecha de Alta</th>
+              <th scope="col">Fecha de Ingreso</th>
+              <th scope="col">Fecha de Egreso</th>
+              <th scope="col">Precio</th>
+              <th scope="col">Reservado</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let r of reservas">
+            <tr>
+
+              <td>{{r.categoria}}</td>
+              <td>{{r.nombreServicio}}</td>
+              <td>{{r.cantidad}}</td>
+              <td>{{r.fechaAlta|date}}</td>
+              <td>{{r.fechaIngreso}}</td>
+              <td>{{r.fechaEgreso}}</td>
+              <td>{{r.precio}}</td>
+              <td>{{r.reservado}}</td>
+              <td>
+                <button class="btn btn-info">Modificar</button>
+                <button class="btn btn-danger" (click)="deleteReserva(r)">Eliminar</button>
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,86 @@
+<!-- Home -->
+<div class="fondo-home">
+    <!-- Carousel -->
+    <div id="carousel-fondo" class="carousel slide" data-bs-ride="carousel" data-bs-pause="false">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="/assets/fondo-home/fondo-buenosaires.jpg" class="d-block" alt="Fondo | Buenos-Aires">
+            </div>
+
+            <div class="carousel-item">
+                <img src="/assets/fondo-home/fondo-jujuy.jpeg" class="d-block" alt="Fondo | Jujuy">
+            </div>
+
+            <div class="carousel-item">
+                <img src="/assets/fondo-home/fondo-misiones.jpg" class="d-block" alt="Fondo | Misiones">
+            </div>
+
+            <div class="carousel-item">
+                <img src="/assets/fondo-home/fondo-rionegro.jpg" class="d-block" alt="Fondo | Rio-Negro">
+            </div>
+
+            <div class="carousel-item">
+                <img src="/assets/fondo-home/fondo-santacruz.jpg" class="d-block" alt="Fondo | Santa-Cruz">
+            </div>
+        </div>
+    </div>
+
+    <!-- Capa del fondo -->
+    <div class="overlay"></div>
+
+    <!-- Logo -->
+    <div class="contenido-titulo m-0 px-4">
+        <img src="/assets/logo-turismoapp2.png" alt="Logo | TurismoApp" id="logo-img" />
+    </div>
+
+    <!-- Botones -->
+    <div class="corner-button">
+        <a routerLink="/login" routerLinkActive="active" class="btn btn-outline-light me-2">
+            Sign In
+        </a>
+
+        <a class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            Sign Up
+        </a>
+    </div>
+</div>
+
+<!-- Modal seleccion usuario -->
+<div class="modal fade" id="staticBackdrop" tabindex="-1" aria-labelledby="modalSeleccionUsuario" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Header modal -->
+            <div class="modal-header bg-orange">
+                <h5 class="modal-title" id="modalSeleccionUsuario">Seleccionar</h5>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <!-- Body modal -->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col px-2">
+                        <a aria-current="usuarioForm" [routerLink]="['/usuario-form/0']" routerLinkActive="active"
+                            data-bs-dismiss="modal">
+                            <img src="/assets/fondo-home/icono/icono-viajero.png" alt="Login | Usuario"
+                                class="img-fluid registration-option" />
+                        </a>
+                    </div>
+
+                    <div class="col px-2">
+                        <a aria-current="gestorForm" [routerLink]="['/gestor-form/0']" routerLinkActive="active"
+                            data-bs-dismiss="modal">
+                            <img src="/assets/fondo-home/icono/icono-gestor.png" alt="Login | Gestor"
+                                class="img-fluid registration-option" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer modal -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

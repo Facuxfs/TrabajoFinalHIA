@@ -1,0 +1,105 @@
+body {
+    background-image: url("/assets/fondo-servicio/fondo-servicio.jpg");
+    background-position: center;
+    background-size: cover;
+    min-height: 100vh;
+    margin-top: -24px;
+}
+
+.tabla-contenedor {
+    max-height: 50vh;
+    float: right;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 30px;
+}
+
+.busquedaProvincia {
+    background: #727272bd;
+    border-radius: 15px;
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.btn-search {
+    border: 2px solid;
+    width: 46%;
+    border-radius: 15px;
+    background: #d58d01c4;
+}
+
+.botonLocalidad {
+    margin: 5%;
+}
+
+.selectProvincia {
+    margin-left: 10%;
+    width: 80%;
+    margin-right: 10%;
+    border-radius: 15px;
+    text-align: center;
+    background: #c4c1bcba;
+}
+
+.card {
+    background: linear-gradient(to right, #664d03e0, #664d038f);
+    border: 1px solid #4e4e4e;
+    color: rgba(250, 250, 250, 0.8);
+    margin-bottom: 2rem;
+    max-width: 100%;
+}
+
+.imagenProvincia {
+    height: 400px;
+    width: 450px;
+    border: 1px solid ;
+    border-radius: 5px;
+}
+
+.btn {
+    border: 2px solid;
+    text-decoration: none;
+    transition: all .4s ease;
+    margin-right: 2%;
+    margin-left: 2%;
+    width: 46%;
+}
+
+.btn:hover,
+.btn:focus {
+    -webkit-text-fill-color: #fff;
+    border: 5px solid #fff;
+    box-shadow: #222 1px 0 10px;
+    background: #664d03e0;
+}
+
+.botonImagen {
+    border-radius: 10px;
+    background: #c78501a8;
+    margin-right: 100px;
+}
+
+.margen {
+    border-radius: 10px;
+    height: max-content;
+}
+
+.contenedor {
+    width: 60%;
+    margin-left: 20%;
+}
+
+.botonContenedor {
+    width: 30%;
+    margin-left: 15%;
+    border-radius: 10px;
+    background: #c78501a8;
+    margin-top: 5px;
+}
+
+.mapa {
+    width: 50%;
+    height: 200px;
+    margin: 30px;
+}

@@ -1,0 +1,100 @@
+<body>
+    <br>
+    <br>
+<div id="tab" class="container card">
+    <div class="row  justify-content-center mt-3">
+        <h2 class="col-md-12">comentar</h2>
+        <form class="col-9 col-md-6 " #formregistro="ngForm" (ngSubmit)="modificar()">
+            <br>
+            <div class="form-group   justify-content-center">
+                <label class="col-12 col-md-3" for="valoracion">calificar </label>
+                <!--input type="number" class="form-control" id="valoracion" [(ngModel)]="resenia.valoracion"
+                    name="valoracion" placeholder="seleccionar valoracion"-->
+                
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="valoracion1" name="valoracion" value="1"
+                            [(ngModel)]="resenia.valoracion" required>
+                        <label class="form-check-label" for="valoracion1">1</label>
+                    </div>
+    
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="valoracion2" name="valoracion" value="2"
+                            [(ngModel)]="resenia.valoracion">
+                        <label class="form-check-label" for="valoracion2">2</label>
+                    </div>
+    
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="valoracion3" name="valoracion" value="3"
+                            [(ngModel)]="resenia.valoracion">
+                        <label class="form-check-label" for="valoracion3">3</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="valoracion4" name="valoracion" value="4"
+                            [(ngModel)]="resenia.valoracion">
+                        <label class="form-check-label" for="valoracion4">4</label>
+                    </div>
+    
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="valoracion5" name="valoracion" value="5"
+                            [(ngModel)]="resenia.valoracion">
+                        <label class="form-check-label" for="valoracion5">5</label>
+                    </div>
+                 
+            
+            </div>
+            <!--div class="form-group row justify-content-center">
+          <label class="col-12 col-md-3" for="fechaAlta">fecha</label>
+          <input type="text" class="form-control" id="fechaAlta" [(ngModel)]="resenia.fechaAlta" 
+          name="fechaAlta"
+            placeholder="seleccionar fechaAlta">
+  
+        </div-->
+            <div class="form-group   justify-content-center">
+                <label class="col-12 col-md-3" for="comentar">comentar</label>
+                <div>
+                    <textarea class="form-control" id="comentario" name="comentario" [(ngModel)]="resenia.comentario"
+                         placeholder="Ingrese el comentario" required #comentario="ngModel"></textarea>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="urlimagen" class="form-label fw-semibold">* Imagen</label>
+                <div>
+                    <input type="file" name="urlimagen" id="urlimagen" accept="image/*"
+                        class="form-control-file d-block" (change)="onFileSelected($event)"  ngModel #urlimagen="ngModel"
+                        required />
+                </div>
+                <div *ngIf="urlimagen.invalid && (urlimagen.dirty || urlimagen.touched)"
+                    class="alert alert-danger rounded-0 mt-1">
+
+                </div>
+            </div>
+
+
+            <!--div class="mb-3">
+                <label for="idusuario" class="form-label">usuario</label>
+                <input name="usuario" type="text" [(ngModel)]="resenia.usuario" class="form-control" id="idusuario">
+            </div>
+            <div class="mb-3">
+                <label for="idservicio" class="form-label">servicio</label>
+                <input name="servicio" type="text" [(ngModel)]="resenia.servicio" class="form-control" id="idservicio">
+            </div-->
+
+            <div class="row justify-content-center mt-4">
+                <div class="col-sm-10">
+                    <div *ngIf="accion == 'new'"> 
+                    <button class="btn btn-outline-info" (click)="cargar()">Agregar</button>
+                    <button (click)="cancelar()" type="button" class=" m-2 btn btn-danger btn-md">Cancelar</button>
+                    </div>
+                    <div *ngIf="accion == 'update'">       
+                        <button type="submit" class="btn btn-primary btn-md m-2">Actualizar</button>
+                        <button (click)="cancelarUs()" type="button" class=" m-2 btn btn-danger btn-md">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>

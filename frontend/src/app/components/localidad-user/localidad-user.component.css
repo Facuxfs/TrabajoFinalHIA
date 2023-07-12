@@ -1,0 +1,19 @@
+.fondo{
+    background-image: url("/assets/fondo-servicio/fondo-localidad.jpg");
+    background-position: center;
+    background-size: cover;
+    min-height: 100vh;
+    margin-top: -24px;
+}
+.card {
+    background: linear-gradient(to right,  #664d03e0, #664d038f);
+    border: 1px solid #4e4e4e;
+    color: rgba(250, 250, 250, 0.8);
+    margin-bottom: 2rem;
+    max-width: 100%;
+}
+h1{
+    font-size: 100px;
+    text-align: center;
+    text-transform: uppercase;
+}

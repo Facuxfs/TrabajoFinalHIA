@@ -1,0 +1,75 @@
+<div class="fondo-servicio">
+
+<section>
+    <div class="my-4 formulario-gestor">
+        <br>
+        <form #servicioForm="ngForm" class="opacidad">
+            <fieldset class="form-group border rounded p-3">
+                <legend class="w-auto fw-bold">SERVICIO</legend>
+
+
+                    <p>Campos obligatorios (<span class="text-danger fw-bold">*</span>)</p>
+                    <hr />
+
+                    <!-- Nombre -->
+                    <div class="mb-4">
+                        <label for="idNombreServicio" class="form-label">Nombre (<span
+                                class="text-danger fw-bold">*</span>)</label>
+
+                        <input type="text" class="form-control bg-light" id="idNombreServicio" name="nombreServicio"
+                            placeholder="Ingrese nombre del servicio" [(ngModel)]="servicio.nombre" required
+                            #nombreServicio="ngModel" />
+
+                        <!-- Validar Nombre -->
+                        <div *ngIf="nombreServicio.invalid && (nombreServicio.dirty || nombreServicio.touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="nombreServicio.errors?.['required']">
+                                Debe ingresar el nombre del servicio.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Categoria -->
+                    <div class="mb-4">
+                        <label for="idCategoria" class="form-label">Categoria</label>
+
+                        <select class="form-select bg-light" name="categoria" id="idCategoria"
+                            [(ngModel)]="servicio.categoria" required>
+                            <option value="hotel" selected>Hotel</option>
+
+                            <option value="restaurante">Restaurante</option>
+                        </select>
+                    </div>
+
+
+
+
+                    <!-- Ubicacion -->
+                    <div class="mb-4">
+                        <label for="idUbicacion" class="form-label">Ubicacion</label>
+
+                        <select class="form-select bg-light" name="ubicacion" id="idUbicacion" [(ngModel)]="seleccion"
+                            (ngModelChange)="consultarProvincia(seleccion)" required>
+                            <option *ngFor="let c of provincias" [value]="c.name">{{c.name}}</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="idLocalidad" class="form-label">Localidad</label>
+                        <select class="form-select bg-light" name="localidad" id="idLocalidad"
+                            [(ngModel)]="servicio.ubicacion" required>
+                            <option *ngFor="let localidad of localidades" [value]="localidad._id">{{localidad.nombre}}
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- Button Cargar Servicio -->
+                    <div class="mb-4 d-grid">
+                        <button type="submit" class="btn btn-warning fw-bold mt-2" [disabled]="servicioForm.invalid"
+                            (click)="guardarServicio(servicio)">Crear Servicio
+                            <i class="fa-solid fa-cash-register"></i></button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </section>
+</div>
