@@ -119,7 +119,7 @@ export class ServicioComponent implements OnInit {
         this.buscarImagen(this.provincia);
         this.cargarClima(this.provincia);
         this.mostrarTarjeta();
-       /*  this.initMap(this.provincia);//manda info de la provincia */
+        this.initMap(this.provincia);//manda info de la provincia 
 
       },
       error => { alert("Error en la petición"); })
@@ -217,7 +217,7 @@ export class ServicioComponent implements OnInit {
   }
 
 ///////
-/* initMap(provincia:Provincia) {
+ initMap(provincia:Provincia) {
   const lat = parseFloat(provincia.lat);//transforma las coordenadas de
   const long = parseFloat(provincia.long);//la provincia q esta en string a number
     
@@ -272,7 +272,7 @@ export class ServicioComponent implements OnInit {
   console.error('Las coordenadas ingresadas no son válidas.');
 }
 
-} */
+} 
 ///////
 
 }
