@@ -10,7 +10,7 @@ import { Usuario } from '../models/usuario.model';
 export class UsuarioService {
   hostBD:string;
   constructor(private http:HttpClient) {
-    this.hostBD='http://34.196.160.19:3000/api/usuario';
+    this.hostBD='http://localhost:3000/api/usuario';
    }
 
    public getusuarios():Observable<any>{

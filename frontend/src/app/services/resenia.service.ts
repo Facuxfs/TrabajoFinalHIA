@@ -9,7 +9,7 @@ import { Resenia } from '../models/resenia';
 export class ReseniaService {
 
 
-  urlbase: string = "http://34.196.160.19:3000/api/"
+  urlbase: string = "http://localhost:3000/api/"
   constructor(private _http: HttpClient) {
   }
   /////crear nuevo
