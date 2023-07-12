@@ -8,7 +8,7 @@ import { Servicio } from '../models/servicio';
 })
 export class ServiciosService {
 
-  urlBase: string = "http://34.196.160.19:3000/api/";
+  urlBase: string = "http://localhost:3000/api/";
 
   constructor(private _http:HttpClient) { }
 
@@ -22,7 +22,7 @@ export class ServiciosService {
       ),params: new HttpParams()
 
     }
-    return this._http.get("http://34.196.160.19:3000/api/servicio/ubicacion?ubicacion="+ubicacion,httpOptions);
+    return this._http.get("http://localhost:3000/api/servicio/ubicacion?ubicacion="+ubicacion,httpOptions);
   }
   
   getServicioGestor(gestor:string,categoria:string){
@@ -52,7 +52,7 @@ export class ServiciosService {
       ),params: new HttpParams()
 
     }
-    return this._http.get("http://34.196.160.19:3000/api/servicio/",httpOptions);
+    return this._http.get("http://localhost:3000/api/servicio/",httpOptions);
   }
 
   getServicio(_id:string) : Observable<any>{

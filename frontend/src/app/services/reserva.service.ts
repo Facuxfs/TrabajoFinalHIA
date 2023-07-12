@@ -9,7 +9,7 @@ import { Usuario } from '../models/usuario.model';
 })
 export class ReservaService {
 
-  urlBase: string = "http://34.196.160.19:3000/api/";
+  urlBase: string = "http://localhost:3000/api/";
 
   constructor(private _http:HttpClient) { }
 
@@ -34,7 +34,7 @@ export class ReservaService {
 
     }
     console.log(id);
-    return this._http.get("http://34.196.160.19:3000/api/reserva/usuario?usuario="+id,httpOptions);
+    return this._http.get("http://localhost:3000/api/reserva/usuario?usuario="+id,httpOptions);
   }
 
 
