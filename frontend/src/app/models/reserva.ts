@@ -21,7 +21,7 @@ export class Reserva {
         this.fechaIngreso = '';
         this.fechaEgreso = '';
         this.precio = 0;
-        this.reservado = false;
+        this.reservado = true;
         this.usuario = '';
         this.servicio = '';
     }

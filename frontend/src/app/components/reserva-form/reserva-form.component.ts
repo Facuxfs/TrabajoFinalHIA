@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 //import { Console, error } from 'console';
 import { AppComponent } from 'src/app/app.component';
 import { Reserva } from 'src/app/models/reserva';
@@ -27,7 +28,7 @@ export class ReservaFormComponent implements OnInit {
   precioCalculado!: number;
 
 
-  constructor(private reservaService: ReservaService,
+  constructor(private reservaService: ReservaService, 
     private appcomponent: AppComponent,
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -41,7 +42,7 @@ export class ReservaFormComponent implements OnInit {
     this.cargarUsuario();
     this.reserva.fechaAlta = new Date().toISOString();
     this.reserva.numeroReserva = this.usuario.reservas.length + 1;
-    this.reserva.reservado = false;
+   
   }
 
   calcularPrecioRestaurante(cantidad: number) {
@@ -103,6 +104,10 @@ export class ReservaFormComponent implements OnInit {
     )
   }
 
+  pagarReserva(){
+    this.reserva.reservado = false;
+  }
+
   guardarReserva() {
     this.reservaService.crearReserva(this.reserva).subscribe(
       res => {
@@ -111,11 +116,26 @@ export class ReservaFormComponent implements OnInit {
           alert(res.msg);
           this.reserva = new Reserva();
           this.router.navigate(["usuario"]);
+         
         }
       }, error => {
         alert(error.msg);
       }
     )
+  }
+//Validar Fechas
+  getTodayDateString(): string {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth() + 1; // Los meses en JavaScript comienzan en 0
+    const day = today.getDate();
+
+    // Formatear la fecha en el formato YYYY-MM-DD
+    return `${year}-${this.padNumber(month)}-${this.padNumber(day)}`;
+  }
+
+  private padNumber(number: number): string {
+    return number < 10 ? `0${number}` : `${number}`;
   }
 
 
@@ -144,6 +164,21 @@ export class ReservaFormComponent implements OnInit {
 
   volver(){
     this.router.navigate(["usuario"]);
+  }
+
+  onFileSelected(event: any) {
+    const files = event.target.files[0];
+    if (files.size > 80000) {//limite de tamaño de imagen
+      alert('El tamaño  de imagen maximo es 80 KB');
+      event.target.value = null;
+    } else {
+      const reader = new FileReader();
+      reader.onload = () => {
+        let base64 = reader.result as string;
+       // this.resenia.imagen = base64;//almaceno en imagen el url base64
+      };
+      reader.readAsDataURL(files);
+    }
   }
 
 }

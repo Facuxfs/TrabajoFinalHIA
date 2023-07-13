@@ -32,6 +32,7 @@ import { GestorDatosComponent } from './components/roles/gestor-datos/gestor-dat
 import { AdminFormComponent } from './components/roles/admin-form/admin-form.component';
 import { GestorEstadisticaComponent } from './components/roles/gestor-estadistica/gestor-estadistica.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +59,8 @@ import { GestorEstadisticaComponent } from './components/roles/gestor-estadistic
     UsuarioDatosComponent,
     GestorDatosComponent,
     AdminFormComponent,
-    GestorEstadisticaComponent
+    GestorEstadisticaComponent,
+ 
   ],
   imports: [
     BrowserModule,
@@ -73,10 +75,12 @@ import { GestorEstadisticaComponent } from './components/roles/gestor-estadistic
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
-      multi: true
+      multi: true,
+      
     }
   ],
-  bootstrap: [AppComponent]
+ 
+  bootstrap: [AppComponent],
 })
 
 export class AppModule { }

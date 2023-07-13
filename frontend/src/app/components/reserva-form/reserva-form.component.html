@@ -1,120 +1,178 @@
 <div class="font-reserva">
-<div class="row">
-  <section class="col-10 offset-1 col-md-6 offset-md-3">
+
+  <div class="row">
+    <section class="col-10 offset-1 col-md-6 offset-md-3">
       <div class="formulario-reserva">
         <form #reservaForm="ngForm" class="bg-light-subtle">
           <fieldset class="form-group border rounded p-3">
             <legend class="w-auto fw-bold">Reserva para : {{nombreServicio}} , {{reserva.categoria}}</legend>
             <p>Campos obligatorios (<span class="text-danger fw-bold">*</span>)</p>
             <hr />
-            
+
             <!-- CAMPO CANTIDAD -->
             <div class="mb-4">
-              <label class="form-label"
-                >Cantidad(<span class="text-danger fw-bold">*</span>)</label
-              >
-              <input
-                type="number"
-                class="form-control"
-                id="cantidad"
-                name="cantidad"
-                [(ngModel)]="reserva.cantidad"
-                (ngModelChange)="calcularPrecioRestaurante(reserva.cantidad)"
-                #cantidad="ngModel"
-                required
-              />
-              <div
-                *ngIf="cantidad.invalid && (cantidad.dirty || cantidad.touched)"
-                class="alert alert-danger"
-              >
+              <label class="form-label">Cantidad(<span class="text-danger fw-bold">*</span>)</label>
+              <input type="number" class="form-control" id="cantidad" name="cantidad" [(ngModel)]="reserva.cantidad"
+                (ngModelChange)="calcularPrecioRestaurante(reserva.cantidad)" #cantidad="ngModel" required />
+              <div *ngIf="cantidad.invalid && (cantidad.dirty || cantidad.touched)" class="alert alert-danger">
                 <div *ngIf="cantidad.errors?.['required']">Ingrese un valor.</div>
                 <div *ngIf="cantidad.errors?.['min']">La cantidad minima es 1.</div>
               </div>
             </div>
-    
+
             <!-- CAMPO FECHA INGRESO-->
             <div class="mb-4">
-              <label for="fechaIngreso" class="form-label"
-                >fechaIngreso(<span class="text-danger fw-bold">*</span>)</label
-              >
-    
-              <input
-                type="date"
-                class="form-control bg-light"
-                id="fechaAlta"
-                name="fechaIngreso"
+              <label for="fechaIngreso" class="form-label">fechaIngreso(<span
+                  class="text-danger fw-bold">*</span>)</label>
+              <input type="date" class="form-control bg-light" id="fechaAlta" name="fechaIngreso"
                 [(ngModel)]="reserva.fechaIngreso"
                 (ngModelChange)="reserva.fechaEgreso = reserva.categoria === 'restaurante' ? reserva.fechaIngreso : reserva.fechaEgreso"
-                required
-                #fechaIngreso="ngModel"
-              />
-    
-              <div
-                *ngIf="
-                  fechaIngreso.invalid &&
-                  (fechaIngreso.dirty || fechaIngreso.touched)
-                "
-                class="alert alert-danger"
-              >
-                <div *ngIf="fechaIngreso.errors?.['required']">
-                  Debe ingresar Fecha
-                </div>
+                required #fechaIngreso="ngModel" [min]="getTodayDateString()" />
+
+              <div *ngIf="fechaIngreso.invalid && (fechaIngreso.dirty || fechaIngreso.touched)"
+                class="alert alert-danger">
+                <div *ngIf="fechaIngreso.errors?.['required']">Debe ingresar Fecha</div>
+                <div *ngIf="fechaIngreso.errors?.['min']">La fecha de ingreso no puede ser anterior al día actual.</div>
               </div>
             </div>
-    
+
+
             <!-- CAMPO FECHA EGRESO -->
             <div class="mb-4" *ngIf="reserva.categoria !== 'restaurante'">
-              <label for="fechaEgreso" class="form-label"
-                >fechaEgreso(<span class="text-danger fw-bold">*</span>)</label
-              >
-    
-              <input
-                type="date"
-                class="form-control bg-light"
-                id="fechaAlta"
-                name="fechaIngreso"
-                [(ngModel)]="reserva.fechaEgreso"
-                required
-                #fechaEgreso="ngModel"
-              />
-    
-              <div
-                *ngIf="
+              <label for="fechaEgreso" class="form-label">fechaEgreso(<span
+                  class="text-danger fw-bold">*</span>)</label>
+
+              <input type="date" class="form-control bg-light" id="fechaAlta" name="fechaIngreso"
+                [(ngModel)]="reserva.fechaEgreso" required #fechaEgreso="ngModel" />
+
+              <div *ngIf="
                   fechaEgreso.invalid && (fechaEgreso.dirty || fechaEgreso.touched)
-                "
-                class="alert alert-danger"
-              >
+                " class="alert alert-danger">
                 <div *ngIf="fechaEgreso.errors?.['required']">
                   Debe ingresar Fecha
                 </div>
               </div>
             </div>
-    
+
             <!-- CAMPO PRECIO -->
             <div class="mb-4">
-              <label class="form-label"
-                >Precio : </label
-              >
-            <div class="alert alert-primary" role="alert">       
-              <label for="precio" class="form-label" 
-                name="precio"> ARS : {{reserva.precio}}</label>   
-            </div> 
+              <label class="form-label">Precio : </label>
+              <div class="alert alert-primary" role="alert">
+                <label for="precio" class="form-label" name="precio"> ARS : {{reserva.precio}}</label>
+              </div>
             </div>
+            <!-- CAMPO PAGO DE RESERVA-->
+            <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+              tabindex="-1">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Realice el pago de su reserva</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    Recuerde que si la reserva no es aprobada, se realizará el reembolso de su pago.
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Tarjeta
+                      de crédito</button>
+                    <button class="btn btn-primary" data-bs-target="#exampleModalToggle3"
+                      data-bs-toggle="modal">Transferencia</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal fade" id="exampleModalToggle2" aria-hidden="true"
+              aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Tarjeta de crédito</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <label for="floatingPassword" style="margin-bottom: 10px;">Total a pagar: {{reserva.precio}}</label>
+
+                    <div class="form-floating mb-3">
+                      <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                      <label for="floatingInput">Número de tarjeta:</label>
+                    </div>
+                    <div class="form-floating">
+                      <input type="number" class="form-control" id="floatingPassword" placeholder="Password">
+                      <label for="floatingPassword">Código de seguridad:</label>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn btn-success" data-bs-dismiss="modal" (click)="pagarReserva()">Pagar</button>
+                    <button class="btn btn-danger" data-bs-target="#exampleModalToggle"
+                      data-bs-toggle="modal">Cancelar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal fade" id="exampleModalToggle3" aria-hidden="true"
+              aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Transferencia</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <label for="floatingPassword" style="margin-bottom: 10px;">Total a pagar: {{reserva.precio}}</label>
+                    <br>
+                    CBU: 2540 9874 9845 1447 <br>
+                    Alias: {{nombreServicio}}, {{reserva.categoria}} <br>
+
+                    <div class="mb-3">
+                      <label for="urlimagen" class="form-label fw-semibold">* Adjunte su comprobante:</label>
+                      <div>
+                        <input type="file" name="urlimagen" id="urlimagen" accept="image/*"
+                          class="form-control-file d-block" (change)="onFileSelected($event)" ngModel
+                          #urlimagen="ngModel" required />
+                      </div>
+                      <div *ngIf="urlimagen.invalid && (urlimagen.dirty || urlimagen.touched)"
+                        class="alert alert-danger rounded-0 mt-1"></div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <!-- BOTON IMPORTANTE-->
+                    <button class="btn btn-success" data-bs-dismiss="modal" (click)="pagarReserva()">Pagar</button>
+                    <button class="btn btn-danger" data-bs-target="#exampleModalToggle"
+                      data-bs-toggle="modal">Cancelar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal"
+              [disabled]="reserva.cantidad <= 0">Realizar Pago</button>
+
+
+
             <!-- CAMPO RESERVADO -->
-    
-            <div class="mb-4 d-grid" *ngIf="accion!='update'">
-              <button class="btn btn-success" (click)="guardarReserva()" [disabled]="!reservaForm.form.valid">
+
+            <div class="mb-4 " *ngIf="accion!='update'">
+              <button class="btn btn-success" (click)="guardarReserva()" style="margin-top: 20px;"
+                [disabled]="reserva.reservado != false">
                 Guardar Reserva
               </button>
+              <br>
               <button class="btn btn-dark mt-1" (click)="volver()">
                 Volver
               </button>
             </div>
-            <div class="mb-4 d-grid" *ngIf="accion=='update'">
-              <button class="btn btn-success" (click)="modificarReserva()" [disabled]="!reservaForm.form.valid">
+
+            <div class="mb-4 " *ngIf="accion=='update'">
+              <button class="btn btn-success" (click)="modificarReserva()" data-bs-target="#exampleModalToggle"
+                data-bs-toggle="modal" [disabled]="reserva.reservado != false">
                 Modificar
               </button>
-              <button class="btn btn-dark mt-1" (click)="volver()">
+              <br>
+              <button class="btn btn-dark mt-1" data-bs-target="#exampleModalToggle" data-bs-toggle="modal"
+                (click)="volver()">
                 Volver
               </button>
             </div>
@@ -122,6 +180,7 @@
         </form>
       </div>
     </section>
+  </div>
 </div>
-</div>
-  
+
+{{reserva | json}}
