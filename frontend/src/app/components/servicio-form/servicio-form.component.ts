@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Gestor } from 'src/app/models/gestor';
 import { Provincia } from 'src/app/models/provincia';
 import { Resenia } from 'src/app/models/resenia';
@@ -41,8 +42,11 @@ export class ServicioFormComponent implements OnInit {
   modificar!:any;
   form!:FormGroup;
   title!:string;
-  constructor(private route: ActivatedRoute, private ciudadService: CiudadesService, private servicioService: ServiciosService, private router: Router, private gestorService: GestorService,private formBuilder:FormBuilder) {
-    this.title="Agregar Servicio"
+ 
+constructor(private route: ActivatedRoute, private ciudadService: CiudadesService, 
+    private servicioService: ServiciosService, private router: Router,
+    private gestorService: GestorService,private formBuilder:FormBuilder, private toastr:ToastrService) {
+  this.title="Agregar Servicio"
     this.servicio = new Servicio();
     this.servicio.categoria="";
     this.servicio.calificacionTotal = 0;
@@ -106,8 +110,8 @@ export class ServicioFormComponent implements OnInit {
     this.servicioService.crearServicio(this.servicio).subscribe(
       (result: any) => {
         if (result.status == 1) {
-          alert(result.msg);
           this.router.navigate(["gestor"])
+          this.toastr.success(servicio.nombre + servicio.categoria , 'registrado');
         }
       },
       error => {
@@ -149,10 +153,11 @@ export class ServicioFormComponent implements OnInit {
             this.localidades.push(this.localidad);
           }
         } else {
+          this.toastr.error('el api no responde');
           console.error('La respuesta del servicio no tiene la estructura esperada.');
         }
       },
-      error => { alert("Error en la petición"); }
+      error => { this.toastr.error('el api no responde'); }
     );
   }
  

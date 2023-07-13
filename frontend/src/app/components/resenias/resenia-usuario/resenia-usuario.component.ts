@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AppComponent } from 'src/app/app.component';
 import { Resenia } from 'src/app/models/resenia';
 import { ReseniaService } from 'src/app/services/resenia.service';
@@ -14,7 +15,7 @@ export class ReseniaUsuarioComponent implements OnInit {
   resenias!: Array<Resenia>;
   idUs!:any;
   constructor(private reseniaService: ReseniaService,
-    private appCom:AppComponent, 
+    private appCom:AppComponent, private toastr:ToastrService,
     private router: Router) {
     this.appCom.logeado=true;
     this.resenias = new Array<Resenia>();
@@ -52,8 +53,9 @@ export class ReseniaUsuarioComponent implements OnInit {
       res=>{
           console.log(res);
           this.upDate();
+          this.toastr.success('Resenia eliminada');
         },error=>{
-          console.log(error);
+          this.toastr.error('Error al reservar');
         }
     )
   }

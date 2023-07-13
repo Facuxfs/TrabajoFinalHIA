@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Servicio } from 'src/app/models/servicio';
 import { ServiciosService } from 'src/app/services/servicios.service';
 
@@ -15,7 +16,7 @@ export class LocalidadUserComponent implements OnInit {
   servicios!:Array<Servicio>;
   servicio!: any;
   indice: number = 0;
-  constructor(private route: ActivatedRoute, private router: Router, private serviceServicios:ServiciosService) {   
+  constructor(private route: ActivatedRoute, private router: Router, private serviceServicios:ServiciosService, private toastr:ToastrService ){   
    }
 
   cargarServicios(id:string){

@@ -31,6 +31,7 @@ import { UsuarioDatosComponent } from './components/roles/usuario-datos/usuario-
 import { GestorDatosComponent } from './components/roles/gestor-datos/gestor-datos.component';
 import { AdminFormComponent } from './components/roles/admin-form/admin-form.component';
 import { GestorEstadisticaComponent } from './components/roles/gestor-estadistica/gestor-estadistica.component';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -60,6 +61,7 @@ import { GestorEstadisticaComponent } from './components/roles/gestor-estadistic
     GestorDatosComponent,
     AdminFormComponent,
     GestorEstadisticaComponent,
+    
  
   ],
   imports: [
@@ -69,7 +71,9 @@ import { GestorEstadisticaComponent } from './components/roles/gestor-estadistic
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot() // ToastrModule added
   ],
   providers: [LoginService,
     {

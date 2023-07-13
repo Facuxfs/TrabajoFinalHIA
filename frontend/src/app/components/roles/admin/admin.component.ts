@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 //import { Console, error } from 'console';
 import * as printJS from 'print-js';
 import { AppComponent } from 'src/app/app.component';
@@ -36,7 +37,7 @@ export class AdminComponent implements OnInit {
   token!: any;
   constructor(private appCom: AppComponent, private adminService: AdminService, private reseniaService: ReseniaService
     , private gestorServicio: GestorService, private usuarioService: UsuarioService, private servicioService: ServiciosService,
-    private reservaService: ReservaService , private router: Router) {
+    private reservaService: ReservaService , private router: Router, private toast:ToastrService) {
     this.appCom.logeado = true;
     this.cargarGestores();
     this.cargarUsuarios();
@@ -127,10 +128,10 @@ export class AdminComponent implements OnInit {
     this.gestorServicio.deleteGestor(id)
       .subscribe(
         (res: any) => {
-          console.log(res);
+          this.toast.success('Gestor eliminado');
         },
         err => {
-          console.log(err)
+          this.toast.error('No se pudo eliminar al gestor');
         }
       )
     location.reload();
@@ -144,10 +145,10 @@ export class AdminComponent implements OnInit {
     this.usuarioService.deleteUsuario(id)
       .subscribe(
         (res: any) => {
-          console.log(res);
+          this.toast.success('Usuario Eliminado');
         },
         err => {
-          console.log(err)
+          this.toast.error('No se pudo eliminar el usuario');
         }
       )
     location.reload();
@@ -170,7 +171,7 @@ export class AdminComponent implements OnInit {
           }
         )
       }, error => {
-        alert("No se pueden cargar las Reservas")
+        this.toast.success('No se pueden cargar las reservas');
       }
     )
   }
@@ -179,12 +180,12 @@ export class AdminComponent implements OnInit {
     this.reservaService.deleteReserva(reserva._id).subscribe(
       res => {
         if (res.status == 1) {
-          alert(res.msg);
+          this.toast.success('Reserva Eliminado');
           //recargar la lista de reservas
           this.cargarReservas();
         }
       }, error => {
-        alert(error.msg);
+        this.toast.error('No se pudo eliminar la Reserva');
       }
     )
   }
@@ -255,12 +256,12 @@ export class AdminComponent implements OnInit {
     this.reseniaService.delateResenia(idResenia).subscribe(
       res => {
         if (res.status == 1) {
-          alert(res.msg);
+          this.toast.success('Resenia eliminada');
           //recargar la lista de reservas
           this.cargarResenias();
         }
       }, error => {
-        alert(error.msg);
+        this.toast.error('No se pudo eliminar la resenia');
       }
     )
   }
@@ -329,12 +330,12 @@ export class AdminComponent implements OnInit {
     this.servicioService.deleteServicio(idServicio).subscribe(
       res => {
         if (res.status == 1) {
-          alert(res.msg);
+          this.toast.success('Servicio Eliminado');
           //recargar la lista de reservas
           this.cargarServicios();
         }
       }, error => {
-        alert(error.msg);
+        this.toast.error('No se pudo eliminar el servicio');
       }
     )
   }

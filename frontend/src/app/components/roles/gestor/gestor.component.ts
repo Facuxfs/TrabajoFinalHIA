@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { forkJoin, map, mergeMap } from 'rxjs';
 import { AppComponent } from 'src/app/app.component';
 import { Gestor } from 'src/app/models/gestor';
@@ -30,7 +31,7 @@ export class GestorComponent implements OnInit {
   verReserva:boolean=false;
   reservas:Array<Reserva>;
   
-  constructor(private appCom: AppComponent, private servicioService: ServiciosService, private gestorService: GestorService,private usuarioService:UsuarioService,private reseniaService:ReseniaService,private reservaService:ReservaService, private router: Router) {
+  constructor(private appCom: AppComponent , private toastr:ToastrService, private servicioService: ServiciosService, private gestorService: GestorService,private usuarioService:UsuarioService,private reseniaService:ReseniaService,private reservaService:ReservaService, private router: Router) {
     this.appCom.logeado = true;
     this.servicios = new Array<Servicio>();
     this.usuarios=new Array<Usuario>();
@@ -227,8 +228,7 @@ export class GestorComponent implements OnInit {
            unaReserva.reservado = true ;
            this.reservaService.modificarReserva(unaReserva).subscribe(
            )
-          // this.toastr.success('Reserva :'+ unaReserva.nombreServicio , 'aceptada!');
-          location. reload()
+           this.toastr.success('Reserva :'+ unaReserva.nombreServicio , 'aceptada!');
       },
       err=>{
         console.log(err);
@@ -245,8 +245,7 @@ export class GestorComponent implements OnInit {
            this.reservaService.modificarReserva(unaReserva).subscribe(
             
            )
-          // this.toastr.info('Reserva :'+ unaReserva.nombreServicio , 'rechazada');
-          location. reload()
+          this.toastr.info('Reserva :'+ unaReserva.nombreServicio , 'rechazada');
       },
       err=>{
         console.log(err);
@@ -263,12 +262,12 @@ export class GestorComponent implements OnInit {
     this.servicioService.deleteServicio(id)
     .subscribe(
       (res:any)=>{
-        
-        alert("Se dio de beja el servicio")
+        this.toastr.success('Servicio eliminado');
         this.cargarServicios();
       },
       err=>{
         console.log(err)
+        this.toastr.success('Error al eliminar el servicio');
       }
     )
   }
