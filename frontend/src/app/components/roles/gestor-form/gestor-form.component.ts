@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Gestor } from 'src/app/models/gestor';
 import { GestorService } from 'src/app/services/gestor.service';
 
@@ -14,7 +15,7 @@ export class GestorFormComponent implements OnInit {
   gestor!: Gestor;
   accion:string="";
   tipo!:any;
-  constructor(private gestorService: GestorService,private activatedRoute: ActivatedRoute, private router: Router, private route: ActivatedRoute) {
+  constructor(private gestorService: GestorService,private activatedRoute: ActivatedRoute, private router: Router,private toast:ToastrService, private route: ActivatedRoute) {
     this.gestor = new Gestor();
 
   }
@@ -46,7 +47,7 @@ export class GestorFormComponent implements OnInit {
     this.gestorService.putGestor(this.gestor).subscribe(
       (result: any) => {
         if (result.status == 1){
-          alert(result.msg);
+          this.toast.success('Gestor modificado');
           if(this.tipo=="admin"){
             this.router.navigate(["admin"])
           }else{
@@ -55,7 +56,7 @@ export class GestorFormComponent implements OnInit {
         }
   },
       error => {
-        alert(error.msg);
+        this.toast.error('Error al modificar gestor');
       }
     )
   }
@@ -71,11 +72,12 @@ export class GestorFormComponent implements OnInit {
       .subscribe(
         (res: any) => {
           console.log(res);
-
+          this.toast.success('Gestor' + this.gestor.nombre + this.gestor.apellido +  'registrado correctamente' );
           this.router.navigate(['/login']);
         },
         err => {
           console.log(err);
+          this.toast.error('No se pudo completar el regristro');
         }
       )
   }

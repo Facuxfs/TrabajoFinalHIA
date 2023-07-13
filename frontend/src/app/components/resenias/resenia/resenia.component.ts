@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AppComponent } from 'src/app/app.component';
 import { Resenia } from 'src/app/models/resenia';
 import { ReseniaService } from 'src/app/services/resenia.service';
@@ -15,7 +16,7 @@ export class ReseniaComponent implements OnInit {
   tipo: any;
   resenia!: Resenia;
   resenias!: Array<Resenia>;
-  constructor(private reseniaService: ReseniaService,
+  constructor(private reseniaService: ReseniaService, private toastr:ToastrService,
     private appCom:AppComponent, private router: Router) {
       this.appCom.logeado=true;
     this.resenias = new Array<Resenia>();
@@ -44,7 +45,7 @@ export class ReseniaComponent implements OnInit {
         console.log(result);
       },
       error => {
-        console.log("error")
+        this.toastr.error('el servidor backend no responde');
       });
   }
   ///////
@@ -53,6 +54,7 @@ export class ReseniaComponent implements OnInit {
       res=>{
           console.log(res);
           this.upDate();
+          this.toastr.info('La resenia a sido eliminada' , 'Info :')
         },error=>{
           console.log(error);
         }
@@ -77,6 +79,7 @@ txt1!:string;
       },
       error => {
         console.log("error")
+        this.toastr.error('el servidor backend no responde');
       } 
     );
   }
@@ -95,6 +98,7 @@ txt1!:string;
       },
       error => {
         console.log("error")
+        this.toastr.error('el servidor backend no responde');
       } 
     );
   }

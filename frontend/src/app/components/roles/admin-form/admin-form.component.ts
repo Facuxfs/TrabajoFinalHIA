@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Admin } from 'src/app/models/admin';
 import { AdminService } from 'src/app/services/admin.service';
 
@@ -15,7 +16,7 @@ export class AdminFormComponent implements OnInit {
   token!: any;
 administrador!:Admin;
 
-  constructor(private activateRoute: ActivatedRoute,private router:Router ,private adminService:AdminService) { 
+  constructor(private activateRoute: ActivatedRoute,private router:Router ,private adminService:AdminService, private toastr:ToastrService) { 
     this.administrador = new Admin();
   }
 
@@ -43,7 +44,7 @@ administrador!:Admin;
     this.adminService.putAdministrador(this.administrador).subscribe(
       (result: any) => {
         if (result.status == 1){
-          alert(result.msg);
+          this.toastr.success('Administrador modificado');
           this.router.navigate(["admin"])
         }
   },
