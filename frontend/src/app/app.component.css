@@ -1,6 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Overpass&family=Righteous&family=Sarabun:wght@500&family=Ysabeau+SC&display=swap');
+
+/**
+  FUENTE
+*/
+* {
+  font-family: 'Asap Condensed', sans-serif;
+}
+
+/**
+  BODY
+*/
 body {
   padding: 0;
-  margin: 0;  
+  margin: 0;
 }
 
 /**

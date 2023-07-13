@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, OnInit, Renderer2 } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, NgForm, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Gestor } from 'src/app/models/gestor';
@@ -10,53 +10,81 @@ import { GestorService } from 'src/app/services/gestor.service';
   templateUrl: './gestor-form.component.html',
   styleUrls: ['./gestor-form.component.css']
 })
+
 export class GestorFormComponent implements OnInit {
 
   gestor!: Gestor;
-  accion:string="";
   tipo!:any;
-  constructor(private gestorService: GestorService,private activatedRoute: ActivatedRoute, private router: Router,private toast:ToastrService, private route: ActivatedRoute) {
+  accion: string = "";
+  showPassword: boolean = false;
+  form!: FormGroup;
+  opcion: any;
+  id: any;
+
+  constructor(private gestorService: GestorService, private router: Router,private toast:ToastrService, private route: ActivatedRoute, private renderer: Renderer2, private formBuilder: FormBuilder) {
+
     this.gestor = new Gestor();
 
+    this.buildForm();
   }
 
   ngOnInit(): void {
-    this.tipo=sessionStorage.getItem('tipo');
-    this.activatedRoute.params.subscribe(params=>{
-      if (params['id']=="0"){
-        this.accion = "new";
-      }else{
-        this.accion="update";
-        this.cargarGestor(params['id']);
+    this.route.params.subscribe(
+      params => {
+        this.opcion = params['id'];
+
       }
-    })
+    );
+
+    if (this.opcion == 1) {
+      this.accion = "update";
+
+      this.id = sessionStorage.getItem('userId');
+
+      this.cargarGestor();      
+    }
+    else {
+      this.accion = "new";
+    }
   }
 
-  cargarGestor(idGestor:string){
-    this.gestorService.getGestor(idGestor).subscribe(
-      result=>{
-        console.log(result)
-        Object.assign(this.gestor,result);
+  /**
+   * Carga los datos de un Gestor
+   * @param idGestor 
+   */
+  cargarGestor() {
+    this.gestorService.getGestor(this.id).subscribe(
+      result => {
+        Object.assign(this.gestor, result);
       },
-      error=>{
+      error => {
+        console.log(error)
       }
     );
   }
 
-  modificarGestor(){
+  /**
+   * Modifica los datos de un Gestor
+   */
+  modificarGestor() {
     this.gestorService.putGestor(this.gestor).subscribe(
       (result: any) => {
+
         if (result.status == 1){
+          this.router.navigate(["gestor/gestor-datos"])
           this.toast.success('Gestor modificado');
           if(this.tipo=="admin"){
             this.router.navigate(["admin"])
           }else{
             this.router.navigate(["gestor/gestor-datos"]);
           }
+        if (result.status == 1) {
+         
         }
-  },
+      },
       error => {
         this.toast.error('Error al modificar gestor');
+        console.log(error);
       }
     )
   }
@@ -65,11 +93,9 @@ export class GestorFormComponent implements OnInit {
    * Guarda un Gestor en la BDD
    * @param gestorForm
    */
-  guardarGestor(gestorForm: NgForm): void {
-    this.gestor.calcularEdad();
-
-    this.gestorService.postGestor(this.gestor)
-      .subscribe(
+  guardarGestor(): void {
+    if (this.opcion == 0) {
+      this.gestorService.postGestor(this.gestor).subscribe(
         (res: any) => {
           console.log(res);
           this.toast.success('Gestor' + this.gestor.nombre + this.gestor.apellido +  'registrado correctamente' );
@@ -80,9 +106,85 @@ export class GestorFormComponent implements OnInit {
           this.toast.error('No se pudo completar el regristro');
         }
       )
+    } else {
+      this.gestorService.putGestor(this.gestor).subscribe(
+        (res: any) => {
+          if (res.status == 1) {
+            console.log(this.gestor);
+
+            this.router.navigate(["gestor/gestor-datos"])
+          }
+        },
+        err => {
+          console.log(err)
+        }
+      )
+    }
   }
 
-  volverAlInicio(): void {
-    this.router.navigate(['./home']);
+  /**
+   * Ocultar o visualizar la password
+   */
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+
+    const passwordInput = document.getElementById('idPassword');
+
+    if (this.showPassword) {
+      this.renderer.setAttribute(passwordInput, 'type', 'text');
+    } else {
+      this.renderer.setAttribute(passwordInput, 'type', 'password');
+    }
+  }
+
+  /**
+   * Valida el formulario
+   */
+  private buildForm(): void {
+    this.form = this.formBuilder.group({
+      nombre: ['', [Validators.required]],
+      apellido: ['', [Validators.required]],
+      username: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email, Validators.pattern(/^[a-zA-Z0-9._%+-]+@(?:gmail|hotmail)\.[a-zA-Z]{2,}$/)]],
+      dni: ['', [Validators.required, this.dniLengthValidator()]],
+      fechaNacimiento: ['', [Validators.required]],
+    });
+  }
+
+  /**
+   * Validar longitud del DNI
+   * @returns 
+   */
+  dniLengthValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const value = control.value;
+
+      const length = value ? value.toString().length : 0;
+
+      if (length !== 8) {
+        return { dniLength: true };
+      }
+
+      return null;
+    };
+  }
+
+  /**
+   * Carga los datos del formulario en un nuevo Gestor
+   * @param event 
+   */
+  async save(event: Event) {
+    event.preventDefault();
+
+    if (this.form.valid) {
+      await Object.assign(this.gestor, this.form.value);
+
+      this.gestor.calcularEdad();
+
+      await this.guardarGestor();
+    } else {
+      this.form.markAllAsTouched();
+    }
   }
 }

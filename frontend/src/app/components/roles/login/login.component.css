@@ -1,57 +1,124 @@
-.fondo-login {
-  background-image: url("/assets/fondo-login/viajes.jpg");
+/**
+    DIMENCIONES FORMULARIO
+*/
+@media only screen and (min-width: 576px) {
+  .formulario-gestor {
+      width: 500px;
 
-  background-position: center;
-  background-size: cover;
-  min-height: 100vh;
-  margin-top: -24px;
+      margin: 0 auto;
+  }
 }
 
-.container {
-  padding-top: 50px;
+/**
+  FORMULARIO
+*/
+.formulario-gestor {
+  padding: 0;
 }
 
-.login-form {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-  background: #ffffffd6;
-  border-radius: 5px;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+.opacidad {
+  background-color: white;
   animation: fadeInDown 1s;
-
 }
 
-.form-group {
-  margin-bottom: 20px;
+.bg-orange {
+  background-color: #FFA500;
 }
 
-.form-control {
-  height: 40px;
-  border-radius: 3px;
+/**
+  FONDO FORMULARIO
+*/
+.background-container {
+  position: relative;
+  overflow: hidden;
 }
 
-.btn {
-  color: #fff;
-  background-color: #007bff;
-  border-color: #007bff;
-  padding: 10px 16px;
-  font-size: 16px;
-  border-radius: 3px;
-  transition: background-color 0.3s ease;
+.background-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
 }
 
-.btn:hover {
-  background-color: #0056b3;
-  border-color: #0056b3;
+/**
+  CAPA DE FONDO
+*/
+.overlay {
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: -1;
 }
 
-.error {
-  font-weight: bold;
-  color: red;
-  font-style: italic;
+/**
+  BOTONES LOGIN  
+*/
+.corner-button {
+  text-align: end;
+  margin: 20px 0 20px 0;
+  z-index: 1;
 }
 
+@media only screen and (min-width: 576px) {
+  .corner-button {
+      text-align: end;
+      top: 0;
+      right: 0;
+      margin: 20px;
+      z-index: 1;
+  }
+}
+
+/**
+  PASSWORD
+*/
+.password-input-container {
+  position: relative;
+}
+
+input#idPassword {
+  padding-right: 60px;
+}
+
+.password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.password-toggle.has-validation {
+  margin-right: 30px;
+}
+
+.password-toggle i {
+  color: #333;
+}
+
+/**
+  TEXTO INFORMATIVO
+*/
+.texto-informativo {
+  color: white;
+  font-size: 12px;
+  margin-top: 40px;
+}
+
+.texto-informativo span {
+  color: #FFA500;
+}
+
+/**
+  ANIMACION FORMULARIO
+*/
 @keyframes fadeInDown {
   0% {
     opacity: 0;
@@ -63,11 +130,10 @@
     transform: translate3d(0, 0, 0);
   }
 }
-.boton{
-  border: 2px solid;
-  width: 40%;
-  border-radius: 15px;
-  background: #d58d01c4;
-  margin-left: 0%;
-  text-align: center;
+
+/**
+  LOGO
+*/
+.logo-login {
+  width: 200px;
 }

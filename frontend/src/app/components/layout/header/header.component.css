@@ -3,16 +3,24 @@ a {
   text-decoration: none;
 }
 
+/**
+  NAVBAR
+*/
 .navbar {
-  background: linear-gradient(to left, #ffa500, #664d03);
+  background: linear-gradient(to bottom, #FF8C00, rgba(255, 140, 0, 0));
   padding: 0;
   position: sticky;
   top:0;
   z-index: 100;
+  transition: background-color 0.3s ease;
+}
+
+.navbar:hover {
+  background-color: #FF8C00;
 }
 
 .navbar-nav .nav-link:hover {
-  background-color: #FF8C00;
+  background-color: #ffa500;
   color: white;
 }
 

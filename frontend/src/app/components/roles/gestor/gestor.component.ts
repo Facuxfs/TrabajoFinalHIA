@@ -30,9 +30,8 @@ export class GestorComponent implements OnInit {
   verResenia:boolean=false; 
   verReserva:boolean=false;
   reservas:Array<Reserva>;
-  constructor(private appCom: AppComponent, private servicioService: ServiciosService, private gestorService: GestorService,
-    private usuarioService:UsuarioService,private reseniaService:ReseniaService,
-    private reservaService:ReservaService, private router: Router, private toastr:ToastrService) {
+  
+  constructor(private appCom: AppComponent , private toastr:ToastrService, private servicioService: ServiciosService, private gestorService: GestorService,private usuarioService:UsuarioService,private reseniaService:ReseniaService,private reservaService:ReservaService, private router: Router) {
     this.appCom.logeado = true;
     this.servicios = new Array<Servicio>();
     this.usuarios=new Array<Usuario>();
