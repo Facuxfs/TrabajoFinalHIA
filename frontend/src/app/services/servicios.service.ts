@@ -90,7 +90,7 @@ export class ServiciosService {
      params:new HttpParams()
    }
    let body= JSON.stringify(servicio);
-   return this._http.post(this.urlBase+"servicio/",body, httpOptions);
+   return this._http.put(this.urlBase+"servicio/"+servicio._id,body, httpOptions);
   }
 
   deleteServicio(id:string):Observable<any>{

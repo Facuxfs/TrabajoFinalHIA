@@ -182,7 +182,7 @@ export class UsuarioComponent implements OnInit {
 
       )
     } else {
-      alert("No Puede Eliminar Esta Reserva");
+      alert("No Puede Eliminar Esta Reserva: Llame al 3884593454");
     }
   }
 

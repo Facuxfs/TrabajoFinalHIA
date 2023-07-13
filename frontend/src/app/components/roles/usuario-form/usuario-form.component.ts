@@ -40,9 +40,11 @@ export class UsuarioFormComponent implements OnInit {
     if (this.opcion == 1) {
       this.accion = "update";
       this.id = sessionStorage.getItem('userId');
+      
       this.userService.getusuario(this.id).subscribe(
         (res: any) => {
-          Object.assign(this.usuario, res);
+          Object.assign(this.usuario, res); 
+          this.actualizarUsuario(this.usuario);         
         },
         err => {
           console.log(err);
@@ -52,6 +54,25 @@ export class UsuarioFormComponent implements OnInit {
     else {
       this.accion = "new";
     }
+  }
+
+  actualizarUsuario(usuario:Usuario){
+      this.form.get("nombre")?.setValue(usuario.nombre)
+      this.form.get("nombre")?.markAsTouched
+      this.form.get("apellido")?.setValue(usuario.apellido)
+      this.form.get("apellido")?.markAsTouched
+      this.form.get("username")?.setValue(usuario.username)
+      this.form.get("username")?.markAsTouched
+      this.form.get("password")?.setValue(usuario.password)
+      this.form.get("password")?.markAsTouched
+      this.form.get("email")?.setValue(usuario.email)
+      this.form.get("email")?.markAsTouched
+      this.form.get("dni")?.setValue(usuario.dni)
+      this.form.get("dni")?.markAsTouched
+      this.form.get("fechaNacimiento")?.setValue(usuario.fechaNacimiento)
+      this.form.get("fechaNacimiento")?.markAsTouched
+      this.form.updateValueAndValidity()  
+      console.log(this.form.valid)
   }
 
   private buildForm() {
@@ -103,8 +124,8 @@ export class UsuarioFormComponent implements OnInit {
       this.userService.actualizarUsuario(this.usuario)
         .subscribe(
           (res: any) => {
-
             console.log(res);
+            this.router.navigate(['usuario/datos'])
           },
           err => {
             console.log(err)

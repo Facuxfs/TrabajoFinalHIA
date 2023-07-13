@@ -5,7 +5,7 @@
         <br>
         <form #servicioForm="ngForm" class="opacidad">
             <fieldset class="form-group border rounded p-3">
-                <legend class="w-auto fw-bold">SERVICIO</legend>
+                <legend class="w-auto fw-bold">{{title}}</legend>
 
 
                     <p>Campos obligatorios (<span class="text-danger fw-bold">*</span>)</p>
@@ -34,10 +34,10 @@
                         <label for="idCategoria" class="form-label">Categoria</label>
 
                         <select class="form-select bg-light" name="categoria" id="idCategoria"
-                            [(ngModel)]="servicio.categoria" required>
-                            <option value="hotel" selected>Hotel</option>
-
-                            <option value="restaurante">Restaurante</option>
+                            [(ngModel)]="servicio.categoria" (change)="opcionCategoria($event)" required>
+                            <option [value]="''" [selected]="servicio.categoria == '' " hidden>Seleccione Opcion</option>
+                            <option [value]="'hotel'">Hotel</option>
+                            <option [value]="'restaurante'">Restaurante</option>
                         </select>
                     </div>
 

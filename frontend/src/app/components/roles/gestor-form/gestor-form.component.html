@@ -44,7 +44,7 @@
                             <small>Ingrese nombre</small>
                         </p>
 
-                        <p *ngIf="form.get('nombre')?.valid && form.get('nombre')?.touched" class="valid-feedback">
+                        <p *ngIf="gestor?.nombre && form.get('nombre')?.valid && form.get('nombre')?.touched" class="valid-feedback">
                             <small>Correcto</small>
                         </p>
                     </div>
@@ -121,7 +121,7 @@
                         <input type="date" class="form-control bg-light" id="idFechaNacimientoGestor"
                             name="fechaNacimientoGestor" formControlName="fechaNacimiento" [ngClass]="{ 'is-invalid': form.get('fechaNacimiento')?.errors && form.get('fechaNacimiento')?.touched,
                              'is-valid': form.get('fechaNacimiento')?.valid && form.get('fechaNacimiento')?.touched}"
-                            [value]="gestor.fechaNacimiento">
+                            [value]="gestor.fechaNacimiento" max="2003-12-12">
 
                         <p *ngIf="form.get('fechaNacimiento')?.errors && form.get('fechaNacimiento')?.touched"
                             class="invalid-feedback">

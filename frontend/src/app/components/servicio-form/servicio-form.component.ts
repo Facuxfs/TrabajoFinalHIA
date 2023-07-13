@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Gestor } from 'src/app/models/gestor';
@@ -38,33 +39,74 @@ export class ServicioFormComponent implements OnInit {
   localidades!: Array<Provincia>;
   id: any;
   idGestor: string = "";
-
-  constructor(private route: ActivatedRoute, private ciudadService: CiudadesService, 
+  modificar!:any;
+  form!:FormGroup;
+  title!:string;
+ 
+constructor(private route: ActivatedRoute, private ciudadService: CiudadesService, 
     private servicioService: ServiciosService, private router: Router,
-    private gestorService: GestorService, private toastr:ToastrService) {
+    private gestorService: GestorService,private formBuilder:FormBuilder, private toastr:ToastrService) {
+  this.title="Agregar Servicio"
     this.servicio = new Servicio();
+    this.servicio.categoria="";
     this.servicio.calificacionTotal = 0;
     this.servicio.resenia = new Array<Resenia>();
     this.servicio.reservas = new Array<Reserva>();
     //this.obtenerGestor(this.id);
     this.localidad = new Provincia();
     this.localidades = new Array<Provincia>();
-
-   
+    this.buildForm();   
   }
 
   ngOnInit() {
     this.id = sessionStorage.getItem("userId");
 
     this.servicio.gestor = this.id as string;
-    // this.route.params.subscribe(params => {
-    //   this.id = params['id'];
-    //   this.idGestor = params['idGestor'];
-    //   this.servicio.gestor = params['id'];
-    // });
+     this.route.params.subscribe(params => {
+       this.modificar = params['id'];
+     });
+     if(this.modificar !=="" && this.modificar!=='0'){
+        this.title="Modificar Servicio"
+        this.cargarServicio(this.modificar);
+     }
   }
 
-  guardarServicio(servicio: Servicio) {
+  private buildForm(){
+    this.form = this.formBuilder.group({
+      nombre:['',Validators.required],
+      categoria:['',Validators.required],
+      ubicacion:['',Validators.required],
+    })
+  }
+
+  save(event:Event){
+    event.preventDefault();
+    if(this.form.valid){
+      Object.assign(this.servicio,this.form.value);
+   
+    }else{
+      this.form.markAllAsTouched();
+    }
+  }
+
+  opcionCategoria(event:Event){
+    this.servicio.categoria = (event.target as HTMLSelectElement).value;
+    console.log(this.servicio.categoria);
+  }
+
+  guardarServicio(servicio:Servicio) {
+    if(this.modificar !=="" && this.modificar!=='0'){
+       this.servicioService.modificarServicio(servicio)
+       .subscribe(
+          (res:any)=>{
+            alert(res.msg)
+            this.router.navigate(['gestor'])
+          },
+          err=>{
+            console.log(err)
+          }
+       )
+   }else{
     this.servicioService.crearServicio(this.servicio).subscribe(
       (result: any) => {
         if (result.status == 1) {
@@ -76,6 +118,7 @@ export class ServicioFormComponent implements OnInit {
         alert(error.msg);
       }
     )
+    }
   }
 
   // obtenerGestor(id: string): void {
@@ -117,7 +160,18 @@ export class ServicioFormComponent implements OnInit {
       error => { this.toastr.error('el api no responde'); }
     );
   }
-
+ 
+  cargarServicio(id:string){
+     this.servicioService.getServicio(id)
+     .subscribe(
+      (res:any)=>{
+        Object.assign(this.servicio,res)
+      },
+      err=>{
+        console.log(err)
+      }
+     )
+  }
 
 }
 
