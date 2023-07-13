@@ -20,6 +20,11 @@ servicioCtrl.getServicios = async (req, res) => {
     if (req.query.gestor != null && req.query.gestor != "") {
         criteria.gestor=req.query.gestor;
     }
+
+     //filtro por nombre
+     if (req.query.nombre != null && req.query.nombre != "") {
+        criteria.nombre=req.query.nombre;
+    }
     var servicios = await Servicio.find(criteria);
     res.json(servicios);
   };

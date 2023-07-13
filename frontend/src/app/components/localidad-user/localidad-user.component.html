@@ -3,8 +3,7 @@
   <h1>{{nombre}}</h1>
   <div *ngIf="servicios.length > 0">
 
-    <div class="card" style="width: 100%;">
-      <img src="..." class="card-img-top" alt="...">
+    <div class="card">
       <div class="card-body">
         <h5 class="card-title">{{servicio.nombre}}</h5>
         <p class="card-text">Colocar algo sobre el servicio</p>
@@ -18,10 +17,10 @@
         </div>
         <div class="container justify-content-start align-content-start text-start">
           <button type="button" class="btn btn-success mt-2 mb-3 fw-bold"
-            (click)="obtenerReseniaServ(servicio)">Resenias <i class="bi bi-clipboard2-plus"></i></button>
+            (click)="obtenerReseniaServ(servicio)">Reseñas <i class="bi bi-clipboard2-plus"></i></button>
         </div>
         <div class="container justify-content-start align-content-start text-start">
-          <button type="button" class="btn btn-success mt-2 mb-3 fw-bold" (click)="cargar(servicio)">comentar<i
+          <button type="button" class="btn btn-success mt-2 mb-3 fw-bold" (click)="cargar(servicio)">Comentar<i
               class="bi bi-chat-text"></i></button>
         </div>
       </div>
@@ -34,7 +33,6 @@
 
   </div>
   <div *ngIf="servicios.length === 0">
-    <p>No hay servicios disponibles aun!.</p>
+    <p>No hay servicios disponibles aún.</p>
   </div>
-
 </div>

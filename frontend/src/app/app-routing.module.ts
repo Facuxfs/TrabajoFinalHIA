@@ -25,29 +25,26 @@ import { AdminFormComponent } from './components/roles/admin-form/admin-form.com
 import { GestorEstadisticaComponent } from './components/roles/gestor-estadistica/gestor-estadistica.component';
 
 const routes: Routes = [
-  { path: 'header', component: HeaderComponent },
-  { path: 'footer', component: FooterComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'usuario', component: UsuarioComponent },
+   //viajeros
+  { path: 'usuario', component: UsuarioComponent},
   { path: 'usuario/datos', component: UsuarioDatosComponent },
   { path: 'usuario/resenia', component: ReseniaUsuarioComponent },
   { path: 'usuario-form/:id', component: UsuarioFormComponent },
-
   { path: "gestor", component: GestorComponent },
   { path: 'gestor/gestor-datos', component: GestorDatosComponent },
   { path: 'gestor/servicio', component: ServicioFormComponent },
   { path: "gestor-form/:id", component: GestorFormComponent },
   { path: 'gestor/estadistica', component: GestorEstadisticaComponent },
-
+   //admin
   { path: "admin", component: AdminComponent },
   { path: "admin-form/:id", component: AdminFormComponent },
-
+  
   { path: 'home', component: HomeComponent },
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: 'ciudad', component: CiudadesComponent },
 
   { path: 'resenia', component: ReseniaComponent },
-  { path: 'reseniaUs', component: ReseniaUsuarioComponent },
   { path: 'reseniaSer/:servicio', component: ReseniaServicioComponent },
   { path: 'reseniaForm/:id/:servicio', component: ReseniaFormComponent },
   { path: 'reseniaForm/:id', component: ReseniaFormComponent },
@@ -57,7 +54,7 @@ const routes: Routes = [
 
   { path: 'servicio', component: ServicioComponent },
   { path: 'servicio-form', component: ServicioFormComponent },
-  { path: 'reserva', component: ReservaComponent },
+  { path: 'reserva', component: ReservaComponent },//no funcional
   { path: 'reservaForm/:id/:idServicio', component: ReservaFormComponent }
 ];
 

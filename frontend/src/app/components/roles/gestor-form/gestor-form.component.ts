@@ -13,6 +13,7 @@ import { GestorService } from 'src/app/services/gestor.service';
 export class GestorFormComponent implements OnInit {
 
   gestor!: Gestor;
+
   accion: string = "";
   showPassword: boolean = false;
   form!: FormGroup;
@@ -30,6 +31,7 @@ export class GestorFormComponent implements OnInit {
     this.route.params.subscribe(
       params => {
         this.opcion = params['id'];
+
       }
     );
 
@@ -66,8 +68,10 @@ export class GestorFormComponent implements OnInit {
   modificarGestor() {
     this.gestorService.putGestor(this.gestor).subscribe(
       (result: any) => {
+
         if (result.status == 1) {
           this.router.navigate(["gestor/gestor-datos"])
+
         }
       },
       error => {
@@ -78,7 +82,7 @@ export class GestorFormComponent implements OnInit {
 
   /**
    * Guarda un Gestor en la BDD
-   * @param gestorForm 
+   * @param gestorForm
    */
   guardarGestor(): void {
     if (this.opcion == 0) {

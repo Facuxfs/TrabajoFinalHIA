@@ -24,7 +24,7 @@ export class ServiciosService {
     }
     return this._http.get("http://localhost:3000/api/servicio/ubicacion?ubicacion="+ubicacion,httpOptions);
   }
-  
+
   getServicioGestor(gestor:string,categoria:string){
     const httpOptions = {
       headers: new HttpHeaders({
@@ -133,6 +133,17 @@ export class ServiciosService {
 
         }
       ),params: new HttpParams().append("ubicacion",ubicacion)
+    }
+    return this._http.get(this.urlBase+"servicio/",httpOptions);
+  }
+
+  getServicioPorNombre(nombre:string) : Observable<any>{
+    const httpOptions={
+      headers:new HttpHeaders(
+        {
+
+        }
+      ),params: new HttpParams().append("nombre",nombre)
     }
     return this._http.get(this.urlBase+"servicio/",httpOptions);
   }

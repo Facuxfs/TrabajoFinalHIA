@@ -23,6 +23,8 @@ export class ReseniaFormComponent implements OnInit {
   resenia!: Resenia;
   resenias!: Array<Resenia>;
 
+  tipo!:any;
+
   id!: any;
   idservicio!: any;
   usuario!: Usuario;
@@ -40,11 +42,12 @@ export class ReseniaFormComponent implements OnInit {
     this.resenia = new Resenia();
     this.usuario = new Usuario();
     this.id = sessionStorage.getItem('userId');
-    // this.cargarUsuario(); 
+    // this.cargarUsuario();
     this.fecha = new Date();
   }
 
   ngOnInit(): void {
+    this.tipo=sessionStorage.getItem('tipo');
     this.activatedRoute.params.subscribe(params => {
       if (params['id'] == "0") {
         this.ids = params['servicio'];
@@ -117,10 +120,12 @@ export class ReseniaFormComponent implements OnInit {
       (result: any) => {
         // La reseña se ha editado correctamente
         if (result.status == 1) {
-          //console.log(result);  
+          //console.log(result);
           console.log("Se ha actualizado un producto");
-
-          this.router.navigate(['reseniaUs']);
+          if(this.tipo == "admin") {
+            this.router.navigate(['admin']);
+          }else
+            this.router.navigate(['reseniaUs']);
         }
       },
       (error) => {
