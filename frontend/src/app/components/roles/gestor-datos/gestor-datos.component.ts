@@ -46,7 +46,11 @@ export class GestorDatosComponent implements OnInit {
     )
   }
 
-  modificarGestor(idGestor:string){
-    this.router.navigate(['gestor-form',idGestor]);
+  /**
+   * Carga el formulario de edicion de datos de Gestor
+   * @param idGestor 
+   */
+  modificarGestor(){
+    this.router.navigate(['gestor-form', 1]);
   }
 }

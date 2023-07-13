@@ -18,6 +18,11 @@
 
 .opacidad {
     background-color: white;
+    animation: fadeInDown 1s;
+}
+
+.bg-orange {
+    background-color: #FFA500;
 }
 
 /**
@@ -39,7 +44,7 @@
 }
 
 /**
-  CAPA DE FONDO
+    CAPA DE FONDO
 */
 .overlay {
     position: fixed;
@@ -53,7 +58,7 @@
 }
 
 /**
-  BOTONES LOGIN  
+    BOTONES LOGIN  
 */
 .corner-button {
     text-align: end;
@@ -68,5 +73,60 @@
         right: 0;
         margin: 20px;
         z-index: 1;
+    }
+}
+
+/**
+    PASSWORD
+*/
+.password-input-container {
+    position: relative;
+}
+
+input#idPassword {
+    padding-right: 60px;
+}
+
+.password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.password-toggle.has-validation {
+    margin-right: 30px;
+}
+
+.password-toggle i {
+    color: #333;
+}
+
+/**
+    TEXTO INFORMATIVO
+*/
+.texto-informativo {
+    color: white;
+    font-size: 12px;
+    margin-top: 40px;
+}
+
+.texto-informativo span {
+    color: #FFA500;
+}
+
+/**
+  ANIMACION FORMULARIO
+*/
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, -20px, 0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
     }
 }

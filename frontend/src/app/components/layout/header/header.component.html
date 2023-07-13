@@ -1,14 +1,18 @@
-<nav class="navbar navbar-dark bg-dark navbar-expand-md" *ngIf="loginService.usuarioLoggedIn()">
+<!-- Barra de Navegacion -->
+<nav class="navbar navbar-expand-md" *ngIf="loginService.usuarioLoggedIn()">
     <div class="container-fluid">
         <img src="/assets/logo-turismoapp2.png" class="img-fluid" alt="Sample image" style="width: 50px;">
+
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <i class="bi bi-card-list" style="font-size: 30px;"></i>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
+
+        <div class="collapse navbar-collapse text-white" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item" routerLinkActive="active">
-                    <a class="nav-link"  *ngIf="tipo !== 'admin'  && tipo !== 'gest'" aria-current="page" [routerLink]="['servicio']">SERVICIOS</a>
+                    <a class="nav-link" *ngIf="tipo !== 'admin'  && tipo !== 'gest'" aria-current="page"
+                        [routerLink]="['servicio']">Servicios</a>
                 </li>
 
                 <!-- <li class="nav-item" routerLinkActive="active">
@@ -17,36 +21,35 @@
 
                 <li class="nav-item dropdown" routerLinkActive="active">
                     <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        MI PERFIL
+                        <i class="bi bi-person-circle"></i> Mi Perfil
                     </a>
+
                     <ul *ngIf="tipo =='user'" class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" [routerLink]="['usuario/datos']">MIS DATOS</a></li>
-                        <li><a class="dropdown-item" [routerLink]="['usuario']">MIS RESERVAS</a></li>
-                        <li><a class="dropdown-item" [routerLink]="['usuario/resenia']">MIS RESENIAS</a></li>
-                        <li class="dropdown-divider"></li>                                             
-                        <li><a class="dropdown-item" [routerLink]="['home']" routerLinkActive="active" (click)="logout()">CERRAR SESION</a></li>
+                        <li><a class="dropdown-item" [routerLink]="['usuario/datos']">Mis Datos</a></li>
+                        <li><a class="dropdown-item" [routerLink]="['usuario']">Mis Reservas</a></li>
+                        <li><a class="dropdown-item" [routerLink]="['usuario/resenia']">Mis Resenias</a></li>
+                        <li class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" [routerLink]="['home']" routerLinkActive="active"
+                                (click)="logout()">Cerrar Sesion</a></li>
                     </ul>
-                    <ul *ngIf="tipo == 'gest'" class="dropdown-menu dropdown-menu-end">                              
-                            <li><a class="dropdown-item" [routerLink]="['gestor/gestor-datos']">MIS DATOS</a></li>
-                            <li><a class="dropdown-item" [routerLink]="['gestor']">MIS SERVICIOS</a></li>    
-                            <li><a class="dropdown-item" [routerLink]="['gestor/estadistica']">MIS ESTADISTICAS</a></li>    
-                            <li><a class="dropdown-item" [routerLink]="['gestor/servicio']">AGREGAR SERVICIO</a></li>    
-                            <li class="dropdown-divider"></li>                      
-                        <li><a class="dropdown-item" [routerLink]="['home']" routerLinkActive="active" (click)="logout()">CERRAR SESION</a></li>                                                
-                   </ul>
-                   <ul *ngIf="tipo == 'admin'" class="dropdown-menu dropdown-menu-end">                              
-                    <li><a class="dropdown-item" [routerLink]="['admin-form/{{id}}']">MIS DATOS</a></li>    
-                    <li class="dropdown-divider"></li>                      
-                <li><a class="dropdown-item" [routerLink]="['home']" routerLinkActive="active" (click)="logout()">CERRAR SESION</a></li>                                                
-           </ul>
+
+                    <ul *ngIf="tipo == 'gest'" class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" [routerLink]="['gestor/gestor-datos']">Mis Datos</a></li>
+                        <li><a class="dropdown-item" [routerLink]="['gestor']">Mis Servicios</a></li>
+                        <li><a class="dropdown-item" [routerLink]="['gestor/estadistica']">Mis Estadisticas</a></li>
+                        <li><a class="dropdown-item" [routerLink]="['gestor/servicio']">Agregar Servicio</a></li>
+                        <li class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" [routerLink]="['home']" routerLinkActive="active"
+                                (click)="logout()">Cerrar Sesion</a></li>
+                    </ul>
+
+                    <ul *ngIf="tipo == 'admin'" class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" [routerLink]="['admin-form/{{id}}']">Mis Datos</a></li>
+                        <li class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" [routerLink]="['home']" routerLinkActive="active"
+                                (click)="logout()">Cerrar Sesion</a></li>
+                    </ul>
             </ul>
         </div>
     </div>
 </nav>
-<!--<ul class="dropdown-menu dropdown-menu-end" style="background: unset;margin-right: 70%;">
-                        <li><a class="dropdown-item" [routerLink]="['admin-form/{{id}}']">MIS DATOS</a></li>
-<li class="nav-item" routerLinkActive="active">
-                        <a class="nav-link" aria-current="page" [routerLink]="['home']" routerLinkActive="active"
-                            (click)="logout()">CERRAR SESION</a>
-                    </li>
-                    -->

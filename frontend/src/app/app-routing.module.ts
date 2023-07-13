@@ -32,8 +32,8 @@ const routes: Routes = [
   { path: 'usuario/datos', component: UsuarioDatosComponent },
   { path: 'usuario/resenia', component: ReseniaUsuarioComponent },
   { path: 'usuario-form/:id', component: UsuarioFormComponent },
-  { path: "gestor", component: GestorComponent },
 
+  { path: "gestor", component: GestorComponent },
   { path: 'gestor/gestor-datos', component: GestorDatosComponent },
   { path: 'gestor/servicio', component: ServicioFormComponent },
   { path: "gestor-form/:id", component: GestorFormComponent },
