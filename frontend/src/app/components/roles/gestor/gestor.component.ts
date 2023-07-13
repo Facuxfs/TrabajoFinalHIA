@@ -254,6 +254,10 @@ export class GestorComponent implements OnInit {
     )
   }
 
+  actualizarServicio(id:string){
+     this.router.navigate(['gestor/servicio/'+id])
+  }
+
   eliminarServicio(id:string){
     console.log(id)
     this.servicioService.deleteServicio(id)
