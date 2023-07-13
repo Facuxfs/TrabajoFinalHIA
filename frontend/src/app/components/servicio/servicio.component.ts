@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AppComponent } from 'src/app/app.component';
 import { Provincia } from 'src/app/models/provincia';
 import { Reserva } from 'src/app/models/reserva';
@@ -43,7 +44,7 @@ export class ServicioComponent implements OnInit {
   ];
 
 
-  constructor(private appCom: AppComponent, private servicioU: UsuarioService, private _http: HttpClient, private reservaService: ReservaService, private ciudadService: CiudadesService, private router: Router, private servicioService: ServiciosService) {
+  constructor(private appCom: AppComponent,private toastr:ToastrService, private servicioU: UsuarioService, private _http: HttpClient, private reservaService: ReservaService, private ciudadService: CiudadesService, private router: Router, private servicioService: ServiciosService) {
     this.id = sessionStorage.getItem("userId");
     this.appCom.logeado = true;
     this.usuario = new Usuario();

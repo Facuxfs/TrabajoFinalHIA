@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AppComponent } from 'src/app/app.component';
 import { Resenia } from 'src/app/models/resenia';
 import { Servicio } from 'src/app/models/servicio';
@@ -32,6 +33,7 @@ export class ReseniaFormComponent implements OnInit {
   servicios!: Array<Servicio>;
   constructor(private appCom: AppComponent,
     private router: Router,
+    private toastr:ToastrService,
     private activatedRoute: ActivatedRoute,
     private reseniaService: ReseniaService,
     private usuarioService: UsuarioService,
@@ -64,9 +66,7 @@ export class ReseniaFormComponent implements OnInit {
     console.log(this.ids);
     this.resenia.fechaAlta = this.fechaHoy();
     this.resenia.usuario = this.id;
-
     this.idservicio = this.ids;//"649718107225d20a45afe1b3";
-
     this.resenia.servicio = this.idservicio;
     this.reseniaService.postResenia(this.resenia).subscribe(
       (result) => {
@@ -76,7 +76,7 @@ export class ReseniaFormComponent implements OnInit {
         }
       },
       (error) => {
-        alert(error.msg);
+        this.toastr.error('servidor backend no responde');
       }
     )
     this.router.navigate(['reseniaSer', this.idservicio]);
@@ -88,7 +88,7 @@ export class ReseniaFormComponent implements OnInit {
   onFileSelected(event: any) {
     const files = event.target.files[0];
     if (files.size > 80000) {//limite de tamaño de imagen
-      alert('El tamaño  de imagen maximo es 80 KB');
+      this.toastr.error('El tamaño  de imagen maximo es 80 KB');
       event.target.value = null;
     } else {
       const reader = new FileReader();
@@ -121,7 +121,7 @@ export class ReseniaFormComponent implements OnInit {
         // La reseña se ha editado correctamente
         if (result.status == 1) {
           //console.log(result);
-          console.log("Se ha actualizado un producto");
+          this.toastr.success('modificacion exitosa de la resenia' , this.resenia.usuario.nombre +' :');
           if(this.tipo == "admin") {
             this.router.navigate(['admin']);
           }else
@@ -129,7 +129,7 @@ export class ReseniaFormComponent implements OnInit {
         }
       },
       (error) => {
-        // Se produjo un error al editar la reseña
+        this.toastr.error('Se produjo un error al editar la reseña');
         // console.error(error);
         //alert(error.msg);
         // console.error('Error al modificar reseña:', error);

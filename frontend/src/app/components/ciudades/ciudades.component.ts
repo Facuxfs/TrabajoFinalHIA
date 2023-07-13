@@ -3,6 +3,7 @@ import { CiudadesService } from 'src/app/services/ciudades.service';
 import { HttpClient } from '@angular/common/http';
 import { Provincia } from 'src/app/models/provincia';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-ciudades',
@@ -34,7 +35,7 @@ export class CiudadesComponent implements OnInit {
   ];
 
 
-  constructor(private _http: HttpClient, private ciudadService: CiudadesService, private router: Router) {
+  constructor(private _http: HttpClient, private ciudadService: CiudadesService, private router: Router, private toastr:ToastrService) {
     this.provincia = new Provincia();
     this.localidades = new Array<Provincia>();
   }
@@ -56,7 +57,8 @@ export class CiudadesComponent implements OnInit {
         this.cargarClima(this.provincia);
         this.mostrarTarjeta();
       },
-      error => { alert("Error en la petición"); })
+      error => { this.toastr.error('el Api no responde'); })
+      
   }
 
   cargarLocalidades(id: string) {
@@ -70,10 +72,10 @@ export class CiudadesComponent implements OnInit {
             this.localidades.push(this.localidad);
           }
         } else {
-          console.error('La respuesta del servicio no tiene la estructura esperada.');
+          this.toastr.error('el Api no responde');
         }
       },
-      error => { alert("Error en la petición"); }
+      error => {  this.toastr.error('el Api no responde');}
     );
   }
   
@@ -91,7 +93,7 @@ export class CiudadesComponent implements OnInit {
         }
       },
       (error) => {
-        console.error(error);
+        this.toastr.error('el Api no responde');
       }
     );
   }
@@ -102,7 +104,7 @@ export class CiudadesComponent implements OnInit {
         console.log(result);
         this.provincia.clima = "temp max : " +result.ClimateDataMonth[7].tmax+ ", temp min : "+result.ClimateDataMonth[7].tmin;
       },
-      error => { alert("Error en la petición"); })
+      error => {  this.toastr.error('el Api no responde'); })
   }
 
 

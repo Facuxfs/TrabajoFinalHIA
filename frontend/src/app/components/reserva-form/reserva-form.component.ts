@@ -30,7 +30,7 @@ export class ReservaFormComponent implements OnInit {
 
   constructor(private reservaService: ReservaService, 
     private appcomponent: AppComponent,
-    private router: Router,
+    private router: Router, private toastrService:ToastrService,
     private activatedRoute: ActivatedRoute,
     private usuarioService: UsuarioService,
     private serviceServicio: ServiciosService) {
@@ -46,7 +46,14 @@ export class ReservaFormComponent implements OnInit {
   }
 
   calcularPrecioRestaurante(cantidad: number) {
-    this.precioCalculado = cantidad * 1500;
+    const precioComida:number = 3000;
+    this.precioCalculado = cantidad * precioComida;
+    this.reserva.precio = this.precioCalculado;
+  }
+
+  calcularPrecioHotel(cantidad: number) {
+    const PrecioHotel:number = 4000;
+    this.precioCalculado = cantidad * PrecioHotel ;
     this.reserva.precio = this.precioCalculado;
   }
 
@@ -113,7 +120,7 @@ export class ReservaFormComponent implements OnInit {
       res => {
         if (res.status == 1) {
           console.log("reserva guardada");
-          alert(res.msg);
+          this.toastrService.success('Reserva registrada');
           this.reserva = new Reserva();
           this.router.navigate(["usuario"]);
          
@@ -134,10 +141,23 @@ export class ReservaFormComponent implements OnInit {
     return `${year}-${this.padNumber(month)}-${this.padNumber(day)}`;
   }
 
+  //Validar Fechas EGRESO
+getTodayDateStringEgreso(fechaIngreso: string): string {
+  const ingreso = new Date(fechaIngreso);
+  const year = ingreso.getFullYear();
+  const month = ingreso.getMonth() + 1; // Los meses en JavaScript comienzan en 0
+  const day = ingreso.getDate() + 1; // Sumar un día a la fecha de ingreso
+
+  // Formatear la fecha en el formato YYYY-MM-DD
+  return `${year}-${this.padNumber(month)}-${this.padNumber(day)}`;
+}
+
+  
   private padNumber(number: number): string {
     return number < 10 ? `0${number}` : `${number}`;
   }
 
+  
 
   //Carga los datos de la reserva, para la modificacion
   cargarReserva(id:string){
@@ -155,9 +175,10 @@ export class ReservaFormComponent implements OnInit {
         console.log(result);
         alert("Reserva Modificada"); 
         this.router.navigate(["usuario"]);
+        this.toastrService.success('Reserva modificada!');
       },
       error => {
-        console.log(error.msg);
+        this.toastrService.error('Error al modificar la reserva');
       }
     )
   }
@@ -169,7 +190,7 @@ export class ReservaFormComponent implements OnInit {
   onFileSelected(event: any) {
     const files = event.target.files[0];
     if (files.size > 80000) {//limite de tamaño de imagen
-      alert('El tamaño  de imagen maximo es 80 KB');
+      this.toastrService.error('El tamaño  de imagen maximo es 80 KB');
       event.target.value = null;
     } else {
       const reader = new FileReader();

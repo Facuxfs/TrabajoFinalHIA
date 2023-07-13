@@ -14,6 +14,7 @@
               <label class="form-label">Cantidad(<span class="text-danger fw-bold">*</span>)</label>
               <input type="number" class="form-control" id="cantidad" name="cantidad" [(ngModel)]="reserva.cantidad"
                 (ngModelChange)="calcularPrecioRestaurante(reserva.cantidad)" #cantidad="ngModel" required />
+               
               <div *ngIf="cantidad.invalid && (cantidad.dirty || cantidad.touched)" class="alert alert-danger">
                 <div *ngIf="cantidad.errors?.['required']">Ingrese un valor.</div>
                 <div *ngIf="cantidad.errors?.['min']">La cantidad minima es 1.</div>
@@ -43,7 +44,7 @@
                   class="text-danger fw-bold">*</span>)</label>
 
               <input type="date" class="form-control bg-light" id="fechaAlta" name="fechaIngreso"
-                [(ngModel)]="reserva.fechaEgreso" required #fechaEgreso="ngModel" />
+                [(ngModel)]="reserva.fechaEgreso" required #fechaEgreso="ngModel" [min]="reserva.fechaIngreso"/>
 
               <div *ngIf="
                   fechaEgreso.invalid && (fechaEgreso.dirty || fechaEgreso.touched)
@@ -182,5 +183,3 @@
     </section>
   </div>
 </div>
-
-{{reserva | json}}
