@@ -81,6 +81,7 @@ export class GestorFormComponent implements OnInit {
         if (result.status == 1) {
          
         }
+      }
       },
       error => {
         this.toast.error('Error al modificar gestor');
