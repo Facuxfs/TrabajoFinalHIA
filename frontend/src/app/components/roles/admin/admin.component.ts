@@ -136,6 +136,10 @@ export class AdminComponent implements OnInit {
     location.reload();
   }
 
+  modificarGestor(gestor: Gestor) {
+    this.router.navigate(['gestor-form',gestor._id]);
+  }
+
   eliminarUsuario(id: string) {
     this.usuarioService.deleteUsuario(id)
       .subscribe(
@@ -149,6 +153,9 @@ export class AdminComponent implements OnInit {
     location.reload();
   }
 
+  modificarUsuario(usuario: Usuario) {
+    this.router.navigate(['usuario-form',usuario._id]);
+  }
 
   cargarReservas() {
     this.reservas = new Array<Reserva>();
@@ -240,6 +247,24 @@ export class AdminComponent implements OnInit {
 
   }
 
+  modificarResenia(IdResenia: string) {
+    this.router.navigate(['reseniaForm',IdResenia]);
+  }
+
+  eliminarResenia(idResenia: string) {
+    this.reseniaService.delateResenia(idResenia).subscribe(
+      res => {
+        if (res.status == 1) {
+          alert(res.msg);
+          //recargar la lista de reservas
+          this.cargarResenias();
+        }
+      }, error => {
+        alert(error.msg);
+      }
+    )
+  }
+
   cargarReseniasUsuario(idUsuario: string) {
     this.resenias= new Array<Resenia>();
     this.reseniaService.getReseniaPorUsuario(idUsuario).subscribe(
@@ -296,6 +321,20 @@ export class AdminComponent implements OnInit {
         )
       }, error => {
 
+      }
+    )
+  }
+
+  eliminarServicio(idServicio:string){
+    this.servicioService.deleteServicio(idServicio).subscribe(
+      res => {
+        if (res.status == 1) {
+          alert(res.msg);
+          //recargar la lista de reservas
+          this.cargarServicios();
+        }
+      }, error => {
+        alert(error.msg);
       }
     )
   }
