@@ -74,17 +74,23 @@ export class AdminComponent implements OnInit {
     this.cargarResenias();
   }
 
-  cargarReseniasUsuario(idUsuario: string) {
-    this.reseniaService.getReseniaUsuario(idUsuario).subscribe(
-      result => {
-        console.log(result + "estas resenias son")
-
-        this.reseniasUsuario.push()
-      },
-      error => {
-      }
-    )
+  recargarFunciones(){
+    if(this.tablaSeleccionada!=""){
+      this.cargarTodaslasFunciones();
+    }
   }
+
+  // cargarReseniasUsuario(idUsuario: string) {
+  //   this.reseniaService.getReseniaUsuario(idUsuario).subscribe(
+  //     result => {
+  //       console.log(result + "estas resenias son")
+
+  //       this.reseniasUsuario.push()
+  //     },
+  //     error => {
+  //     }
+  //   )
+  // }
 
 
 
@@ -92,7 +98,6 @@ export class AdminComponent implements OnInit {
   cargarGestores() {
     this.gestorServicio.getGestores().subscribe(
       (result) => {
-        console.log(result)
         this.gestores = new Array<Gestor>();
         for (let i = 0; i < result.length; i++) {
           let unGestor = new Gestor();
@@ -107,7 +112,6 @@ export class AdminComponent implements OnInit {
   cargarUsuarios() {
     this.usuarioService.getusuarios().subscribe(
       (result) => {
-        console.log(result)
         this.usuarios = new Array<Usuario>();
         for (let i = 0; i < result.length; i++) {
           let unUsuario = new Usuario();
@@ -132,6 +136,10 @@ export class AdminComponent implements OnInit {
     location.reload();
   }
 
+  modificarGestor(gestor: Gestor) {
+    this.router.navigate(['gestor-form',gestor._id]);
+  }
+
   eliminarUsuario(id: string) {
     this.usuarioService.deleteUsuario(id)
       .subscribe(
@@ -145,6 +153,9 @@ export class AdminComponent implements OnInit {
     location.reload();
   }
 
+  modificarUsuario(usuario: Usuario) {
+    this.router.navigate(['usuario-form',usuario._id]);
+  }
 
   cargarReservas() {
     this.reservas = new Array<Reserva>();
@@ -178,6 +189,45 @@ export class AdminComponent implements OnInit {
     )
   }
 
+  cargarReservasDeUsuario(idUsuario:string) {
+    this.reservas= new Array<Reserva>();
+    this.reservaService.getReservaUsuario(idUsuario).subscribe(
+      result => {
+        let reserva= new Reserva();
+        result.forEach(
+          (e:any)=>{
+            Object.assign(reserva,e);
+            this.reservas.push(reserva);
+            reserva= new Reserva();
+          }
+        )
+        console.log(this.reservas);
+      },
+      error => {
+
+      }
+    )
+  }
+
+  cargarReservasDeServicios(idServicio:string){
+    this.reservas = new Array<Reserva>();
+    this.reservaService.getReservaPorServicio(idServicio).subscribe(
+      res => {
+        let reserva = new Reserva();
+        res.forEach(
+          (e: any) => {
+            Object.assign(reserva, e);
+            this.reservas.push(reserva);
+            reserva = new Reserva();
+          }
+        )
+      }, error => {
+
+      }
+    )
+  }
+
+
   cargarResenias() {
     this.resenias = new Array<Resenia>();
     this.reseniaService.getMostarResenia().subscribe(
@@ -197,6 +247,66 @@ export class AdminComponent implements OnInit {
 
   }
 
+  modificarResenia(IdResenia: string) {
+    this.router.navigate(['reseniaForm',IdResenia]);
+  }
+
+  eliminarResenia(idResenia: string) {
+    this.reseniaService.delateResenia(idResenia).subscribe(
+      res => {
+        if (res.status == 1) {
+          alert(res.msg);
+          //recargar la lista de reservas
+          this.cargarResenias();
+        }
+      }, error => {
+        alert(error.msg);
+      }
+    )
+  }
+
+  cargarReseniasUsuario(idUsuario: string) {
+    this.resenias= new Array<Resenia>();
+    this.reseniaService.getReseniaPorUsuario(idUsuario).subscribe(
+      result => {
+        let resenia= new Resenia();
+        result.forEach(
+          (e:any)=>{
+            Object.assign(resenia,e);
+            this.resenias.push(resenia);
+            resenia= new Resenia();
+          }
+        )
+        console.log(this.resenias);
+      },
+      error => {
+
+      }
+    )
+  }
+
+  cargarReseniasDeServicio(idServicio:string){
+    this.resenias= new Array<Resenia>();
+    this.reseniaService.getReseniaPorServicio(idServicio).subscribe(
+      result => {
+        let resenia= new Resenia();
+        result.forEach(
+          (e:any)=>{
+            Object.assign(resenia,e);
+            this.resenias.push(resenia);
+            resenia= new Resenia();
+          }
+        )
+      },
+      error => {
+
+      }
+    )
+  }
+
+
+
+
   cargarServicios() {
     this.servicios = new Array<Servicio>();
     this.servicioService.getServiciosTotal().subscribe(
@@ -214,6 +324,41 @@ export class AdminComponent implements OnInit {
       }
     )
   }
+
+  eliminarServicio(idServicio:string){
+    this.servicioService.deleteServicio(idServicio).subscribe(
+      res => {
+        if (res.status == 1) {
+          alert(res.msg);
+          //recargar la lista de reservas
+          this.cargarServicios();
+        }
+      }, error => {
+        alert(error.msg);
+      }
+    )
+  }
+
+  cargarServiciosPorGestor(idGestor:string){
+    this.servicios = new Array<Servicio>();
+    this.servicioService.getServicioPorGestor(idGestor).subscribe(
+      res => {
+        let servicio = new Servicio();
+        res.forEach(
+          (e: any) => {
+            Object.assign(servicio, e);
+            this.servicios.push(servicio);
+            servicio = new Servicio();
+          }
+        )
+      }, error => {
+
+      }
+    )
+  }
+
+
+
 
   //******** FILTROS ******* */
 
@@ -524,7 +669,7 @@ export class AdminComponent implements OnInit {
 
    idUser!:string;
    buscarReservasPorUsuario(){
-     this.cargarUsuarios();
+
      this.reservas= new Array<Reserva>();
      this.reservaService.getReservaUsuario(this.idUser).subscribe(
        res=>{
@@ -542,7 +687,6 @@ export class AdminComponent implements OnInit {
 
    idService!:string;
    buscarReservasPorServicio(){
-     this.cargarServicios();
      this.reservas= new Array<Reserva>();
      this.reservaService.getReservaPorServicio(this.idService).subscribe(
        res=>{
@@ -638,17 +782,39 @@ export class AdminComponent implements OnInit {
           this.servicios.push(servicio);
           servicio = new Servicio();
         });
+        console.log(this.servicios);
       },error=>{
         console.log("error al recuperar la informacion")
       }
     );
+    this.gesServicio="";
   }
+
+
+  nombreServicio!:string;
+  buscarServicioPorNombre(){
+    this.servicios= new Array<Servicio>();
+    this.servicioService.getServicioPorNombre(this.nombreServicio).subscribe(
+      res=>{
+        let servicio=new Servicio();
+        res.forEach((element: any) => {
+          Object.assign(servicio, element);
+          this.servicios.push(servicio);
+          servicio = new Servicio();
+        });
+        console.log(this.servicios);
+      },error=>{
+        console.log("error al recuperar la informacion")
+      }
+    );
+    this.nombreServicio="";
+  }
+
 
 //Filtros para Resenias
 
 resServicio!:string;
 buscarReseniasPorServicio(){
-  this.cargarServicios();
   this.resenias= new Array<Resenia>();
   this.reseniaService.getReseniaPorServicio(this.resServicio).subscribe(
     res=>{
@@ -666,7 +832,6 @@ buscarReseniasPorServicio(){
 
 reseniaUser!:string;
 buscarReseniasPorUsuario(){
-  this.cargarUsuarios();
   this.resenias= new Array<Resenia>();
   this.reseniaService.getReseniaPorUsuario(this.reseniaUser).subscribe(
     res=>{

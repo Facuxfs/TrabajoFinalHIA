@@ -52,7 +52,7 @@ reseniaCtrl.getResenias = async (req, res) => {
      if (req.query.servicio != null && req.query.servicio != "") {
         criteria.servicio=req.query.servicio;
      }
-     //filtro por Usuario
+     //filtro por Valoracion
      if (req.query.valoracion != null && req.query.valoracion != "") {
       criteria.valoracion=req.query.valoracion;
    }

@@ -4,7 +4,7 @@
 
   <h1 style="text-align: center; margin-top: 40px ;">GESTION DEL SISTEMA :</h1>
   <select class="form-select form-select-lg mb-3" style="margin-top: 100px; margin-bottom: 20px;"
-    aria-label="Default select example" [(ngModel)]="tablaSeleccionada">
+    aria-label="Default select example" [(ngModel)]="tablaSeleccionada" (ngModelChange)="recargarFunciones()">
     <option value="gestores">Tabla de Gestores</option>
     <option value="usuarios">Tabla de Usuarios</option>
     <option value="reservas">Tabla de Reservas</option>
@@ -262,6 +262,22 @@
               </div>
             </div>
           </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+                Buscar por Nombre De Servicio
+              </button>
+            </h2>
+            <div id="collapse5" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <input class="form-control" type="text" [(ngModel)]="nombreServicio" placeholder="Nombre De Servicio">
+                <button *ngIf="nombreServicio" (click)="buscarServicioPorNombre()"
+                  class="btn btn-dark mt-2 w-100">Buscar</button>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -324,21 +340,21 @@
           </div>
         </div>
       </div>
-
     </div>
 
     <div class="col-lg-9 col-md-9 col-12 ">
+
       <div class="table-responsive">
         <!-- Tabla de Gestores -->
         <table class="table table-striped text-center bg-white" *ngIf="tablaSeleccionada === 'gestores'">
           <thead>
             <tr>
               <th scope="col">Username</th>
-              <th scope="col" >Nombre</th>
-              <th scope="col" >Email</th>
-              <th scope="col"  >Edad</th>
-              <th scope="col"  >Dni</th>
-              <th scope="col"  >Fecha Nacimiento</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Email</th>
+              <th scope="col">Edad</th>
+              <th scope="col">Dni</th>
+              <th scope="col">Fecha Nacimiento</th>
               <th scope="col">Servicios</th>
               <th></th>
             </tr>
@@ -351,16 +367,63 @@
               <td  >{{g.edad}}</td>
               <td  >{{g.dni}}</td>
               <td  >{{g.fechaNacimiento}}</td>
-              <td>{{g.servicio.length }}</td>
               <td>
-                <button type="button" class="form-control bg-info">Modificar</button>
+                <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="cargarServiciosPorGestor(g._id)">Ver Servicios</button>
+              </td>
+              <td>
+                <button type="button" class="form-control bg-info" (click)="modificarGestor(g)">Modificar</button>
                 <button type="button" class="form-control bg-danger" (click)="eliminarGestor(g._id)">Eliminar</button>
                 <button type="button" class="form-control bg-success" (click)="imprimirGestor(g)">Imprimir</button>
               </td>
             </tr>
           </tbody>
         </table>
+
+        <!-- Modal Servicios de Gestor-->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content" *ngIf="servicios.length>0">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Servicios</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <table class="table table-striped text-center bg-white">
+                  <thead>
+                    <tr>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Categoria</th>
+                      <th scope="col">Ubicacion</th>
+                      <th scope="col">Calificacion Total</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody *ngFor="let s of servicios">
+                    <tr>
+                      <td>{{s.nombre}}</td>
+                      <td>{{s.categoria}}</td>
+                      <td>{{s.ubicacion}}</td>
+                      <td>{{s.calificacionTotal}}</td>
+                      <td>
+                        <button type="button" class="form-control bg-danger">Eliminar</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+            <div  class="bg-white text-xl-center p-2" *ngIf="servicios.length==0">
+              <h5>No tiene Servicios asociados</h5><br>
+              <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+
       </div>
+
       <div class="table-responsive">
         <!-- Tabla de Usuarios -->
         <table class="table table-striped text-center bg-white" *ngIf="tablaSeleccionada === 'usuarios'">
@@ -385,8 +448,8 @@
               <td>{{u.edad}}</td>
               <td>{{u.dni}}</td>
               <td>{{u.fechaNacimiento}}</td>
-              <td>{{u.reservas.length }}</td>
-              <td>{{u.resenias.length }}</td>
+              <td><button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModalReservasUsuario" (click)="cargarReservasDeUsuario(u._id)">Ver Reservas</button></td>
+              <td><button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModalReseniasUsuario" (click)="cargarReseniasUsuario(u._id)">Ver Resenias</button></td>
               <td>
                 <button type="button" class="form-control bg-info">Modificar</button>
                 <button type="button" class="form-control bg-danger" (click)="eliminarUsuario(u._id)">Eliminar</button>
@@ -395,7 +458,107 @@
             </tr>
           </tbody>
         </table>
+
+        <!-- Modal Reservas de Usuario-->
+        <div class="modal fade" id="exampleModalReservasUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-xl">
+            <div class="modal-content" *ngIf="reservas.length>0">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Reservas</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <table class="table table-striped text-center bg-white">
+                  <thead>
+                    <tr *ngIf="reservas.length!=0">
+                      <th scope="col">categoria</th>
+                      <th scope="col">Nombre De Servicio</th>
+                      <th scope="col">Cantidad de Reservas</th>
+                      <th scope="col">Fecha de Alta</th>
+                      <th scope="col">Fecha de Ingreso</th>
+                      <th scope="col">Fecha de Egreso</th>
+                      <th scope="col">Precio</th>
+                      <th scope="col">Reservado</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody *ngFor="let r of reservas">
+                    <tr>
+
+                      <td>{{r.categoria}}</td>
+                      <td>{{r.nombreServicio}}</td>
+                      <td>{{r.cantidad}}</td>
+                      <td>{{r.fechaAlta|date}}</td>
+                      <td>{{r.fechaIngreso}}</td>
+                      <td>{{r.fechaEgreso}}</td>
+                      <td>{{r.precio}}</td>
+                      <td>{{r.reservado}}</td>
+                      <td>
+                        <button class="btn btn-danger" (click)="deleteReserva(r)">Eliminar</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+            <div  class="bg-white text-xl-center p-2" *ngIf="reservas.length==0">
+              <h5>No tiene Reservas Realizadas</h5><br>
+              <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal Resenias de Usuario-->
+        <div class="modal fade" id="exampleModalReseniasUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-xl">
+            <div class="modal-content" *ngIf="resenias.length>0">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Resenias</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <table class="table table-striped text-center bg-white">
+                  <thead>
+                    <tr>
+                      <th scope="col">Nombre Servicio</th>
+                      <th scope="col">Valoracion Del servicio</th>
+                      <th scope="col">Fecha alta</th>
+                      <th scope="col">Comentario</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody *ngFor="let r of resenias">
+                    <tr>
+                      <td>{{r.servicio.nombre}}</td>
+                      <td>{{r.valoracion}}</td>
+                      <td>{{r.fechaAlta}}</td>
+                      <td>{{r.comentario}}</td>
+                      <td>
+                        <button type="button" class="form-control bg-info">Modificar</button>
+                        <button type="button" class="form-control bg-danger">Eliminar</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+            <div  class="bg-white text-xl-center p-2" *ngIf="resenias.length==0">
+              <h5>No tiene Resenias Realizadas</h5><br>
+              <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+
+
       </div>
+
       <div class="table-responsive">
         <!-- Tabla Servicios -->
         <table class="table table-striped text-center bg-white" *ngIf="tablaSeleccionada === 'servicios'">
@@ -418,16 +581,108 @@
               <td>{{s.ubicacion}}</td>
               <td>{{s.calificacionTotal}}</td>
               <td>{{s.gestor}}</td>
-              <td>{{s.resenia.length}}</td>
-              <td>{{s.reservas.length }}</td>
+              <td><button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModalReseniasServicios" (click)="cargarReseniasDeServicio(s._id)" >Ver Resenias</button></td>
               <td>
-           
-                <button type="button" class="form-control bg-danger">Eliminar</button>
+                <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModalReservasServicios" (click)="cargarReservasDeServicios(s._id)">Ver Reservas</button></td>
+              <td>
+                <button type="button" class="form-control bg-danger" (click)="eliminarServicio(s._id)">Eliminar</button>
               </td>
             </tr>
           </tbody>
         </table>
+
+         <!-- Modal Reservas de Servicios-->
+         <div class="modal fade" id="exampleModalReservasServicios" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-xl">
+            <div class="modal-content" *ngIf="reservas.length>0">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Reservas</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <table class="table table-striped text-center bg-white" *ngIf="reservas.length>0">
+                  <thead>
+                    <tr >
+                      <th scope="col">Cantidad de Reservas</th>
+                      <th scope="col">Fecha de Alta</th>
+                      <th scope="col">Fecha de Ingreso</th>
+                      <th scope="col">Fecha de Egreso</th>
+                      <th scope="col">Precio</th>
+                      <th scope="col">Reservado</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody *ngFor="let r of reservas">
+                    <tr>
+                      <td>{{r.cantidad}}</td>
+                      <td>{{r.fechaAlta|date}}</td>
+                      <td>{{r.fechaIngreso}}</td>
+                      <td>{{r.fechaEgreso}}</td>
+                      <td>{{r.precio}}</td>
+                      <td>{{r.reservado}}</td>
+                      <td>
+                        <button class="btn btn-danger" (click)="deleteReserva(r)">Eliminar</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+            <div  class="bg-white text-xl-center p-2" *ngIf="reservas.length==0">
+              <h5>No tiene Reservas Realizadas</h5><br>
+              <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Model Resenias De Servicios -->
+        <div class="modal fade" id="exampleModalReseniasServicios" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-xl">
+            <div class="modal-content" *ngIf="resenias.length>0">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Reservas</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <table class="table table-striped text-center bg-white">
+                  <thead>
+                    <tr>
+                      <th scope="col">Nombre Usuario</th>
+                      <th scope="col">Valoracion Del servicio</th>
+                      <th scope="col">Comentario</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody *ngFor="let r of resenias">
+                    <tr>
+                      <td>{{r.usuario.nombre}}</td>
+                      <td>{{r.valoracion}}</td>
+                      <td>{{r.comentario}}</td>
+                      <td>
+                        <button type="button" class="form-control bg-info">Modificar</button>
+                        <button type="button" class="form-control bg-danger">Eliminar</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+            <div  class="bg-white text-xl-center p-2" *ngIf="resenias.length==0">
+              <h5>No tiene Resenias</h5><br>
+              <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+
       </div>
+
       <div class="table-responsive">
         <!-- Tabla Resenias -->
         <table class="table table-striped text-center bg-white" *ngIf="tablaSeleccionada === 'resenias'">
@@ -449,83 +704,17 @@
               <td>{{r.fechaAlta}}</td>
               <td>{{r.comentario}}</td>
               <td>
-                <button type="button" class="form-control bg-info">Modificar</button>
-                <button type="button" class="form-control bg-danger">Eliminar</button>
+                <button type="button" class="form-control bg-info" (click)="modificarResenia(r._id)">Modificar</button>
+                <button type="button" class="form-control bg-danger" (click)="eliminarResenia(r._id)">Eliminar</button>
               </td>
             </tr>
           </tbody>
         </table>
-
       </div>
-    </div>
 
-
-    <!-- Tabla Reservas -->
-    <div class="col-lg-12 col-md-12 col-12" *ngIf="tablaSeleccionada === 'reservas'">
-      <div class="col-lg-12 col-md-12 col-12 mb-4">
-        <div class="accordion mt-1" id="accordionExample" *ngIf="tablaSeleccionada != 'reservas'">
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="btn w-100 text-start mx-1" type="button" (click)="cargarGestores()">
-                Todos los Gestores
-              </button>
-            </h2>
-          </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                Buscar por UserName
-              </button>
-            </h2>
-            <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-              <div class="accordion-body">
-                <input class="form-control" type="text" [(ngModel)]="usernameGestor" placeholder="Ingresar UserName">
-                <button *ngIf="usernameGestor!=null" (click)="buscarGestorPorUsername()"
-                  class="btn btn-dark mt-2 mb-2 w-100">Buscar</button>
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                Buscar por email
-              </button>
-            </h2>
-            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-              <div class="accordion-body">
-                <input class="form-control" type="text" [(ngModel)]="emailGestor" placeholder="Ingrese Email">
-                <button *ngIf="emailGestor!=null" (click)="buscarGestorPorEmail()"
-                  class="btn btn-dark mt-2 w-100">Buscar</button>
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                Buscar Por Dni
-              </button>
-            </h2>
-            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-              <div class="accordion-body">
-                <input class="form-control" type="text" [(ngModel)]="dniGestor" placeholder="Ingrese Dni">
-                <button *ngIf="dniGestor!=null" (click)="buscarGestorPorDni()"
-                  class="btn btn-dark mt-2 w-100">Buscar</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="table-responsive">
-      <table class="table table-striped text-center bg-white">
-
-
+      <div class="table-responsive">
         <!-- Tabla De Reservas -->
-        <table class="table table-striped text-center" *ngIf="tablaSeleccionada === 'reservas'">
-
+        <table class="table table-striped text-center bg-white" *ngIf="tablaSeleccionada === 'reservas'">
           <thead>
             <tr *ngIf="reservas.length!=0">
               <th scope="col">categoria</th>
@@ -551,14 +740,14 @@
               <td>{{r.precio}}</td>
               <td>{{r.reservado}}</td>
               <td>
-                <button class="btn btn-info">Modificar</button>
                 <button class="btn btn-danger" (click)="deleteReserva(r)">Eliminar</button>
               </td>
-
             </tr>
           </tbody>
         </table>
-      </table>
+      </div>
+
     </div>
+
   </div>
 </div>

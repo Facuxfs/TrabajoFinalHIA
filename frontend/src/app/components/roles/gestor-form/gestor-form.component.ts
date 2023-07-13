@@ -13,12 +13,14 @@ export class GestorFormComponent implements OnInit {
 
   gestor!: Gestor;
   accion:string="";
-
+  tipo!:any;
   constructor(private gestorService: GestorService,private activatedRoute: ActivatedRoute, private router: Router, private route: ActivatedRoute) {
     this.gestor = new Gestor();
+
   }
 
   ngOnInit(): void {
+    this.tipo=sessionStorage.getItem('tipo');
     this.activatedRoute.params.subscribe(params=>{
       if (params['id']=="0"){
         this.accion = "new";
@@ -45,7 +47,11 @@ export class GestorFormComponent implements OnInit {
       (result: any) => {
         if (result.status == 1){
           alert(result.msg);
-          this.router.navigate(["gestor/gestor-datos"])
+          if(this.tipo=="admin"){
+            this.router.navigate(["admin"])
+          }else{
+            this.router.navigate(["gestor/gestor-datos"]);
+          }
         }
   },
       error => {
@@ -56,7 +62,7 @@ export class GestorFormComponent implements OnInit {
 
   /**
    * Guarda un Gestor en la BDD
-   * @param gestorForm 
+   * @param gestorForm
    */
   guardarGestor(gestorForm: NgForm): void {
     this.gestor.calcularEdad();
