@@ -102,15 +102,15 @@
                             <td> <a class="link" (click)="cargarResenias(ser._id)">Ver Resenias</a> </td>
                             <td>
                                 <div class="mb-2">
-                                    <button class="btn btn-success tamanio">Detalles</button>
+                                    <button class="btn btn-success tamanio"><i class="bi bi-file-earmark-spreadsheet"></i></button>
                                 </div>
 
                                 <div class="mt-2">
-                                    <button class="btn btn-info text-white tamanio">Modificar</button>
+                                    <button class="btn btn-info text-white tamanio"><i class="bi bi-pencil-square"></i></button>
                                 </div>
 
                                 <div class="mt-2">
-                                    <button class="btn btn-danger tamanio">Eliminar</button>
+                                    <button class="btn btn-danger tamanio"><i class="bi bi-trash-fill"></i></button>
                                 </div>
                             </td>
                         </tr>
@@ -126,19 +126,13 @@
                             <th scope="col">Comentario</th>
                             <th scope="col">Valoracion</th>
                             <th scope="col">Fecha de Alta</th>
-                            <th scope="col">Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let resenia of resenias">
                             <td>{{resenia.comentario}}</td>
                             <td>{{resenia.valoracion}}</td>
-                            <td>{{resenia.fechaAlta}}</td>
-                            <td>
-                                <div>
-                                    <button class="btn btn-danger tamanio">Eliminar</button>
-                                </div>
-                            </td>
+                            <td>{{resenia.fechaAlta}}</td>                            
                         </tr>
                     </tbody>
                 </table>
@@ -166,17 +160,17 @@
                             <td>
                                 <div class="mb-2">
                                     <button class="btn btn-success tamanio"
-                                        (click)="aceptarReserva(reserva._id)">Detalles</button>
+                                        (click)="aceptarReserva(reserva._id)"><i class="bi bi-file-earmark-spreadsheet"></i></button>
                                 </div>
 
                                 <div class="mt-2">
                                     <button class="btn btn-info text-white tamanio"
-                                        (click)="aceptarReserva(reserva._id)">Aceptar</button>
+                                        (click)="aceptarReserva(reserva._id)"><i class="bi bi-check-circle"></i></button>
                                 </div>
 
                                 <div class="mt-2">
                                     <button class="btn btn-danger tamanio"
-                                        (click)="cancelarReserva(reserva._id)">Rechazar</button>
+                                        (click)="cancelarReserva(reserva._id)"><i class="bi bi-x-circle-fill"></i></button>
                                 </div>
                             </td>
                         </tr>
