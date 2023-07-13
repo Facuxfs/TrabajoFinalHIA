@@ -8,7 +8,6 @@ export class Resenia {
     fechaAlta!: string; 
     imagen!: string; 
     comentario!: string;
-
     usuario!: Usuario;
     servicio!: Servicio;
 }

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
 import { Login } from 'src/app/models/login.model';
@@ -21,8 +21,10 @@ export class LoginComponent implements OnInit {
   gestUrl!: string;
   adminUrl!: string;
   msgError!: string;
-  falloLogin:boolean=false;
-  constructor(private loginS: LoginService, private router: Router, private route: ActivatedRoute, private appCom: AppComponent) {
+  falloLogin: boolean = false;
+  showPassword: boolean = false;
+
+  constructor(private loginS: LoginService, private router: Router, private route: ActivatedRoute, private appCom: AppComponent, private renderer: Renderer2) {
     this.appCom.logeado = false;
   }
 
@@ -60,8 +62,8 @@ export class LoginComponent implements OnInit {
             if (res.tipo === 'admin')
               this.router.navigateByUrl(this.adminUrl);
           } else {
-            this.falloLogin=true;
-            this.msgError = "Credenciales Incorrectas";
+            this.falloLogin = true;
+            this.msgError = "Datos incorrectos";
           }
         },
         err => {
@@ -70,7 +72,20 @@ export class LoginComponent implements OnInit {
           console.log(err);
         }
       )
-
   }
 
+  /**
+   * Ocultar o visualizar la password
+   */
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+
+    const passwordInput = document.getElementById('idPassword');
+
+    if (this.showPassword) {
+      this.renderer.setAttribute(passwordInput, 'type', 'text');
+    } else {
+      this.renderer.setAttribute(passwordInput, 'type', 'password');
+    }
+  }
 }

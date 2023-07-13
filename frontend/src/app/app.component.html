@@ -1,13 +1,13 @@
 <div *ngIf="logeado">
   <app-header></app-header>
 </div>
-<!--
-<router-outlet></router-outlet>
--->
 
 <div class="wrapper">
   <div class="content">
     <router-outlet></router-outlet>
   </div>
 </div>
+
+<div *ngIf="logeado">
   <app-footer></app-footer>
+</div>
