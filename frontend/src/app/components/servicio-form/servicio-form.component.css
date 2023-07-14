@@ -1,11 +1,6 @@
-.fondo-servicio{
-    background-image: url("/assets/fondo-home/fondo-buenosaires.jpg");
-    background-position: center;
-    background-size: cover;
-    min-height: 100vh;
-    margin-top: -24px;
-}
-
+/**
+    DIMENCIONES FORMULARIO
+*/
 @media only screen and (min-width: 576px) {
     .formulario-gestor {
         width: 500px;
@@ -14,8 +9,105 @@
     }
 }
 
-.opacidad {
-
-    background-color: rgba(255, 255, 255, 0.396);
+/**
+    FORMULARIO
+*/
+.formulario-gestor {
+    padding: 0;
 }
 
+.opacidad {
+    background-color: white;
+    animation: fadeInDown 1s;
+}
+
+.bg-orange {
+    background-color: #FFA500;
+}
+
+/**
+  BACKGROUND
+*/
+.background-container {
+    background-image: linear-gradient(to bottom right, #FFE0B2, #FFCC80, #FFB74D);
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+/**
+    BOTONES LOGIN  
+*/
+.corner-button {
+    text-align: end;
+    margin: 20px 0 20px 0;
+    z-index: 1;
+}
+
+@media only screen and (min-width: 576px) {
+    .corner-button {
+        text-align: end;
+        top: 0;
+        right: 0;
+        margin: 20px;
+        z-index: 1;
+    }
+}
+
+/**
+    PASSWORD
+*/
+.password-input-container {
+    position: relative;
+}
+
+input#idPassword {
+    padding-right: 60px;
+}
+
+.password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.password-toggle.has-validation {
+    margin-right: 30px;
+}
+
+.password-toggle i {
+    color: #333;
+}
+
+/**
+    TEXTO INFORMATIVO
+*/
+.texto-informativo {
+    color: white;
+    font-size: 12px;
+    margin-top: 40px;
+}
+
+.texto-informativo span {
+    color: #FFA500;
+}
+
+/**
+  ANIMACION FORMULARIO
+*/
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, -20px, 0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}

@@ -42,6 +42,7 @@ export class ServicioFormComponent implements OnInit {
   modificar!: any;
   form!: FormGroup;
   title!: string;
+  accion: string = "new";
 
   constructor(private route: ActivatedRoute, private ciudadService: CiudadesService,
     private servicioService: ServiciosService, private router: Router,

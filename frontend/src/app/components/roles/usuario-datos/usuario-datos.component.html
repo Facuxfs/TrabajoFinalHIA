@@ -1,59 +1,91 @@
-<div class="fondo-usuario">
-    <div class="row">
-        <div class="tabla col-sm-8 offset-sm-2">
-            <div class="title col-12">
-                <strong>
-                    <h3>Mis Datos</h3>
-                </strong>
-            </div>
-            <div class="row">
-                <div class="col-12 col-md-4">
-                    <label class="label1">Usuario</label><br>
-                    <div class="nombre">
-                        <label for="">{{usuario.username}}</label>
-                    </div>
+<!-- Datos Usuario -->
+<section class="container">
+    <!-- Fondo -->
+    <div class="background-container"></div>
+
+    <!-- Titulo -->
+    <div class="text-center py-4">
+        <h1 class="titulo-principal">MIS DATOS</h1>
+    </div>
+
+    <!-- Datos -->
+    <div class="text-center background-datos">
+        <div class="row">
+            <div class="col-12 col-md-4">
+                <div class="titulo">
+                    Username
                 </div>
-                <div class="col-12 col-md-4 ">
-                    <label class="label1">Nombre</label><br>
-                    <div class="nombre">
-                        <label for="">{{usuario.nombre}}</label>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4">
-                    <label class="label1">Apellido</label><br>
-                    <div class="nombre">
-                        <label for="">{{usuario.apellido}}</label>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4">
-                    <label class="label1">DNI</label><br>
-                    <div class="nombre">
-                        <label for="">{{usuario.dni}}</label>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4">
-                    <label class="label1">Email</label><br>
-                    <div class="nombre">
-                        <label for="">{{usuario.email}}</label>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4">
-                    <label class="label1">Edad</label><br>
-                    <div class="nombre">
-                        <label for="">{{usuario.edad}}</label>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4">
-                    <label class="label1">Fecha de Nacimiento</label><br>
-                    <div class="nombre">
-                        <label for="">{{usuario.fechaNacimiento}}</label>
-                    </div>
+
+                <div class="mb-4 bg-white py-1">
+                    {{usuario.username}}
                 </div>
             </div>
 
-            <button type="button" class="btn btn-primary" routerLink="/usuario-form/1">
-                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> MODIFICAR
-            </button>
+            <div class="col-12 col-md-4">
+                <div class="titulo">
+                    Nombre
+                </div>
+
+                <div class="mb-4 bg-white py-1">
+                    {{usuario.nombre}}
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+                <div class="titulo">
+                    Apellido
+                </div>
+
+                <div class="mb-4 bg-white py-1">
+                    {{usuario.apellido}}
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+                <div class="titulo">
+                    DNI
+                </div>
+
+                <div class="mb-4 bg-white py-1">
+                    {{usuario.dni}}
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+                <div class="titulo">
+                    Edad
+                </div>
+
+                <div class="mb-4 bg-white py-1">
+                    {{usuario.edad}}
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+                <div class="titulo">
+                    Email
+                </div>
+
+                <div class="mb-4 bg-white py-1">
+                    {{usuario.email}}
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+                <div class="titulo">
+                    Fecha de nacimiento
+                </div>
+
+                <div class="mb-4 bg-white py-1">
+                    {{usuario.fechaNacimiento}}
+                </div>
+            </div>
+
+            <div>
+                <button type="button" class="btn btn-info text-white" routerLink="/usuario-form/1">
+                    <i class="bi bi-pencil-square"></i> Modificar
+                </button>
+            </div>
         </div>
     </div>
-</div>
+</section>
