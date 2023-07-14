@@ -45,6 +45,7 @@
                     </ul>
 
                     <ul *ngIf="tipo == 'admin'" class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" [routerLink]="['admin']">Principal</a></li>
                         <li><a class="dropdown-item" [routerLink]="['admin-form/{{id}}']">Mis Datos</a></li>
                         <li class="dropdown-divider"></li>
                         <li><a class="dropdown-item" [routerLink]="['home']" routerLinkActive="active"
