@@ -13,7 +13,7 @@
     max-width: 100%;
 }
 h1{
-    font-size: 100px;
+    font-size: auto;
     text-align: center;
     text-transform: uppercase;
 }
@@ -47,3 +47,14 @@ h1{
   .botonImagen:active {
     background-color: #003c80;
   }
+  .contenedor {
+    width: 60%;
+    margin-left: 20%;
+}
+.botonContenedor {
+  width: 35%;
+  margin-left: 10%;
+  border-radius: 10px;
+  background: #c78501a8;
+  margin-top: 5px;
+}

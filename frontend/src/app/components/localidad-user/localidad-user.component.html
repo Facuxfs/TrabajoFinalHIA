@@ -25,9 +25,9 @@
         </div>
       </div>
     </div>
-    <div class="container-boton">
-    <button *ngIf="indice>0" (click)="anterior()" type="button" class="botonImagen"><i class="bi bi-caret-left-fill"></i> Anterior</button>
-    <button *ngIf="indice<servicios.length-1" (click)="siguiente()" type="button" class="botonImagen">
+    <div class="contenedor">
+    <button   class="botonContenedor" [ngStyle]="{ 'visibility': indice > 0 ? 'visible' : 'hidden' }"  (click)="anterior()" type="button" ><i class="bi bi-caret-left-fill"></i> Anterior</button>
+    <button  class="botonContenedor" [ngStyle]="{ 'visibility': indice < servicios.length - 1 ? 'visible' : 'hidden' }" (click)="siguiente()" type="button">
          Siguiente<i class="bi bi-caret-right-fill"></i></button>
     </div>
   </div>
