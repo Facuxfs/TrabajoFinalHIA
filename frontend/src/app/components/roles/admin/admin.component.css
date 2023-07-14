@@ -15,3 +15,14 @@
     object-fit: cover;
     z-index: -1;
 }
+
+.titulo {
+    text-align: center;
+    border: 2px solid #FFF;
+    border-radius: 8px;
+    padding: 10px;
+    color: white;
+    background-color: transparent;
+    display: inline-block;
+    margin: 20px;
+  }
