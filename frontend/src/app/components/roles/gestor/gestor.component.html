@@ -1,5 +1,3 @@
-{{usuarioEmail | json}} dale 
-
 <!-- Pagina Gestor -->
 <section class="container">
     <!-- Fondo -->
@@ -47,7 +45,7 @@
                         <div class="accordion-body">
                             <select class="form-select mt-1 mb-1 mx-1" aria-label="Default select example" id="cat"
                                 name="cat" [(ngModel)]="cat" (ngModelChange)="filtrarCategoria()">
-                                <option disabled selected value="">Categoria</option>
+                                <option disabled selected value="">-</option>
                                 <option value="hotel">Hotel</option>
                                 <option value="restaurante">Restaurante</option>
                             </select>
@@ -193,19 +191,12 @@
                 <table class="table table-striped table-hover text-center">
                     <thead class="table-warning">
                         <tr>
-
-                            <th scope="col">Nombre</th>
-                            <th scope="col">email</th>
-                            <th scope="col">DNI</th>
-                            <th scope="col">Fecha de Alta</th>
-
                             <th scope="col">Nombre del Servicio</th>
                             <th scope="col">Categoria</th>
                             <th scope="col">Cantidad</th>
                             <th scope="col">fecha de Ingreso</th>
                             <th scope="col">Precio</th>
                             <th scope="col">Estado</th>
-
                             <th scope="col">Opciones</th>
                         </tr>
                     </thead>
@@ -219,10 +210,6 @@
                             <td>{{reserva.fechaIngreso}}</td>
                             <td>{{reserva.precio}}</td>
                             <td>{{reserva.reservado}}</td>
-                            <!--<td>{{usuarios[i].nombre}}</td>
-                            <td>{{usuarios[i].apellido}}</td>
-                            <td>{{usuarios[i].dni}}</td>
-                            <td>{{reserva.fechaAlta}}</td>-->
                             <td>
                                 <div class="mb-2">
                                     <button class="btn btn-success tamanio" (click)="imprimirReserva(reserva)"><i class="bi bi-printer"></i></button>
