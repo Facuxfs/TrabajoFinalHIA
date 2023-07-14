@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Chart } from 'chart.js';
+import Chart from 'chart.js/auto'
 import { Servicio } from 'src/app/models/servicio';
 import { CiudadesService } from 'src/app/services/ciudades.service';
 import { ServiciosService } from 'src/app/services/servicios.service';
@@ -11,11 +11,34 @@ import { ServiciosService } from 'src/app/services/servicios.service';
 })
 export class UsuarioEstadisticaComponent implements OnInit {
 
-  barraT!:Chart;
+  barra!:Chart;
   nombresLocalidades:Array<string>=[];
   cantidad:Array<number>=[];
   servicios!:Array<Servicio>;
-  provincias:Array<string>=['jujuy','salta','tucuman','cordoba','corrientes'];
+  provincias:Array<string>=[  
+    "Buenos Aires",
+    "Catamarca",
+    "Chaco",
+    "Chubut",
+    "Córdoba",
+    "Corrientes",
+    "Entre Ríos",
+    "Formosa",
+    "Jujuy",
+    "La Pampa",
+    "La Rioja",
+    "Mendoza",
+    "Misiones",
+    "Neuquén",
+    "Río Negro",
+    "Salta",
+    "San Juan",
+    "San Luis",
+    "Santa Cruz",
+    "Santa Fe",
+    "Santiago del Estero",
+    "Tierra del Fuego",
+    "Tucumán"];
   ngOnInit(): void {
     this.cargarServicios();
   }
@@ -37,7 +60,7 @@ export class UsuarioEstadisticaComponent implements OnInit {
       }
     )
   }
-
+  
   provincia!:string;
   obtenerDatos(){
     this.nombresLocalidades=new Array<string>();
@@ -59,20 +82,19 @@ export class UsuarioEstadisticaComponent implements OnInit {
             contador=0;
           }
         )
+        this.barraDeServicios(this.cantidad,this.nombresLocalidades);
       }
     )
-    console.log(this.nombresLocalidades,"d");
-    console.log(this.cantidad,"e");
-    this.barra(this.cantidad,this.nombresLocalidades);
+   
   }
 
-  barra(cantidad:Array<number>,nombres:Array<string>){
+  barraDeServicios(cantidad:Array<number>,nombres:Array<string>){
     //para destriur la barra si esta cargada
-    if (this.barraT) {
-      this.barraT.destroy();
+    if (this.barra) {
+      this.barra.destroy();
     }
 
-    this.barraT= new Chart("barra", {
+    this.barra= new Chart("barra", {
       type: 'bar',
       data: {
           labels: nombres,
