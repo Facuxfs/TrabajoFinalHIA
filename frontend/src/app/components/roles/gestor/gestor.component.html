@@ -1,5 +1,3 @@
-{{usuarioEmail | json}} dale 
-
 <!-- Pagina Gestor -->
 <section class="container">
     <!-- Fondo -->
@@ -47,7 +45,7 @@
                         <div class="accordion-body">
                             <select class="form-select mt-1 mb-1 mx-1" aria-label="Default select example" id="cat"
                                 name="cat" [(ngModel)]="cat" (ngModelChange)="filtrarCategoria()">
-                                <option disabled selected value="">Categoria</option>
+                                <option disabled selected value="">-</option>
                                 <option value="hotel">Hotel</option>
                                 <option value="restaurante">Restaurante</option>
                             </select>
@@ -199,7 +197,6 @@
                             <th scope="col">fecha de Ingreso</th>
                             <th scope="col">Precio</th>
                             <th scope="col">Estado</th>
-
                             <th scope="col">Opciones</th>
                         </tr>
                     </thead>
