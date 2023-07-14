@@ -39,85 +39,85 @@ export class ServicioFormComponent implements OnInit {
   localidades!: Array<Provincia>;
   id: any;
   idGestor: string = "";
-  modificar!:any;
-  form!:FormGroup;
-  title!:string;
- 
-constructor(private route: ActivatedRoute, private ciudadService: CiudadesService, 
+  modificar!: any;
+  form!: FormGroup;
+  title!: string;
+
+  constructor(private route: ActivatedRoute, private ciudadService: CiudadesService,
     private servicioService: ServiciosService, private router: Router,
-    private gestorService: GestorService,private formBuilder:FormBuilder, private toastr:ToastrService) {
-  this.title="Agregar Servicio"
+    private gestorService: GestorService, private formBuilder: FormBuilder, private toastr: ToastrService) {
+    this.title = "Agregar Servicio"
     this.servicio = new Servicio();
-    this.servicio.categoria="";
+    this.servicio.categoria = "";
     this.servicio.calificacionTotal = 0;
     this.servicio.resenia = new Array<Resenia>();
     this.servicio.reservas = new Array<Reserva>();
     //this.obtenerGestor(this.id);
     this.localidad = new Provincia();
     this.localidades = new Array<Provincia>();
-    this.buildForm();   
+    this.buildForm();
   }
 
   ngOnInit() {
     this.id = sessionStorage.getItem("userId");
 
     this.servicio.gestor = this.id as string;
-     this.route.params.subscribe(params => {
-       this.modificar = params['id'];
-     });
-     if(this.modificar !=="" && this.modificar!=='0'){
-        this.title="Modificar Servicio"
-        this.cargarServicio(this.modificar);
-     }
+    this.route.params.subscribe(params => {
+      this.modificar = params['id'];
+    });
+    if (this.modificar !== "" && this.modificar !== '0') {
+      this.title = "Modificar Servicio"
+      this.cargarServicio(this.modificar);
+    }
   }
 
-  private buildForm(){
+  private buildForm() {
     this.form = this.formBuilder.group({
-      nombre:['',Validators.required],
-      categoria:['',Validators.required],
-      ubicacion:['',Validators.required],
+      nombre: ['', Validators.required],
+      categoria: ['', Validators.required],
+      ubicacion: ['', Validators.required],
     })
   }
 
-  save(event:Event){
+  save(event: Event) {
     event.preventDefault();
-    if(this.form.valid){
-      Object.assign(this.servicio,this.form.value);
-   
-    }else{
+    if (this.form.valid) {
+      Object.assign(this.servicio, this.form.value);
+
+    } else {
       this.form.markAllAsTouched();
     }
   }
 
-  opcionCategoria(event:Event){
+  opcionCategoria(event: Event) {
     this.servicio.categoria = (event.target as HTMLSelectElement).value;
     console.log(this.servicio.categoria);
   }
 
-  guardarServicio(servicio:Servicio) {
-    if(this.modificar !=="" && this.modificar!=='0'){
-       this.servicioService.modificarServicio(servicio)
-       .subscribe(
-          (res:any)=>{
+  guardarServicio(servicio: Servicio) {
+    if (this.modificar !== "" && this.modificar !== '0') {
+      this.servicioService.modificarServicio(servicio)
+        .subscribe(
+          (res: any) => {
             alert(res.msg)
             this.router.navigate(['gestor'])
           },
-          err=>{
+          err => {
             console.log(err)
           }
-       )
-   }else{
-    this.servicioService.crearServicio(this.servicio).subscribe(
-      (result: any) => {
-        if (result.status == 1) {
-          this.router.navigate(["gestor"])
-          this.toastr.success(servicio.nombre + servicio.categoria , 'registrado');
+        )
+    } else {
+      this.servicioService.crearServicio(this.servicio).subscribe(
+        (result: any) => {
+          if (result.status == 1) {
+            this.router.navigate(["gestor"])
+            this.toastr.success(servicio.nombre + servicio.categoria, 'registrado');
+          }
+        },
+        error => {
+          alert(error.msg);
         }
-      },
-      error => {
-        alert(error.msg);
-      }
-    )
+      )
     }
   }
 
@@ -142,6 +142,8 @@ constructor(private route: ActivatedRoute, private ciudadService: CiudadesServic
   }
 
   cargarLocalidades(id: string) {
+    this.localidades = new Array<Provincia>();
+
     this.ciudadService.getLocalidades(id).subscribe(
       (result) => {
         console.log(result);
@@ -160,17 +162,17 @@ constructor(private route: ActivatedRoute, private ciudadService: CiudadesServic
       error => { this.toastr.error('el api no responde'); }
     );
   }
- 
-  cargarServicio(id:string){
-     this.servicioService.getServicio(id)
-     .subscribe(
-      (res:any)=>{
-        Object.assign(this.servicio,res)
-      },
-      err=>{
-        console.log(err)
-      }
-     )
+
+  cargarServicio(id: string) {
+    this.servicioService.getServicio(id)
+      .subscribe(
+        (res: any) => {
+          Object.assign(this.servicio, res)
+        },
+        err => {
+          console.log(err)
+        }
+      )
   }
 
 }
