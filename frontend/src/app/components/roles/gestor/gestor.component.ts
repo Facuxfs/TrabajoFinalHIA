@@ -33,6 +33,7 @@ export class GestorComponent implements OnInit {
   verResenia:boolean=false; 
   verReserva:boolean=false;
   reservas:Array<Reserva>;
+  idReserva!:string;
   usuarioEmail!:Usuario;
   
   constructor(private appCom: AppComponent , private email:CiudadesService,private toastr:ToastrService, private servicioService: ServiciosService, private gestorService: GestorService,private usuarioService:UsuarioService,private reseniaService:ReseniaService,private reservaService:ReservaService, private router: Router) {
