@@ -76,6 +76,7 @@ export class ServicioFormComponent implements OnInit {
     this.form = this.formBuilder.group({
       nombre: ['', Validators.required],
       categoria: ['', Validators.required],
+      provincia: ['',Validators.required],
       ubicacion: ['', Validators.required],
     })
   }
@@ -84,7 +85,7 @@ export class ServicioFormComponent implements OnInit {
     event.preventDefault();
     if (this.form.valid) {
       Object.assign(this.servicio, this.form.value);
-
+      this.guardarServicio(this.servicio);
     } else {
       this.form.markAllAsTouched();
     }
@@ -168,7 +169,7 @@ export class ServicioFormComponent implements OnInit {
     this.servicioService.getServicio(id)
       .subscribe(
         (res: any) => {
-          Object.assign(this.servicio, res)
+          Object.assign(this.servicio, res)          
         },
         err => {
           console.log(err)

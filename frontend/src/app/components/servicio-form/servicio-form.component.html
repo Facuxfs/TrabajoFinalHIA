@@ -1,85 +1,131 @@
 <!-- Formulario Servicio -->
 <section class="container-fluid">
     <!-- Fondo -->
-    <div class="background-container"></div>
+    <img src="/assets/fondo-login/login-formulario-gestor.jpg" alt="Fondo" class="background-image">
 
     <!-- Capa del fondo -->
     <div class="overlay"></div>
 
     <!-- Boton registrarse -->
     <div class="corner-button">
-        <a routerLink="/gestor" routerLinkActive="active" class="btn btn-outline-light">
+        <a routerLink="/login" routerLinkActive="active" class="btn btn-outline-light">
             Servicios <i class="bi bi-arrow-right"></i>
         </a>
     </div>
 
     <div class="my-4 formulario-gestor">
         <!-- Formulario -->
-        <form #servicioForm="ngForm" class="opacidad">
-            <fieldset class="form-group border rounded p-3">
-                <legend class="w-auto fw-bold">{{title}}</legend>
+        <form [formGroup]="form" novalidate (ngSubmit)="save($event)" class="opacidad">
+            <fieldset class="form-group border rounded">
+                <!-- Header Form -->
+                <div class="bg-orange p-3 pb-1">
+                    <h4 class="w-auto fw-bold text-center text-white">SERVICIO</h4>
+                </div>
+                <hr class="mt-1" />
 
+                <!-- Body Form -->
+                <div class="p-3 pt-1">
+                    <!-- Nombre -->
+                    <div class="mb-4">
+                        <label for="idNombreServicio" class="form-label">Nombre servicio<span
+                                class="text-danger fw-bold">*</span></label>
 
-                <p>Campos obligatorios (<span class="text-danger fw-bold">*</span>)</p>
-                <hr />
+                        <input type="text" class="form-control bg-light" id="idNombreServicio" name="nombreServicio"
+                            placeholder="Ingrese nombre del servicio" formControlName="nombre" [ngClass]="{ 'is-invalid': form.get('nombre')?.invalid && form.get('nombre')?.touched,
+                            'is-valid': form.get('nombre')?.valid && form.get('nombre')?.touched }"
+                            [value]="servicio.nombre" />
 
-                <!-- Nombre -->
-                <div class="mb-4">
-                    <label for="idNombreServicio" class="form-label">Nombre (<span
-                            class="text-danger fw-bold">*</span>)</label>
+                        <p *ngIf="form.get('nombre')?.invalid && form.get('nombre')?.touched" class="invalid-feedback">
+                            <small>Ingrese nombre del servicio</small>
+                        </p>
 
-                    <input type="text" class="form-control bg-light" id="idNombreServicio" name="nombreServicio"
-                        placeholder="Ingrese nombre del servicio" [(ngModel)]="servicio.nombre" required
-                        #nombreServicio="ngModel" />
-
-                    <!-- Validar Nombre -->
-                    <div *ngIf="nombreServicio.invalid && (nombreServicio.dirty || nombreServicio.touched)"
-                        class="alert alert-danger">
-                        <div *ngIf="nombreServicio.errors?.['required']">
-                            Debe ingresar el nombre del servicio.
-                        </div>
+                        <p *ngIf="gestor?.nombre && form.get('nombre')?.valid && form.get('nombre')?.touched"
+                            class="valid-feedback">
+                            <small>Correcto</small>
+                        </p>
                     </div>
-                </div>
 
-                <!-- Categoria -->
-                <div class="mb-4">
-                    <label for="idCategoria" class="form-label">Categoria</label>
+                    <!-- Categoria -->
+                    <div class="mb-4">
+                        <label for="idCategoriaServicio" class="form-label">Categoria <span
+                                class="text-danger fw-bold">*</span></label>
 
-                    <select class="form-select bg-light" name="categoria" id="idCategoria"
-                        [(ngModel)]="servicio.categoria" (change)="opcionCategoria($event)" required>
-                        <option [value]="''" [selected]="servicio.categoria == '' " hidden>Seleccione Opcion
-                        </option>
-                        <option [value]="'hotel'">Hotel</option>
-                        <option [value]="'restaurante'">Restaurante</option>
-                    </select>
-                </div>
+                        <select class="form-select bg-light" name="categoria" id="idCategoriaServicio"
+                            formControlName="categoria" [ngClass]="{ 'is-invalid': form.get('categoria')?.errors && form.get('categoria')?.touched,
+                        'is-valid': form.get('categoria')?.valid && form.get('categoria')?.touched}"
+                            [value]="servicio.categoria">
+                            <option [value]="''" [selected]="servicio.categoria == '' " hidden>Seleccionar </option>
+                            <option [value]="'hotel'">Hotel</option>
+                            <option [value]="'restaurante'">Restaurante</option>
+                        </select>
 
+                        <p *ngIf="form.get('categoria')?.errors && form.get('categoria')?.touched"
+                            class="invalid-feedback">
+                            <small>Seleccione categoria</small>
+                        </p>
 
+                        <p *ngIf="form.get('categoria')?.valid && form.get('categoria')?.touched"
+                            class="valid-feedback">
+                            <small>Correcto</small>
+                        </p>
+                    </div>
 
+                    <!-- Provincia -->
+                    <div class="mb-4">
+                        <label for="idUbicacionServicio" class="form-label">Provincia <span
+                                class="text-danger fw-bold">*</span></label>
+                        <select class="form-select bg-light" name="ubicacion" id="idUbicacionServicio"
+                            formControlName="provincia" [(ngModel)]="seleccion"
+                            (ngModelChange)="consultarProvincia(seleccion)" [ngClass]="{ 'is-invalid': form.get('provincia')?.errors && form.get('provincia')?.touched,
+                        'is-valid': form.get('provincia')?.valid && form.get('provincia')?.touched}">
+                            <option *ngFor="let c of provincias" [value]="c.name">{{c.name}}</option>
+                        </select>
 
-                <!-- Ubicacion -->
-                <div class="mb-4">
-                    <label for="idUbicacion" class="form-label">Ubicacion</label>
+                        <p *ngIf="form.get('provincia')?.errors && form.get('provincia')?.touched"
+                            class="invalid-feedback">
+                            <small>Seleccione una provincia</small>
+                        </p>
 
-                    <select class="form-select bg-light" name="ubicacion" id="idUbicacion" [(ngModel)]="seleccion"
-                        (ngModelChange)="consultarProvincia(seleccion)" required>
-                        <option *ngFor="let c of provincias" [value]="c.name">{{c.name}}</option>
-                    </select>
-                </div>
-                <div class="mb-4">
-                    <label for="idLocalidad" class="form-label">Localidad</label>
-                    <select class="form-select bg-light" name="localidad" id="idLocalidad"
-                        [(ngModel)]="servicio.ubicacion" required>
-                        <option *ngFor="let localidad of localidades" [value]="localidad._id">{{localidad.nombre}}
-                        </option>
-                    </select>
-                </div>
+                        <p *ngIf="form.get('provincia')?.valid && form.get('provincia')?.touched"
+                            class="valid-feedback">
+                            <small>Correcto</small>
+                        </p>
+                    </div>
 
-                <!-- Button Cargar Servicio -->
-                <div class="mb-4 d-grid">
-                    <button type="submit" class="btn btn-warning fw-bold mt-2" [disabled]="servicioForm.invalid"
-                        (click)="guardarServicio(servicio)">Crear Servicio
-                        <i class="fa-solid fa-cash-register"></i></button>
+                    <!-- Localidad -->
+                    <div class="mb-4">
+                        <label for="idLocalidadServicio" class="form-label">Localidad <span
+                                class="text-danger fw-bold">*</span></label>
+
+                        <select class="form-select bg-light" name="localidad" id="idLocalidadServicio"
+                            formControlName="ubicacion" [ngClass]="{ 'is-invalid': form.get('ubicacion')?.errors && form.get('ubicacion')?.touched,
+                        'is-valid': form.get('ubicacion')?.valid && form.get('ubicacion')?.touched}"
+                            [value]="servicio.ubicacion">
+                            <option *ngFor="let local of localidades" [value]="local._id">{{local.nombre}}
+                            </option>
+                        </select>
+
+                        <p *ngIf="form.get('ubicacion')?.errors && form.get('ubicacion')?.touched"
+                            class="invalid-feedback">
+                            <small>Seleccione una localidad</small>
+                        </p>
+
+                        <p *ngIf="form.get('ubicacion')?.valid && form.get('ubicacion')?.touched"
+                            class="valid-feedback">
+                            <small>Correcto</small>
+                        </p>
+                    </div>
+
+                    <!-- Button Form -->
+                    <div class="mb-2 d-grid">
+                        <button type="submit" class="btn btn-warning text-white fw-bold mt-2"
+                            *ngIf="accion =='new'">Registrar
+                        </button>
+
+                        <button type="submit" class="btn btn-warning text-white fw-bold mt-2"
+                            *ngIf="accion =='update'">Modificar
+                        </button>
+                    </div>
                 </div>
             </fieldset>
         </form>
