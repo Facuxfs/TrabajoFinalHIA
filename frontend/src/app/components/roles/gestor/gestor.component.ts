@@ -44,6 +44,7 @@ export class GestorComponent implements OnInit {
     this.id = sessionStorage.getItem("userId");
     this.tipo = sessionStorage.getItem("tipo");
     this.cargarServicios();
+    this.cargarGestor();
   }
 
   cargarGestor(): void {
@@ -288,6 +289,7 @@ export class GestorComponent implements OnInit {
    * @param servicio 
    */
   imprimirServicio(servicio: Servicio): void {
+
     const servicioHTML = `
       <style>
         .gestor-container {
@@ -348,7 +350,7 @@ export class GestorComponent implements OnInit {
         </div>
         <div class="gestor-item">
           <span class="gestor-item-label">Nombre gestor:</span>
-          <span class="gestor-item-value">${servicio.gestor}</span>
+          <span class="gestor-item-value">${this.gestor.nombre +" "+this.gestor.apellido}</span>
         </div>
         <div class="gestor-item">
           <span class="gestor-item-label">Cantidad de resenias:</span>
@@ -381,6 +383,12 @@ export class GestorComponent implements OnInit {
    * @param reserva 
    */
   imprimirReserva(reserva: Reserva): void {
+    let usuario=new Usuario();
+    for(let user of this.usuarios){
+        if(reserva.usuario==user._id){
+          usuario=user;
+        }
+    }
     const reservaHTML = `
       <style>
         .gestor-container {
@@ -460,8 +468,19 @@ export class GestorComponent implements OnInit {
           <span class="gestor-item-value">${reserva.reservado ? 'Aceptada' : 'Rechazada'}</span>
         </div>
         <div class="gestor-item">
-          <span class="gestor-item-label">Usuario:</span>
-          <span class="gestor-item-value">${reserva.usuario}</span>
+          <span class="gestor-item-label">Usuario</span>
+        </div>
+        <div class="gestor-item">
+          <span class="gestor-item-label">Nombre:</span>
+          <span class="gestor-item-value">${usuario.nombre+" "+usuario.apellido}</span>
+        </div>
+        <div class="gestor-item">
+        <span class="gestor-item-label">Dni:</span>
+        <span class="gestor-item-value">${usuario.dni}</span>
+      </div>
+        <div class="gestor-item">
+          <span class="gestor-item-label">Email:</span>
+          <span class="gestor-item-value">${usuario.email}</span>
         </div>
       </div>
     `;
@@ -486,6 +505,8 @@ export class GestorComponent implements OnInit {
    * @param resenia 
    */
   imprimirResenia(resenia: Resenia): void {
+    let nombreUsuario;
+ 
     const reseniaHTML = `
       <style>
         .gestor-container {
