@@ -1,1 +1,32 @@
-<div style="width: 500px;"><canvas id="miEstadistica"></canvas></div>
+<div class="container">
+    <div class="row m-auto mt-5">
+        <h5 class="mb-3 mt-2">Datos en Graficos</h5>
+      
+        <div class="col-lg-8 col-md-8 col-12 accordion" id="accordionExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" (click)="obtenerDatos2()">
+                 Ver Reservas
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <canvas style="width: 500px;" id="barraServicioResevas"></canvas>  
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" (click)="datosDeResenias()" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  Ver Resenias
+                </button>
+              </h2>
+              <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <canvas style="width: 500px;" id="barraServicioResenias"></canvas> 
+                </div>
+              </div>
+            </div>
+    
+          </div>   
+    </div>
