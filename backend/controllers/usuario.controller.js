@@ -49,9 +49,9 @@ usuarioCtl.findEmail=async (req,res)=>{
    try {
       const existingUser = await usuario.findOne({ email: req.body.email });
       if (existingUser) {
-        res.json(true); // El correo electrónico existe
+        res.json(true);
       } else {
-        res.json(false); // El correo electrónico no existe
+        res.json(false);
       }
     } catch (error) {
       res.status(400).json({
@@ -60,7 +60,57 @@ usuarioCtl.findEmail=async (req,res)=>{
       });
    }
 }
-
+usuarioCtl.findDni=async (req,res)=>{
+  try {
+     const existingUser = await usuario.findOne({ dni: req.body.dni });
+     if (existingUser) {
+       res.json(true); 
+     } else {
+       res.json(false);
+     }
+   } catch (error) {
+     res.status(400).json({
+       status: "0",
+       msg: "No se encuentra el usuario"
+     });
+  }
+}
+usuarioCtl.findUsername=async (req,res)=>{
+  try {
+     const existingUser = await usuario.findOne({ username: req.body.username });
+     if (existingUser) {
+       res.json(true); 
+     } else {
+       res.json(false);
+     }
+   } catch (error) {
+     res.status(400).json({
+       status: "0",
+       msg: "No se encuentra el usuario"
+     });
+  }
+}
+// En tu controlador de usuario
+/* usuarioCtl.verificarUsuario = async (req, res)=> {
+  try{
+    const { username, email, dni } = req.body;
+    usuario.findOne({ $or: [{ username }, { email }, { dni }] }, function (err, user) {
+      if (err) throw err;
+      if (user) {
+        res.send('Ya existe un usuario con ese nombre de usuario, correo electrónico o DNI');
+      } else {
+        res.send('No existe un usuario con ese nombre de usuario, correo electrónico o DNI');
+      }
+    }); 
+  }catch (error) {
+    res.status(400).json({
+      msg: error.message
+    });
+ }
+  
+} */
+ 
+ 
 usuarioCtl.edidUsuario= async(req,res)=>{
    const user = new Usuario(req.body);
    try{
