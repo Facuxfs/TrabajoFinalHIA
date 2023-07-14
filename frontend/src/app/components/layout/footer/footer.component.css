@@ -1,3 +1,8 @@
-.footer {
-    height: 150px;
+.footer-top {
+    background: linear-gradient(to top, black, rgba(255, 140, 0, 0));
+    transition: background-color 0.3s ease;
+}
+
+.footer-top:hover {
+    background-color: black;
 }

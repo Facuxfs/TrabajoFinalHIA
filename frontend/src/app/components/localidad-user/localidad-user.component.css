@@ -17,3 +17,33 @@ h1{
     text-align: center;
     text-transform: uppercase;
 }
+
+.container-boton{
+    display: flex;
+  align-items: center;
+  margin-right: 0;
+}
+
+.botonImagen {
+    padding: 8px 10px;
+    margin-left: 8px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  
+  .botonImagen i {
+    margin-right: 5px;
+  }
+  
+  .botonImagen:hover {
+    background-color: #0056b3;
+  }
+  
+  .botonImagen:active {
+    background-color: #003c80;
+  }
