@@ -95,67 +95,78 @@
 
                     <tbody>
                         <tr *ngFor="let ser of servicios">
-                            <th>{{ser.nombre}}</th>
+                            <td>{{ser.nombre}}</td>
                             <td>{{ser.categoria}}</td>
                             <td>{{ser.calificacionTotal}}</td>
-                            <td> <a class="link" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="idReserva=ser._id" >Ver Reservas</a> </td> <!--(click)="cargarReservas(ser._id)"-->
+                            <td> <a class="link" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                    (click)="idReserva=ser._id">Ver Reservas</a> </td>
+                            <!--(click)="cargarReservas(ser._id)"-->
                             <td> <a class="link" (click)="cargarResenias(ser._id)">Ver Resenias</a> </td>
                             <td>
                                 <div class="mb-2">
-                                    <button class="btn btn-success tamanio"><i class="bi bi-file-earmark-spreadsheet"></i></button>
+                                    <button class="btn btn-success tamanio" (click)="imprimirServicio(ser)"><i
+                                            class="bi bi-file-earmark-spreadsheet"></i></button>
                                 </div>
 
                                 <div class="mt-2">
-                                    <button class="btn btn-info text-white tamanio" (click)="actualizarServicio(ser._id)" ><i class="bi bi-pencil-square"></i></button>
+                                    <button class="btn btn-info text-white tamanio"
+                                        (click)="actualizarServicio(ser._id)"><i
+                                            class="bi bi-pencil-square"></i></button>
                                 </div>
 
                                 <div class="mt-2">
-                                    <button class="btn btn-danger tamanio" (click)="eliminarServicio(ser._id)"><i class="bi bi-trash-fill"></i></button>
+                                    <button class="btn btn-danger tamanio" (click)="eliminarServicio(ser._id)"><i
+                                            class="bi bi-trash-fill"></i></button>
                                 </div>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-                          <!-- Modal seleccion usuario -->
-                          <div class="modal fade" id="staticBackdrop" tabindex="-1" aria-labelledby="modalSeleccionUsuario" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <!-- Header modal -->
-                                    <div class="modal-header bg-orange">
-                                        <h5 class="modal-title" id="modalSeleccionUsuario">Seleccionar</h5>
-                        
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                        
-                                    <!-- Body modal -->
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            <div class="col px-2">
-                                                <a aria-current="usuarioForm" class="link"
-                                                    data-bs-dismiss="modal" (click)="cargarReservas(idReserva,true)" >
-                                                    Reservas Aceptadas
-                                                </a>
-                                            </div>
-                        
-                                            <div class="col px-2">
-                                                <a aria-current="gestorForm" class="link"
-                                                 data-bs-dismiss="modal" (click)="cargarReservas(idReserva,false)" >
-                                                     Reservas Pendientes
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                        
-                                    <!-- Footer modal -->
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                    </div>
+
+            <!-- Modal seleccion usuario -->
+            <div class="modal fade" id="staticBackdrop" tabindex="-1" aria-labelledby="modalSeleccionUsuario"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- Header modal -->
+                        <div class="modal-header bg-orange">
+                            <h5 class="modal-title" id="modalSeleccionUsuario">Seleccionar</h5>
+
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        <!-- Body modal -->
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col px-2">
+                                    <a aria-current="usuarioForm" class="link" data-bs-dismiss="modal"
+                                        (click)="cargarReservas(idReserva,true)">
+                                        Reservas Aceptadas
+                                    </a>
+                                </div>
+
+                                <div class="col px-2">
+                                    <a aria-current="gestorForm" class="link" data-bs-dismiss="modal"
+                                        (click)="cargarReservas(idReserva,false)">
+                                        Reservas Pendientes
+                                    </a>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Footer modal -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Tabla Resenias -->
             <div class="table-responsive mt-2" *ngIf="verResenia">
+                <h4 class="table-title">RESENIAS</h4>
+
                 <table class="table table-striped table-hover text-center">
                     <thead class="table-warning">
                         <tr>
@@ -168,7 +179,7 @@
                         <tr *ngFor="let resenia of resenias">
                             <td>{{resenia.comentario}}</td>
                             <td>{{resenia.valoracion}}</td>
-                            <td>{{resenia.fechaAlta}}</td>                            
+                            <td>{{resenia.fechaAlta}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -176,6 +187,8 @@
 
             <!-- Tabla Reservas-->
             <div class="table-responsive mt-2" *ngIf="verReserva">
+                <h4 class="table-title">RESERVAS</h4>
+
                 <table class="table table-striped table-hover text-center">
                     <thead class="table-warning">
                         <tr>
@@ -191,7 +204,7 @@
 
                     <tbody>
                         <tr *ngFor="let reserva of reservas; let i = index">
-                            
+
                             <td>{{reserva.nombreServicio}}</td>
                             <td>{{reserva.categoria}}</td>
                             <td>{{reserva.cantidad}}</td>
@@ -204,18 +217,19 @@
                             <td>{{reserva.fechaAlta}}</td>-->
                             <td>
                                 <div class="mb-2">
-                                    <button class="btn btn-success tamanio"
-                                        (click)="aceptarReserva(reserva._id)"><i class="bi bi-file-earmark-spreadsheet"></i></button>
+                                    <button class="btn btn-success tamanio" (click)="imprimirReserva(reserva)"><i
+                                            class="bi bi-file-earmark-spreadsheet"></i></button>
                                 </div>
 
                                 <div class="mt-2">
                                     <button class="btn btn-info text-white tamanio"
-                                        (click)="aceptarReserva(reserva._id)"><i class="bi bi-check-circle"></i></button>
+                                        (click)="aceptarReserva(reserva._id)"><i
+                                            class="bi bi-check-circle"></i></button>
                                 </div>
 
                                 <div class="mt-2">
-                                    <button class="btn btn-danger tamanio"
-                                        (click)="cancelarReserva(reserva._id)"><i class="bi bi-x-circle-fill"></i></button>
+                                    <button class="btn btn-danger tamanio" (click)="cancelarReserva(reserva._id)"><i
+                                            class="bi bi-x-circle-fill"></i></button>
                                 </div>
                             </td>
                         </tr>
@@ -224,6 +238,4 @@
             </div>
         </div>
     </div>
-
-
 </section>
