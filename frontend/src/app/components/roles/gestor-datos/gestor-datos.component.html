@@ -1,60 +1,91 @@
-<br>
-<div class="fondo-usuario">
-    <div class="row">
-        <div class="tabla col-sm-8 offset-sm-2">
-            <div class="title col-12">
-                <strong>
-                    <h3>Mis Datos</h3>
-                </strong>
-            </div>
-            <div class="row">
-                <div class="col-12 col-md-4">
-                    <label class="label1">Usuario</label><br>
-                    <div class="nombre">
-                        <label for="">{{gestor.username}}</label>
-                    </div>
+<!-- Datos Gestor -->
+<section class="container">
+    <!-- Fondo -->
+    <div class="background-container"></div>
+
+    <!-- Titulo -->
+    <div class="text-center py-4">
+        <h1 class="titulo-principal">MIS DATOS</h1>
+    </div>
+
+    <!-- Datos -->
+    <div class="text-center background-datos">
+        <div class="row">
+            <div class="col-12 col-md-4">
+                <div class="titulo">
+                    Username
                 </div>
-                <div class="col-12 col-md-4 ">
-                    <label class="label1">Nombre</label><br>
-                    <div class="nombre">
-                        <label for="">{{gestor.nombre}}</label>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4">
-                    <label class="label1">Apellido</label><br>
-                    <div class="nombre">
-                        <label for="">{{gestor.apellido}}</label>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4">
-                    <label class="label1">DNI</label><br>
-                    <div class="nombre">
-                        <label for="">{{gestor.dni}}</label>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4">
-                    <label class="label1">Email</label><br>
-                    <div class="nombre">
-                        <label for="">{{gestor.email}}</label>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4">
-                    <label class="label1">Edad</label><br>
-                    <div class="nombre">
-                        <label for="">{{gestor.edad}}</label>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4">
-                    <label class="label1">Fecha de Nacimiento</label><br>
-                    <div class="nombre">
-                        <label for="">{{gestor.fechaNacimiento}}</label>
-                    </div>
+
+                <div class="mb-4 bg-white py-1">
+                    {{gestor.username}}
                 </div>
             </div>
 
-            <button type="button" class="btn btn-primary" (click)="modificarGestor()">
-                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modificar
-            </button>
+            <div class="col-12 col-md-4">
+                <div class="titulo">
+                    Nombre
+                </div>
+
+                <div class="mb-4 bg-white py-1">
+                    {{gestor.nombre}}
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+                <div class="titulo">
+                    Apellido
+                </div>
+
+                <div class="mb-4 bg-white py-1">
+                    {{gestor.apellido}}
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+                <div class="titulo">
+                    DNI
+                </div>
+
+                <div class="mb-4 bg-white py-1">
+                    {{gestor.dni}}
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+                <div class="titulo">
+                    Edad
+                </div>
+
+                <div class="mb-4 bg-white py-1">
+                    {{gestor.edad}}
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+                <div class="titulo">
+                    Email
+                </div>
+
+                <div class="mb-4 bg-white py-1">
+                    {{gestor.email}}
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+                <div class="titulo">
+                    Fecha de nacimiento
+                </div>
+
+                <div class="mb-4 bg-white py-1">
+                    {{gestor.fechaNacimiento}}
+                </div>
+            </div>
+
+            <div>
+                <button type="button" class="btn btn-info text-white" (click)="modificarGestor()">
+                    <i class="bi bi-pencil-square"></i> Modificar
+                </button>
+            </div>
         </div>
     </div>
-</div>
+</section>

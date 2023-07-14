@@ -1,4 +1,4 @@
- import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, NgForm, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -14,14 +14,14 @@ import { GestorService } from 'src/app/services/gestor.service';
 export class GestorFormComponent implements OnInit {
 
   gestor!: Gestor;
-  tipo!:any;
+  tipo!: any;
   accion: string = "";
   showPassword: boolean = false;
   form!: FormGroup;
   opcion: any;
   id: any;
 
-  constructor(private gestorService: GestorService, private router: Router,private toast:ToastrService, private route: ActivatedRoute, private renderer: Renderer2, private formBuilder: FormBuilder) {
+  constructor(private gestorService: GestorService, private router: Router, private toast: ToastrService, private route: ActivatedRoute, private renderer: Renderer2, private formBuilder: FormBuilder) {
 
     this.gestor = new Gestor();
 
@@ -39,7 +39,7 @@ export class GestorFormComponent implements OnInit {
     if (this.opcion == 1) {
       this.accion = "update";
       this.id = sessionStorage.getItem('userId');
-      this.cargarGestor();      
+      this.cargarGestor();
     }
     else {
       this.accion = "new";
@@ -62,21 +62,21 @@ export class GestorFormComponent implements OnInit {
     );
   }
 
-  actualizarFormulario(gestor:Gestor){
-     this.form.get("nombre")?.setValue(gestor.nombre);
-     this.form.get("nombre")?.markAsTouched;
-     this.form.get("apellido")?.setValue(gestor.apellido);
-     this.form.get("apellido")?.markAsTouched;
-     this.form.get("username")?.setValue(gestor.username);
-     this.form.get("username")?.markAsTouched;
-     this.form.get("password")?.setValue(gestor.password);
-     this.form.get("password")?.markAsTouched;
-     this.form.get("email")?.setValue(gestor.email);
-     this.form.get("email")?.markAsTouched;
-     this.form.get("dni")?.setValue(gestor.dni);
-     this.form.get("dni")?.markAsTouched;
-     this.form.get("fechaNacimiento")?.setValue(gestor.fechaNacimiento);
-     this.form.get("fechaNacimiento")?.markAsTouched;
+  actualizarFormulario(gestor: Gestor) {
+    this.form.get("nombre")?.setValue(gestor.nombre);
+    this.form.get("nombre")?.markAsTouched;
+    this.form.get("apellido")?.setValue(gestor.apellido);
+    this.form.get("apellido")?.markAsTouched;
+    this.form.get("username")?.setValue(gestor.username);
+    this.form.get("username")?.markAsTouched;
+    this.form.get("password")?.setValue(gestor.password);
+    this.form.get("password")?.markAsTouched;
+    this.form.get("email")?.setValue(gestor.email);
+    this.form.get("email")?.markAsTouched;
+    this.form.get("dni")?.setValue(gestor.dni);
+    this.form.get("dni")?.markAsTouched;
+    this.form.get("fechaNacimiento")?.setValue(gestor.fechaNacimiento);
+    this.form.get("fechaNacimiento")?.markAsTouched;
   }
 
   /**
@@ -86,18 +86,18 @@ export class GestorFormComponent implements OnInit {
     this.gestorService.putGestor(this.gestor).subscribe(
       (result: any) => {
 
-        if (result.status == 1){
+        if (result.status == 1) {
           this.router.navigate(["gestor/gestor-datos"])
           this.toast.success('Gestor modificado');
-          if(this.tipo=="admin"){
+          if (this.tipo == "admin") {
             this.router.navigate(["admin"])
-          }else{
+          } else {
             this.router.navigate(["gestor/gestor-datos"]);
           }
-        if (result.status == 1) {
-         
+          if (result.status == 1) {
+
+          }
         }
-      }
       },
       error => {
         this.toast.error('Error al modificar gestor');
@@ -115,7 +115,7 @@ export class GestorFormComponent implements OnInit {
       this.gestorService.postGestor(this.gestor).subscribe(
         (res: any) => {
           console.log(res);
-          this.toast.success('Gestor' + this.gestor.nombre + this.gestor.apellido +  'registrado correctamente' );
+          this.toast.success('Gestor' + this.gestor.nombre + this.gestor.apellido + 'registrado correctamente');
           this.router.navigate(['/login']);
         },
         err => {

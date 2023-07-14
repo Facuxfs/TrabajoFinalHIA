@@ -95,22 +95,22 @@ export class UsuarioFormComponent implements OnInit {
         console.log(res);
         if (res == true) {
           alert("El nombre de usuario ya existe");
-        }else{
-            if (this.form.valid) {
-              await Object.assign(this.usuario, this.form.value);
-        
-              this.usuario.edad = await this.calculoEdad(this.form.value.fechaNacimiento);
-              
-              
-                await this.guardarUsuario();
-                console.log(this.usuario);
-              
-              
-        
-            } else {
-              this.form.markAllAsTouched();
-            }
+        } else {
+          if (this.form.valid) {
+            await Object.assign(this.usuario, this.form.value);
+
+            this.usuario.edad = await this.calculoEdad(this.form.value.fechaNacimiento);
+
+
+            await this.guardarUsuario();
+            console.log(this.usuario);
+
+
+
+          } else {
+            this.form.markAllAsTouched();
           }
+        }
       }
     );
   }
@@ -123,7 +123,7 @@ export class UsuarioFormComponent implements OnInit {
   }
 
   guardarUsuario() {
-    
+
     if (this.opcion == 0) {
       /* this.userService.getusuarios().subscribe((res: any) => {
         console.log("entro");
@@ -140,7 +140,7 @@ export class UsuarioFormComponent implements OnInit {
       },
       err => {
       }) */
-      
+
 
       this.userService.guardarUsuario(this.usuario)
         .subscribe(
@@ -164,7 +164,7 @@ export class UsuarioFormComponent implements OnInit {
           }
         )
     }
-    
+
   }
 
   /**
@@ -199,17 +199,17 @@ export class UsuarioFormComponent implements OnInit {
     };
   }*/
 
-/*   findEmail(email: string) {
-    this.userService.findEmail(email)
-      .subscribe(
-        (res: any) => {
-          this.emailExist = res as boolean;
-        },
-        err => {
-          console.log(err);
-        }
-      )
-  } */
+  /*   findEmail(email: string) {
+      this.userService.findEmail(email)
+        .subscribe(
+          (res: any) => {
+            this.emailExist = res as boolean;
+          },
+          err => {
+            console.log(err);
+          }
+        )
+    } */
 
   /**
    * Ocultar o visualizar la password
