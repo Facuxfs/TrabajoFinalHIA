@@ -58,7 +58,6 @@
 
 .link:hover{
   cursor: pointer;
-  font-size: large;
   color:blue;
   font-weight: bold;
 }
