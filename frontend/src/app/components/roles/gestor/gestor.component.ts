@@ -8,6 +8,7 @@ import { Resenia } from 'src/app/models/resenia';
 import { Reserva } from 'src/app/models/reserva';
 import { Servicio } from 'src/app/models/servicio';
 import { Usuario } from 'src/app/models/usuario.model';
+import { CiudadesService } from 'src/app/services/ciudades.service';
 import { GestorService } from 'src/app/services/gestor.service';
 import { ReseniaService } from 'src/app/services/resenia.service';
 import { ReservaService } from 'src/app/services/reserva.service';
@@ -30,9 +31,10 @@ export class GestorComponent implements OnInit {
   verResenia:boolean=false; 
   verReserva:boolean=false;
   reservas:Array<Reserva>;
+  usuarioEmail!:Usuario;
   
-  constructor(private appCom: AppComponent , private toastr:ToastrService, private servicioService: ServiciosService, private gestorService: GestorService,private usuarioService:UsuarioService,private reseniaService:ReseniaService,private reservaService:ReservaService, private router: Router) {
-    this.appCom.logeado = true;
+  constructor(private appCom: AppComponent , private email:CiudadesService,private toastr:ToastrService, private servicioService: ServiciosService, private gestorService: GestorService,private usuarioService:UsuarioService,private reseniaService:ReseniaService,private reservaService:ReservaService, private router: Router) {
+    this.appCom.logeado = true; 
     this.servicios = new Array<Servicio>();
     this.usuarios=new Array<Usuario>();
     this.resenias=new Array<Resenia>();
@@ -220,12 +222,19 @@ export class GestorComponent implements OnInit {
 
   
 
-  aceptarReserva(idReserva:string){
+  aceptarReserva(idReserva:string,emailUsuario:string){
+    
     this.reservaService.getReserva(idReserva).subscribe(
       (res:any)=>{
            let unaReserva=new Reserva();
            Object.assign(unaReserva,res);
            unaReserva.reservado = true ;
+           let asunto:string="Alerta : reserva aprobada ";
+           let mensaje:string = "La reserva que solciito en " + unaReserva.nombreServicio + " con fecha :" + unaReserva.fechaIngreso + "ah sido aprobada"; 
+           this.email.enviarCorreo(emailUsuario,asunto,mensaje).subscribe(res=>{
+            
+            this.toastr.success("Email enviado al usuario")
+          })
            this.reservaService.modificarReserva(unaReserva).subscribe(
            )
            this.toastr.success('Reserva :'+ unaReserva.nombreServicio , 'aceptada!');
@@ -236,12 +245,17 @@ export class GestorComponent implements OnInit {
     )
   }
 
-  cancelarReserva(idReserva:string){
+  cancelarReserva(idReserva:string,emailUsuario:string){
     this.reservaService.getReserva(idReserva).subscribe(
       (res:any)=>{
            let unaReserva=new Reserva();
            Object.assign(unaReserva,res);
            unaReserva.reservado = false ;
+           let asunto:string="Alerta : reserva rechazada ";
+           let mensaje:string = "Lamentamos informarle que la reserva que solciito en " + unaReserva.nombreServicio + " con fecha :" + unaReserva.fechaIngreso + "ah sido rechazada"; 
+           this.email.enviarCorreo(emailUsuario,asunto,mensaje).subscribe(res=>{
+            this.toastr.success("Email enviado al usuario")
+          })
            this.reservaService.modificarReserva(unaReserva).subscribe(
             
            )

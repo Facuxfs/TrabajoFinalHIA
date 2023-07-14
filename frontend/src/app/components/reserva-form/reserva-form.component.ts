@@ -3,9 +3,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 //import { Console, error } from 'console';
 import { AppComponent } from 'src/app/app.component';
+import { Gestor } from 'src/app/models/gestor';
 import { Reserva } from 'src/app/models/reserva';
 import { Servicio } from 'src/app/models/servicio';
 import { Usuario } from 'src/app/models/usuario.model';
+import { CiudadesService } from 'src/app/services/ciudades.service';
+import { GestorService } from 'src/app/services/gestor.service';
 import { ReservaService } from 'src/app/services/reserva.service';
 import { ServiciosService } from 'src/app/services/servicios.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -26,10 +29,10 @@ export class ReservaFormComponent implements OnInit {
   servicios!: Array<Servicio>;
   nombreServicio!: string;
   precioCalculado!: number;
+  gestor!:Gestor;
 
-
-  constructor(private reservaService: ReservaService, 
-    private appcomponent: AppComponent,
+  constructor(private reservaService: ReservaService,  private gestorService:GestorService,
+    private appcomponent: AppComponent, private email:CiudadesService,
     private router: Router, private toastrService:ToastrService,
     private activatedRoute: ActivatedRoute,
     private usuarioService: UsuarioService,
@@ -44,6 +47,18 @@ export class ReservaFormComponent implements OnInit {
     this.reserva.numeroReserva = this.usuario.reservas.length + 1;
    
   }
+
+cargarGestor(){
+  this.gestor = new Gestor();
+  this.gestorService.getGestor(this.servicioSeleccionado.gestor).subscribe(
+    result => {
+      console.log(result)
+      Object.assign(this.gestor, result);
+    },
+    error => {
+    }
+  );
+}
 
   calcularPrecioRestaurante(cantidad: number) {
     const precioComida:number = 3000;
@@ -113,6 +128,7 @@ export class ReservaFormComponent implements OnInit {
 
   pagarReserva(){
     this.reserva.reservado = false;
+    this.cargarGestor();
   }
 
   guardarReserva() {
@@ -121,12 +137,17 @@ export class ReservaFormComponent implements OnInit {
         if (res.status == 1) {
           console.log("reserva guardada");
           this.toastrService.success('Reserva registrada');
-          this.reserva = new Reserva();
           this.router.navigate(["usuario"]);
-         
+          let asunto:string="Alerta : nueva reserva en " +this.reserva.nombreServicio+" solicitada ";
+          let mensaje:string = "Tiene una nueva solicitud de reserva para el :" + this.reserva.fechaIngreso + "a nombre de " +this.usuario.nombre +this.usuario.apellido + " ingrese al sistema de Turismo para poder ver la solicitud completa" ;
+          this.email.enviarCorreo(this.gestor.email,asunto,mensaje).subscribe(res=>{
+            this.toastrService.success("Reserva para :"+this.reserva.nombreServicio,"Email enviado")
+          })
+          this.reserva = new Reserva();
         }
       }, error => {
         alert(error.msg);
+        this.toastrService.error("No se pudo enviar la reserva")
       }
     )
   }

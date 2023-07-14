@@ -1,3 +1,5 @@
+{{usuarioEmail | json}} dale 
+
 <!-- Pagina Gestor -->
 <section class="container">
     <!-- Fondo -->
@@ -144,7 +146,7 @@
                     <thead class="table-warning">
                         <tr>
                             <th scope="col">Nombre</th>
-                            <th scope="col">Apellido</th>
+                            <th scope="col">email</th>
                             <th scope="col">DNI</th>
                             <th scope="col">Fecha de Alta</th>
                             <th scope="col">Opciones</th>
@@ -160,17 +162,17 @@
                             <td>
                                 <div class="mb-2">
                                     <button class="btn btn-success tamanio"
-                                        (click)="aceptarReserva(reserva._id)"><i class="bi bi-file-earmark-spreadsheet"></i></button>
+                                        ><i class="bi bi-file-earmark-spreadsheet"></i></button>
                                 </div>
 
                                 <div class="mt-2">
                                     <button class="btn btn-info text-white tamanio"
-                                        (click)="aceptarReserva(reserva._id)"><i class="bi bi-check-circle"></i></button>
+                                        (click)="aceptarReserva(reserva._id,usuarios[i].email)"><i class="bi bi-check-circle"></i></button>
                                 </div>
 
                                 <div class="mt-2">
                                     <button class="btn btn-danger tamanio"
-                                        (click)="cancelarReserva(reserva._id)"><i class="bi bi-x-circle-fill"></i></button>
+                                        (click)="cancelarReserva(reserva._id,usuarios[i].email)"><i class="bi bi-x-circle-fill"></i></button>
                                 </div>
                             </td>
                         </tr>
