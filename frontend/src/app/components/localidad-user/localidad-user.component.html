@@ -25,12 +25,11 @@
         </div>
       </div>
     </div>
-    <div><button *ngIf="indice>0" (click)="anterior()" type="button" class="botonImagen">Anterior<i
-          class="bi bi-caret-left-fill"></i></button>
+    <div class="container-boton">
+    <button *ngIf="indice>0" (click)="anterior()" type="button" class="botonImagen"><i class="bi bi-caret-left-fill"></i> Anterior</button>
+    <button *ngIf="indice<servicios.length-1" (click)="siguiente()" type="button" class="botonImagen">
+         Siguiente<i class="bi bi-caret-right-fill"></i></button>
     </div>
-    <div><button *ngIf="indice<servicios.length-1" (click)="siguiente()" type="button" class="botonImagen"><i
-          class="bi bi-caret-right-fill">Siguiente</i></button></div>
-
   </div>
   <div *ngIf="servicios.length === 0">
     <p>No hay servicios disponibles aún.</p>
