@@ -30,7 +30,7 @@ export class GestorComponent implements OnInit {
   verResenia:boolean=false; 
   verReserva:boolean=false;
   reservas:Array<Reserva>;
-  
+  idReserva!:string;
   constructor(private appCom: AppComponent , private toastr:ToastrService, private servicioService: ServiciosService, private gestorService: GestorService,private usuarioService:UsuarioService,private reseniaService:ReseniaService,private reservaService:ReservaService, private router: Router) {
     this.appCom.logeado = true;
     this.servicios = new Array<Servicio>();
@@ -120,27 +120,35 @@ export class GestorComponent implements OnInit {
     )
   }
 
-  async cargarReservas(id: string) {    
+  async cargarReservas(id: string,pendiente:boolean) {    
     this.verReserva=true;
     this.verResenia=false
     this.reservas = [];
     const index = this.servicios.findIndex(res => res._id === id);
     if (index !== -1) {
-      await Promise.all(this.servicios[index].reservas.map(reserva => this.buscarReserva(reserva.toString())));
+      await Promise.all(this.servicios[index].reservas.map(reserva => this.buscarReserva(reserva.toString(),pendiente)));
     }
     await this.cargarUsuario();
   }
   
-  buscarReserva(id: string) {
+  buscarReserva(id: string,pendiente:boolean) {
     return new Promise<void>((resolve, reject) => {
       this.reservaService.getReserva(id)
         .subscribe(
           (res: any) => {
             let reserva: Reserva = new Reserva();
             Object.assign(reserva, res);
-            this.reservas.push(reserva);
-            console.log(this.reservas);
-            resolve(); // Resuelve la promesa cuando se completa la búsqueda de reserva
+            if (pendiente === reserva.reservado) {
+              this.reservas.push(reserva);
+              console.log(this.reservas);
+              resolve();
+            } else if (!pendiente && !reserva.reservado) {
+              this.reservas.push(reserva);
+              console.log(this.reservas);
+              resolve();
+            } else {
+              resolve(); // Resuelve la promesa cuando se completa la búsqueda de reserva
+            } 
           },
           err => {
             console.log(err);
@@ -237,20 +245,22 @@ export class GestorComponent implements OnInit {
   }
 
   cancelarReserva(idReserva:string){
-    this.reservaService.getReserva(idReserva).subscribe(
-      (res:any)=>{
-           let unaReserva=new Reserva();
-           Object.assign(unaReserva,res);
-           unaReserva.reservado = false ;
-           this.reservaService.modificarReserva(unaReserva).subscribe(
-            
-           )
-          this.toastr.info('Reserva :'+ unaReserva.nombreServicio , 'rechazada');
-      },
-      err=>{
-        console.log(err);
-      }
-    )
+   if(confirm("Esta Serguro de Canselar la Reserva")){
+      this.reservaService.getReserva(idReserva).subscribe(
+        (res:any)=>{
+             let unaReserva=new Reserva();
+             Object.assign(unaReserva,res);
+             unaReserva.reservado = false ;
+             this.reservaService.modificarReserva(unaReserva).subscribe(
+              
+             )
+            this.toastr.info('Reserva :'+ unaReserva.nombreServicio , 'rechazada');
+        },
+        err=>{
+          console.log(err);
+        }
+      )
+   }
   }
 
   actualizarServicio(id:string){

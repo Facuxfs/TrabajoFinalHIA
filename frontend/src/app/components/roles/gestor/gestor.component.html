@@ -98,7 +98,7 @@
                             <th>{{ser.nombre}}</th>
                             <td>{{ser.categoria}}</td>
                             <td>{{ser.calificacionTotal}}</td>
-                            <td> <a class="link" (click)="cargarReservas(ser._id)">Ver Reservas</a> </td>
+                            <td> <a class="link" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="idReserva=ser._id" >Ver Reservas</a> </td> <!--(click)="cargarReservas(ser._id)"-->
                             <td> <a class="link" (click)="cargarResenias(ser._id)">Ver Resenias</a> </td>
                             <td>
                                 <div class="mb-2">
@@ -117,7 +117,43 @@
                     </tbody>
                 </table>
             </div>
-
+                          <!-- Modal seleccion usuario -->
+                          <div class="modal fade" id="staticBackdrop" tabindex="-1" aria-labelledby="modalSeleccionUsuario" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <!-- Header modal -->
+                                    <div class="modal-header bg-orange">
+                                        <h5 class="modal-title" id="modalSeleccionUsuario">Seleccionar</h5>
+                        
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                        
+                                    <!-- Body modal -->
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col px-2">
+                                                <a aria-current="usuarioForm" class="link"
+                                                    data-bs-dismiss="modal" (click)="cargarReservas(idReserva,true)" >
+                                                    Reservas Aceptadas
+                                                </a>
+                                            </div>
+                        
+                                            <div class="col px-2">
+                                                <a aria-current="gestorForm" class="link"
+                                                 data-bs-dismiss="modal" (click)="cargarReservas(idReserva,false)" >
+                                                     Reservas Pendientes
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                        
+                                    <!-- Footer modal -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
             <!-- Tabla Resenias -->
             <div class="table-responsive mt-2" *ngIf="verResenia">
                 <table class="table table-striped table-hover text-center">
@@ -143,20 +179,29 @@
                 <table class="table table-striped table-hover text-center">
                     <thead class="table-warning">
                         <tr>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Apellido</th>
-                            <th scope="col">DNI</th>
-                            <th scope="col">Fecha de Alta</th>
+                            <th scope="col">Nombre del Servicio</th>
+                            <th scope="col">Categoria</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">fecha de Ingreso</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Estado</th>
                             <th scope="col">Opciones</th>
                         </tr>
                     </thead>
 
                     <tbody>
                         <tr *ngFor="let reserva of reservas; let i = index">
-                            <td>{{usuarios[i].nombre}}</td>
+                            
+                            <td>{{reserva.nombreServicio}}</td>
+                            <td>{{reserva.categoria}}</td>
+                            <td>{{reserva.cantidad}}</td>
+                            <td>{{reserva.fechaIngreso}}</td>
+                            <td>{{reserva.precio}}</td>
+                            <td>{{reserva.reservado}}</td>
+                            <!--<td>{{usuarios[i].nombre}}</td>
                             <td>{{usuarios[i].apellido}}</td>
                             <td>{{usuarios[i].dni}}</td>
-                            <td>{{reserva.fechaAlta}}</td>
+                            <td>{{reserva.fechaAlta}}</td>-->
                             <td>
                                 <div class="mb-2">
                                     <button class="btn btn-success tamanio"
@@ -179,4 +224,6 @@
             </div>
         </div>
     </div>
+
+
 </section>

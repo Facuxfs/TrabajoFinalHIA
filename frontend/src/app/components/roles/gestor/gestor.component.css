@@ -31,3 +31,18 @@
 .tamanio {
   width: 100px;
 }
+
+/**
+  Links
+*/
+.link{
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.link:hover{
+  cursor: pointer;
+  font-size: large;
+  color:blue;
+  font-weight: bold;
+}
