@@ -1,0 +1,14 @@
+<div class="container" style="height: 100vh;">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-12 mt-4">
+            <select class="form-select" aria-label="Default select example" [(ngModel)]="provincia" (ngModelChange)="obtenerDatos()">
+            <option selected>Provinicias</option>
+            <option *ngFor="let p of provincias" [value]="p">{{p}}</option>
+            </select>
+        </div>
+        <div class="col-lg-6 col-md-6 col-12 mt-4">
+            <div class="p-2"><canvas id="barra"></canvas></div>
+        </div>
+    </div>
+    
+</div>

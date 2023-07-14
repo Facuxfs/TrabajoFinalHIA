@@ -32,6 +32,7 @@ import { GestorDatosComponent } from './components/roles/gestor-datos/gestor-dat
 import { AdminFormComponent } from './components/roles/admin-form/admin-form.component';
 import { GestorEstadisticaComponent } from './components/roles/gestor-estadistica/gestor-estadistica.component';
 import { ToastrModule } from 'ngx-toastr';
+import { UsuarioEstadisticaComponent } from './components/roles/usuario-estadistica/usuario-estadistica.component';
 
 
 @NgModule({
@@ -61,6 +62,7 @@ import { ToastrModule } from 'ngx-toastr';
     GestorDatosComponent,
     AdminFormComponent,
     GestorEstadisticaComponent,
+    UsuarioEstadisticaComponent,
     
  
   ],
