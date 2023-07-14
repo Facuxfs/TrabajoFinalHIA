@@ -91,31 +91,28 @@ export class UsuarioFormComponent implements OnInit {
     event.preventDefault();
     console.log(this.form.value);
     await this.userService.getRepeatUsername(this.form.value).subscribe(
-      (res: any) => {
+      async (res: any) => {
         console.log(res);
         if (res == true) {
-          this.usernameExist = true;
           alert("El nombre de usuario ya existe");
         }else{
-          this.usernameExist = false;
-        }
+            if (this.form.valid) {
+              await Object.assign(this.usuario, this.form.value);
+        
+              this.usuario.edad = await this.calculoEdad(this.form.value.fechaNacimiento);
+              
+              
+                await this.guardarUsuario();
+                console.log(this.usuario);
+              
+              
+        
+            } else {
+              this.form.markAllAsTouched();
+            }
+          }
       }
-    );console.log(this.usernameExist);
-    if (this.usernameExist == false){
-    if (this.form.valid) {
-      await Object.assign(this.usuario, this.form.value);
-
-      this.usuario.edad = await this.calculoEdad(this.form.value.fechaNacimiento);
-      
-      
-        await this.guardarUsuario();
-        console.log(this.usuario);
-      
-      
-
-    } else {
-      this.form.markAllAsTouched();
-    }}
+    );
   }
 
   calculoEdad(fechaNa: string): number {
