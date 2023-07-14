@@ -15,7 +15,7 @@ import { of } from 'rxjs';
 export class UsuarioFormComponent implements OnInit {
   form!: FormGroup;
   //emailCtrl=new FormControl('',[Validators.required]);///validacion sincrona ''; validacion asincrona []
-  emailExist: boolean = false;
+  usernameExist: boolean;
   usuario: Usuario;
   fechaNacimiento!: Date;
   fechaActual: Date = new Date();
@@ -26,7 +26,7 @@ export class UsuarioFormComponent implements OnInit {
 
   constructor(private userService: UsuarioService, private router: Router, private route: ActivatedRoute, private renderer: Renderer2, private formBuilder: FormBuilder) {
     this.usuario = new Usuario();
-    
+    this.usernameExist = false;
     this.buildForm();
   }
 
@@ -40,11 +40,11 @@ export class UsuarioFormComponent implements OnInit {
     if (this.opcion == 1) {
       this.accion = "update";
       this.id = sessionStorage.getItem('userId');
-      
+
       this.userService.getusuario(this.id).subscribe(
         (res: any) => {
-          Object.assign(this.usuario, res); 
-          this.actualizarUsuario(this.usuario);         
+          Object.assign(this.usuario, res);
+          this.actualizarUsuario(this.usuario);
         },
         err => {
           console.log(err);
@@ -56,23 +56,23 @@ export class UsuarioFormComponent implements OnInit {
     }
   }
 
-  actualizarUsuario(usuario:Usuario){
-      this.form.get("nombre")?.setValue(usuario.nombre)
-      this.form.get("nombre")?.markAsTouched
-      this.form.get("apellido")?.setValue(usuario.apellido)
-      this.form.get("apellido")?.markAsTouched
-      this.form.get("username")?.setValue(usuario.username)
-      this.form.get("username")?.markAsTouched
-      this.form.get("password")?.setValue(usuario.password)
-      this.form.get("password")?.markAsTouched
-      this.form.get("email")?.setValue(usuario.email)
-      this.form.get("email")?.markAsTouched
-      this.form.get("dni")?.setValue(usuario.dni)
-      this.form.get("dni")?.markAsTouched
-      this.form.get("fechaNacimiento")?.setValue(usuario.fechaNacimiento)
-      this.form.get("fechaNacimiento")?.markAsTouched
-      this.form.updateValueAndValidity()  
-      console.log(this.form.valid)
+  actualizarUsuario(usuario: Usuario) {
+    this.form.get("nombre")?.setValue(usuario.nombre)
+    this.form.get("nombre")?.markAsTouched
+    this.form.get("apellido")?.setValue(usuario.apellido)
+    this.form.get("apellido")?.markAsTouched
+    this.form.get("username")?.setValue(usuario.username)
+    this.form.get("username")?.markAsTouched
+    this.form.get("password")?.setValue(usuario.password)
+    this.form.get("password")?.markAsTouched
+    this.form.get("email")?.setValue(usuario.email)
+    this.form.get("email")?.markAsTouched
+    this.form.get("dni")?.setValue(usuario.dni)
+    this.form.get("dni")?.markAsTouched
+    this.form.get("fechaNacimiento")?.setValue(usuario.fechaNacimiento)
+    this.form.get("fechaNacimiento")?.markAsTouched
+    this.form.updateValueAndValidity()
+    console.log(this.form.valid)
   }
 
   private buildForm() {
@@ -89,16 +89,33 @@ export class UsuarioFormComponent implements OnInit {
 
   async save(event: Event) {
     event.preventDefault();
+    console.log(this.form.value);
+    await this.userService.getRepeatUsername(this.form.value).subscribe(
+      (res: any) => {
+        console.log(res);
+        if (res == true) {
+          this.usernameExist = true;
+          alert("El nombre de usuario ya existe");
+        }else{
+          this.usernameExist = false;
+        }
+      }
+    );console.log(this.usernameExist);
+    if (this.usernameExist == false){
     if (this.form.valid) {
       await Object.assign(this.usuario, this.form.value);
 
       this.usuario.edad = await this.calculoEdad(this.form.value.fechaNacimiento);
-      await this.guardarUsuario();
-      console.log(this.usuario);
+      
+      
+        await this.guardarUsuario();
+        console.log(this.usuario);
+      
+      
 
     } else {
       this.form.markAllAsTouched();
-    }
+    }}
   }
 
   calculoEdad(fechaNa: string): number {
@@ -109,7 +126,25 @@ export class UsuarioFormComponent implements OnInit {
   }
 
   guardarUsuario() {
+    
     if (this.opcion == 0) {
+      /* this.userService.getusuarios().subscribe((res: any) => {
+        console.log("entro");
+        console.log(res);
+        for (let i = 0; i < res.length; i++) {
+          console.log(res[i].email + " " + this.usuario.email);
+          console.log("El email ya existe");
+          if(res[i].email==this.usuario.email){
+            
+            alert("El email ya existe");
+            this.router.navigate(['usuario-form/:id']);
+          }
+        }
+      },
+      err => {
+      }) */
+      
+
       this.userService.guardarUsuario(this.usuario)
         .subscribe(
           (res: any) => {
@@ -132,6 +167,7 @@ export class UsuarioFormComponent implements OnInit {
           }
         )
     }
+    
   }
 
   /**
@@ -166,7 +202,7 @@ export class UsuarioFormComponent implements OnInit {
     };
   }*/
 
-  findEmail(email: string) {
+/*   findEmail(email: string) {
     this.userService.findEmail(email)
       .subscribe(
         (res: any) => {
@@ -176,7 +212,7 @@ export class UsuarioFormComponent implements OnInit {
           console.log(err);
         }
       )
-  }
+  } */
 
   /**
    * Ocultar o visualizar la password
