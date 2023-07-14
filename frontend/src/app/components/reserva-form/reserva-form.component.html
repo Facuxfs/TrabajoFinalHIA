@@ -1,3 +1,4 @@
+{{gestor | json}}
 <div class="font-reserva">
 
   <div class="row">
@@ -96,13 +97,18 @@
                     <label for="floatingPassword" style="margin-bottom: 10px;">Total a pagar: {{reserva.precio}}</label>
 
                     <div class="form-floating mb-3">
-                      <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                      <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" 
+                             pattern="[0-9]{16}" title="Ingrese los 16 números de su tarjeta">
                       <label for="floatingInput">Número de tarjeta:</label>
                     </div>
+                    
                     <div class="form-floating">
-                      <input type="number" class="form-control" id="floatingPassword" placeholder="Password">
+                      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" 
+                             minlength="3" maxlength="3">
                       <label for="floatingPassword">Código de seguridad:</label>
                     </div>
+                    
+                    
                   </div>
                   <div class="modal-footer">
                     <button class="btn btn-success" data-bs-dismiss="modal" (click)="pagarReserva()">Pagar</button>
