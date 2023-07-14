@@ -23,12 +23,13 @@ import { ReseniaServicioComponent } from './components/resenias/resenia-servicio
 import { GestorDatosComponent } from './components/roles/gestor-datos/gestor-datos.component';
 import { AdminFormComponent } from './components/roles/admin-form/admin-form.component';
 import { GestorEstadisticaComponent } from './components/roles/gestor-estadistica/gestor-estadistica.component';
+import { AuthGuard } from './security/auth.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
    //viajeros
   { path: 'usuario', component: UsuarioComponent},
-  { path: 'usuario/datos', component: UsuarioDatosComponent },
+  { path: 'usuario/datos', component: UsuarioDatosComponent},
   { path: 'usuario/resenia', component: ReseniaUsuarioComponent },
   { path: 'usuario-form/:id', component: UsuarioFormComponent },
   { path: "gestor", component: GestorComponent },
