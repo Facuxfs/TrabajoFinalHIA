@@ -24,6 +24,7 @@ import { GestorDatosComponent } from './components/roles/gestor-datos/gestor-dat
 import { AdminFormComponent } from './components/roles/admin-form/admin-form.component';
 import { GestorEstadisticaComponent } from './components/roles/gestor-estadistica/gestor-estadistica.component';
 import { AuthGuard } from './security/auth.guard';
+import { UsuarioEstadisticaComponent } from './components/roles/usuario-estadistica/usuario-estadistica.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: 'usuario/datos', component: UsuarioDatosComponent},
   { path: 'usuario/resenia', component: ReseniaUsuarioComponent },
   { path: 'usuario-form/:id', component: UsuarioFormComponent },
+  { path: 'usuario-estadistica', component: UsuarioEstadisticaComponent },
   { path: "gestor", component: GestorComponent },
   { path: 'gestor/gestor-datos', component: GestorDatosComponent },
   { path: 'gestor/servicio/:id', component: ServicioFormComponent },

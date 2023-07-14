@@ -77,11 +77,15 @@ export class CiudadesService {
     return this._http.post(this.url, body.toString(), { headers: headers });
   }
   
- 
-
-  
-
-  
+  public getLocalidadesPorProvincia(provincia:string):Observable<any>{
+    let httpOptions = {
+      headers: new HttpHeaders({
+      }),
+     
+      params: new HttpParams().append("provincia",provincia).append("max",100)
+    }
+     return this._http.get(this.urlbase+"municipios",httpOptions);  
+  }
 
 }
 
