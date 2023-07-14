@@ -60,3 +60,11 @@
   color:blue;
   font-weight: bold;
 }
+
+.aceptado{
+  color:blue;
+}
+
+.pendiente{
+  color:red;
+}

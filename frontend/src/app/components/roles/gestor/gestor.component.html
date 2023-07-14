@@ -193,12 +193,6 @@
                 <table class="table table-striped table-hover text-center">
                     <thead class="table-warning">
                         <tr>
-
-                            <th scope="col">Nombre</th>
-                            <th scope="col">email</th>
-                            <th scope="col">DNI</th>
-                            <th scope="col">Fecha de Alta</th>
-
                             <th scope="col">Nombre del Servicio</th>
                             <th scope="col">Categoria</th>
                             <th scope="col">Cantidad</th>
@@ -217,8 +211,11 @@
                             <td>{{reserva.categoria}}</td>
                             <td>{{reserva.cantidad}}</td>
                             <td>{{reserva.fechaIngreso}}</td>
-                            <td>{{reserva.precio}}</td>
-                            <td>{{reserva.reservado}}</td>
+                            <td>{{reserva.precio | currency}}</td>
+                            <td>
+                                <p *ngIf="reserva.reservado==true" class="aceptado" >Aceptado</p>
+                                <p *ngIf="reserva.reservado==false" class="pendiente" >Pendiente</p>
+                            </td>
                             <!--<td>{{usuarios[i].nombre}}</td>
                             <td>{{usuarios[i].apellido}}</td>
                             <td>{{usuarios[i].dni}}</td>
@@ -229,7 +226,7 @@
 
                                 </div>
 
-                                <div class="mt-2">
+                                <div class="mt-2" *ngIf="reserva.reservado==false" >
                                     <button class="btn btn-info text-white tamanio"
 
                                         (click)="aceptarReserva(reserva._id,usuarios[i].email)"><i class="bi bi-check-circle"></i></button>
