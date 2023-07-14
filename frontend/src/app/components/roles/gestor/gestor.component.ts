@@ -258,17 +258,18 @@ export class GestorComponent implements OnInit {
   }
 
   eliminarServicio(id:string){
-    console.log(id)
-    this.servicioService.deleteServicio(id)
-    .subscribe(
-      (res:any)=>{
-        this.toastr.success('Servicio eliminado');
-        this.cargarServicios();
-      },
-      err=>{
-        console.log(err)
-        this.toastr.success('Error al eliminar el servicio');
-      }
-    )
+   if(confirm("Esta Serguro de Eliminar el servicio?")){
+      this.servicioService.deleteServicio(id)
+      .subscribe(
+        (res:any)=>{
+          this.toastr.success('Servicio eliminado');
+          this.cargarServicios();
+        },
+        err=>{
+          console.log(err)
+          this.toastr.success('Error al eliminar el servicio');
+        }
+      )}
   }
+
 }
