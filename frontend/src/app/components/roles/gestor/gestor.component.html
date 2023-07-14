@@ -164,8 +164,8 @@
 
             <!-- Tabla Resenias -->
             <div class="table-responsive mt-2" *ngIf="verResenia">
-                <h4 class="table-title">RESENIAS</h4>
-
+                <h4 class="table-title" *ngIf="resenias.length!=0">RESENIAS</h4>
+                <h4 class="table-title" *ngIf="resenias.length==0">NO CONTIENE RESENIAS</h4>
                 <table class="table table-striped table-hover text-center">
                     <thead class="table-warning">
                         <tr>
@@ -186,7 +186,8 @@
 
             <!-- Tabla Reservas-->
             <div class="table-responsive mt-2" *ngIf="verReserva">
-                <h4 class="table-title">RESERVAS</h4>
+                <h4 class="table-title" *ngIf="reservas.length!=0" >RESERVAS</h4>
+                <h4 class="table-title" *ngIf="reservas.length==0" >NO TIENE RESERVAS</h4>
 
                 <table class="table table-striped table-hover text-center">
                     <thead class="table-warning">

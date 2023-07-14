@@ -252,7 +252,7 @@ export class GestorComponent implements OnInit {
            this.reservaService.modificarReserva(unaReserva).subscribe(
            )
            this.toastr.success('Reserva :'+ unaReserva.nombreServicio , 'aceptada!');
-
+          this.cargarServicios()//SE RECARGA LOS SERVICIOS DEL GESTOR
       },
       err => {
         console.log(err);

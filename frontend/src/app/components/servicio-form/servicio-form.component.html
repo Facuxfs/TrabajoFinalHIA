@@ -57,7 +57,7 @@
                         <label for="idLocalidad" class="form-label">Localidad</label>
                         <select class="form-select bg-light" name="localidad" id="idLocalidad"
                             [(ngModel)]="servicio.ubicacion" required>
-                            <option *ngFor="let localidad of localidades" [value]="localidad.nombre">{{localidad.nombre}}
+                            <option *ngFor="let localidad of localidades" [value]="localidad._id">{{localidad.nombre}}
                             </option>
                         </select>
                     </div>
